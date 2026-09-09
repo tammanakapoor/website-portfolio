@@ -4,11 +4,10 @@ import { useState, type MouseEvent } from "react";
 
 const skills = [
   "Inclusive learning",
-  "Science teaching",
   "UX / UI design",
   "Visual storytelling",
   "Creative coding",
-  "MSc Botany",
+  "Always learning",
 ];
 
 const chapters = [
@@ -43,8 +42,8 @@ export default function Home() {
     const bounds = card.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width - 0.5;
     const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    card.style.setProperty("--tilt-x", `${(-y * 5).toFixed(2)}deg`);
-    card.style.setProperty("--tilt-y", `${(x * 7).toFixed(2)}deg`);
+    card.style.setProperty("--tilt-x", `${(-y * 2.5).toFixed(2)}deg`);
+    card.style.setProperty("--tilt-y", `${(x * 4).toFixed(2)}deg`);
   };
 
   const resetTilt = (event: MouseEvent<HTMLElement>) => {
@@ -70,14 +69,14 @@ export default function Home() {
       <div className="page-shell">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="eyebrow"><span aria-hidden="true" /> Educator · Designer · Digital maker</p>
-            <h1 id="hero-title">I make learning feel <span>clearer, kinder</span> & more curious.</h1>
-            <p className="intro">Hello, I’m Tammana—a learning support assistant and UX/UI designer in London. I turn complex ideas into welcoming lessons, thoughtful interfaces and playful digital experiments.</p>
+            <p className="eyebrow"><span aria-hidden="true" /> Creator · Curious learner · Vibe coder</p>
+            <h1 id="hero-title">I learn new things, then <span>make something</span> with them.</h1>
+            <p className="intro">Hello, I’m Tammana—a creator, somebody who likes learning new things and a self-described vibe coder. I bring together teaching, design and curiosity to make thoughtful little experiences for the web.</p>
             <div className="hero-actions">
               <a className="button button-yellow" href="#work">Explore my work <span aria-hidden="true">↓</span></a>
               <button className="play-button" type="button" aria-pressed={playMode} onClick={() => setPlayMode((value) => !value)}>
                 <span aria-hidden="true">{playMode ? "✦" : "✿"}</span>
-                {playMode ? "Calm it down" : "Make it playful"}
+                {playMode ? "That’s enough sparkle" : "Add a little spark"}
               </button>
             </div>
           </div>
@@ -91,12 +90,11 @@ export default function Home() {
                 <span className="shirt" />
               </div>
               <strong>Curious by nature</strong>
-              <small>TEACHER · DESIGNER · MAKER</small>
+              <small>CREATOR · LEARNER · VIBE CODER</small>
             </div>
-            <span className="sticker sticker-flower" aria-hidden="true">✿</span>
-            <span className="sticker sticker-sen">Inclusive<br />learning ♥</span>
-            <span className="sticker sticker-ux">UX / UI<br />design</span>
-            <span className="sticker sticker-msc">MSc<br />Botany</span>
+            <span className="desk-star" aria-hidden="true">✦</span>
+            <span className="sticker sticker-sen">learning<br />new things</span>
+            <span className="sticker sticker-ux">vibe<br />coding</span>
             <span className="scribble" aria-hidden="true" />
           </div>
         </section>
@@ -150,7 +148,7 @@ export default function Home() {
           <div className="story-intro">
             <p className="section-kicker">The useful bit</p>
             <h2 id="story-title">A many-hat kind of person.</h2>
-            <p>My path moves between classrooms, design tools and scientific curiosity. The common thread is helping people understand, participate and feel welcome.</p>
+            <p>I like moving between classrooms, design tools and new digital experiments. The common thread is curiosity—and making things feel useful, understandable and welcoming.</p>
             <a className="text-link" href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">More visual work on Behance ↗</a>
           </div>
           <div className="chapters">
@@ -171,7 +169,7 @@ export default function Home() {
           <div className="learning-title-card">
             <span aria-hidden="true">✎</span>
             <p className="section-kicker">Learning + making</p>
-            <h2 id="learning-title">Serious about the work.<br />Never too serious about the process.</h2>
+            <h2 id="learning-title">Always learning.<br />Usually making something along the way.</h2>
           </div>
           <div className="qualification qualification-yellow">
             <small>EDUCATION</small>
@@ -193,7 +191,7 @@ export default function Home() {
           <span className="contact-doodle" aria-hidden="true">✦</span>
           <p className="section-kicker">One more curious idea?</p>
           <h2 id="contact-title">Let’s make it feel<br /><span>wonderful.</span></h2>
-          <p>I’m always happy to talk about inclusive learning, thoughtful design and small digital experiments.</p>
+          <p>I’m always happy to talk about a curious project, a thoughtful design or a small digital experiment.</p>
           <a className="button button-coral" href="mailto:tammana4513@gmail.com">Send me a note ↗</a>
         </section>
 

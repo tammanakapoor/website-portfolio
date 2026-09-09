@@ -1,28 +1,20 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
-  const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  const baseUrl = `${protocol}://${host}`;
-  return {
-    title: "Tammana Kapoor — Educator, designer & digital maker",
-    description: "Tammana Kapoor turns complex ideas into welcoming lessons, thoughtful interfaces and playful digital experiments.",
-    openGraph: {
-      title: "Tammana Kapoor — Educator, designer & digital maker",
-      description: "Clearer, kinder and more curious learning experiences.",
-      type: "website",
-      images: [{ url: `${baseUrl}/og.png`, width: 1200, height: 630, alt: "Tammana Kapoor — educator, designer and digital maker" }],
-    },
-    twitter: { card: "summary_large_image", images: [`${baseUrl}/og.png`] },
-  };
-}
+export const metadata: Metadata = {
+  title: "Tammana Kapoor — Creator, curious learner & vibe coder",
+  description: "Tammana Kapoor is a creator, curious learner and vibe coder making thoughtful little experiences for the web.",
+  openGraph: {
+    title: "Tammana Kapoor — Creator, curious learner & vibe coder",
+    description: "Learning new things and making thoughtful little experiences for the web.",
+    type: "website",
+  },
+  twitter: { card: "summary" },
+};
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="en"><body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body></html>;
