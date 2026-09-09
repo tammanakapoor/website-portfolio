@@ -36,8 +36,9 @@ export default function Home() {
         </a>
         <nav className="nav" aria-label="Primary navigation">
           <a href="#work">Projects</a>
+          <a href="#outside">Outside</a>
           <a href="#story">About</a>
-          <a href="mailto:tammana4513@gmail.com">Contact ↗</a>
+          <a href="#contact">Contact</a>
         </nav>
       </header>
 
@@ -107,9 +108,39 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="outside-section" id="outside" aria-labelledby="outside-title">
+          <div className="section-heading">
+            <div>
+              <p className="section-kicker">02 / Outside the screen</p>
+              <h2 id="outside-title">Other things I enjoy.</h2>
+            </div>
+            <p>A small, growing visual diary of the things I make, notice and collect away from a screen.</p>
+          </div>
+
+          <div className="hobby-gallery" aria-label="Photo placeholders for Tammana's hobbies">
+            <figure className="hobby hobby-tall">
+              <div className="photo-placeholder" role="img" aria-label="Space for an embroidery photograph"><span>+</span></div>
+              <figcaption><span>01</span> Embroidery</figcaption>
+            </figure>
+            <figure>
+              <div className="photo-placeholder" role="img" aria-label="Space for a sketchbook photograph"><span>+</span></div>
+              <figcaption><span>02</span> Sketching</figcaption>
+            </figure>
+            <figure>
+              <div className="photo-placeholder" role="img" aria-label="Space for a photograph from a walk"><span>+</span></div>
+              <figcaption><span>03</span> Walking</figcaption>
+            </figure>
+            <figure className="hobby hobby-wide">
+              <div className="photo-placeholder" role="img" aria-label="Space for a London photograph"><span>+</span></div>
+              <figcaption><span>04</span> London, lately</figcaption>
+            </figure>
+          </div>
+          <p className="gallery-note">Photographs coming soon.</p>
+        </section>
+
         <section className="story-section" id="story" aria-labelledby="story-title">
           <div className="story-intro">
-            <p className="section-kicker">02 / A little context</p>
+            <p className="section-kicker">03 / A little context</p>
             <h2 id="story-title">A many-hat kind of person.</h2>
             <p>I move between classrooms, design tools and small digital experiments. The common thread is curiosity—and making things feel useful, clear and welcoming.</p>
             <a className="text-link" href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">See more on Behance ↗</a>
@@ -130,7 +161,7 @@ export default function Home() {
 
         <section className="details-section" aria-labelledby="details-title">
           <div className="details-heading">
-            <p className="section-kicker">03 / Foundations</p>
+            <p className="section-kicker">04 / Foundations</p>
             <h2 id="details-title">Learning has always been part of the work.</h2>
           </div>
           <div className="detail-list">

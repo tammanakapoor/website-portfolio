@@ -36,7 +36,7 @@ h1 { max-width: 820px; margin: 24px 0 28px; font-size: clamp(56px, 6.2vw, 92px);
 
 .skill-strip { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; padding: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 .skill-strip span:not(:last-child)::after { content: "·"; margin-left: clamp(20px, 3vw, 55px); color: var(--line); }
-.work-section, .story-section, .details-section { padding-top: 150px; scroll-margin-top: 20px; }
+.work-section, .outside-section, .story-section, .details-section { padding-top: 150px; scroll-margin-top: 20px; }
 .section-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 54px; }
 .section-heading h2, .story-intro h2, .details-heading h2 { margin: 12px 0 0; font-size: clamp(42px, 5vw, 70px); line-height: 1; letter-spacing: -.045em; }
 .section-heading > p { max-width: 490px; margin: 0 0 3px auto; color: var(--muted); font-size: 15px; line-height: 1.65; }
@@ -54,6 +54,19 @@ h1 { max-width: 820px; margin: 24px 0 28px; font-size: clamp(56px, 6.2vw, 92px);
 .text-link { padding-bottom: 4px; border-bottom: 1px solid currentColor; text-decoration: none; font-size: 13px; font-weight: 600; }
 .text-link:hover { color: var(--accent); }
 .project-copy small { margin-top: 12px; color: var(--muted); font-size: 11px; }
+
+.hobby-gallery { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; align-items: start; }
+.hobby-gallery figure { grid-column: span 3; margin: 0; }
+.hobby-gallery .hobby-tall { grid-column: span 3; }
+.hobby-gallery .hobby-wide { grid-column: span 3; }
+.photo-placeholder { aspect-ratio: 4 / 3; display: grid; place-items: center; border: 1px solid var(--line); background: #e9e7e1; color: #aaa9a3; transition: background .2s ease, color .2s ease; }
+.hobby-tall .photo-placeholder { aspect-ratio: 3 / 4; }
+.hobby-wide .photo-placeholder { aspect-ratio: 4 / 3; }
+.photo-placeholder span { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid currentColor; border-radius: 50%; font-size: 18px; font-weight: 300; }
+.hobby-gallery figure:hover .photo-placeholder { background: #e1e4e3; color: var(--accent); }
+.hobby-gallery figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 13px; font: 400 16px/1.4 Georgia, serif; }
+.hobby-gallery figcaption span { color: var(--muted); font: 500 10px/1.8 var(--font-geist-mono), monospace; }
+.gallery-note { margin: 32px 0 0; color: var(--muted); font-size: 11px; }
 
 .story-section { display: grid; grid-template-columns: .8fr 1.2fr; gap: 120px; }
 .story-intro > p:not(.section-kicker) { max-width: 470px; margin: 28px 0; color: var(--muted); line-height: 1.7; }
@@ -96,6 +109,8 @@ footer a:hover { color: var(--ink); }
   .project { grid-template-columns: 1fr; gap: 32px; }
   .project-reverse .project-image { order: 0; }
   .project-copy { padding: 10px 0 24px; }
+  .hobby-gallery { grid-template-columns: repeat(2, 1fr); }
+  .hobby-gallery figure, .hobby-gallery .hobby-tall, .hobby-gallery .hobby-wide { grid-column: span 1; }
   .story-section { grid-template-columns: 1fr; gap: 70px; }
   .details-heading { grid-template-columns: 1fr; }
   .detail-list { grid-template-columns: 1fr; }
@@ -108,17 +123,19 @@ footer a:hover { color: var(--ink); }
   .page-shell { width: min(100% - 28px, 520px); }
   .topbar { height: 76px; }
   .nav { gap: 16px; }
-  .nav a:first-child { display: none; }
+  .nav a:nth-child(2), .nav a:nth-child(3) { display: none; }
   .hero { padding: 78px 0 70px; gap: 58px; }
   h1 { font-size: clamp(48px, 15vw, 70px); }
   .intro { font-size: 16px; }
   .skill-strip { display: none; }
-  .work-section, .story-section, .details-section { padding-top: 100px; }
+  .work-section, .outside-section, .story-section, .details-section { padding-top: 100px; }
   .section-heading h2, .story-intro h2, .details-heading h2 { font-size: 46px; }
   .project { min-height: 0; padding: 28px 0; }
   .project-image, .project-image img { min-height: 280px; }
   .project-copy > div { gap: 12px; font-size: 9px; }
   .project h3 { font-size: 50px; }
+  .hobby-gallery { gap: 26px 12px; }
+  .hobby-gallery figcaption { font-size: 14px; }
   .chapter { grid-template-columns: 1fr; gap: 14px; }
   .details-section { padding-bottom: 100px; }
   .contact-section { padding: 92px 0 88px; }
