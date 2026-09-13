@@ -11,11 +11,10 @@ const title = "Tammana Kapoor — Creator, curious learner & vibe coder";
 const description = "Tammana Kapoor is a creator, curious learner and vibe coder making thoughtful little experiences for the web.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tammana-kapoor.tammana4513.chatgpt.site"),
   title,
   description,
-  openGraph: { title, description, type: "website", images: ["/og-popup-card.png"] },
-  twitter: { card: "summary_large_image", title, description, images: ["/og-popup-card.png"] },
+  openGraph: { title, description, type: "website", images: ["/og.png"] },
+  twitter: { card: "summary_large_image", title, description, images: ["/og.png"] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
