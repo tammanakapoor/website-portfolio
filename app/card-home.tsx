@@ -1,235 +1,198 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-type PanelId = "about" | "projects" | "hobbies" | "contact";
+const sections = [
+  { id: "home", label: "Beginning", number: "00" },
+  { id: "about", label: "About", number: "01" },
+  { id: "projects", label: "Work", number: "02" },
+  { id: "curiosities", label: "Curiosities", number: "03" },
+  { id: "contact", label: "Contact", number: "04" },
+] as const;
 
-const panels: { id: PanelId; label: string; icon: string; shortcut: string }[] = [
-  { id: "about", label: "About me", icon: "✦", shortcut: "A" },
-  { id: "projects", label: "Projects", icon: "↗", shortcut: "P" },
-  { id: "hobbies", label: "Hobbies", icon: "☼", shortcut: "H" },
-  { id: "contact", label: "Say hello", icon: "♡", shortcut: "C" },
-];
-
-function AboutPanel() {
+function Lotus({ className = "" }: { className?: string }) {
   return (
-    <div className="desk-about">
-      <div className="desk-panel-heading">
-        <p className="desk-kicker">A little context</p>
-        <h2>I’m interested in the space where <em>learning meets making.</em></h2>
-      </div>
-      <div className="about-grid">
-        <div className="about-copy">
-          <p>
-            I’m an educator, UX/UI designer and curious maker based in London. I teach by day and build small,
-            thoughtful things for the web by night.
-          </p>
-          <p>
-            Whether I’m adapting a lesson or designing an interface, I care about making things clear, welcoming
-            and a little more human.
-          </p>
-          <a className="desk-link" href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">
-            More on Behance <span>↗</span>
-          </a>
-        </div>
-        <aside className="field-note">
-          <span className="pin" aria-hidden="true" />
-          <p className="scribble">right now...</p>
-          <dl>
-            <div><dt>Teaching</dt><dd>Learning support in London</dd></div>
-            <div><dt>Building</dt><dd>Daily Café + FloraQuest</dd></div>
-            <div><dt>Learning</dt><dd>Whatever has caught my eye</dd></div>
-          </dl>
-        </aside>
-      </div>
-      <div className="tiny-tags" aria-label="Skills and interests">
-        <span>Inclusive learning</span><span>UX / UI</span><span>Visual stories</span><span>Creative coding</span>
-      </div>
+    <div className={`lotus ${className}`} aria-hidden="true">
+      {Array.from({ length: 10 }, (_, index) => <i key={index} />)}
+      <b />
     </div>
   );
 }
 
-function ProjectsPanel() {
-  return (
-    <div className="desk-projects">
-      <div className="desk-panel-heading compact-heading">
-        <p className="desk-kicker">Selected work</p>
-        <h2>Things I’m <em>making.</em></h2>
-      </div>
-      <div className="project-cards">
-        <article className="mini-project">
-          <a href="https://daily-cafe-psi.vercel.app" target="_blank" rel="noreferrer" className="mini-project-image">
-            <img src="/daily-cafe.png" alt="Illustrated Daily Café website" />
-            <span>01</span>
-          </a>
-          <div>
-            <p>Website · illustration · sound</p>
-            <h3>Daily Café</h3>
-            <a href="https://daily-cafe-psi.vercel.app" target="_blank" rel="noreferrer">Visit the café ↗</a>
-          </div>
-        </article>
-        <article className="mini-project">
-          <a href="/projects#floraquest" className="mini-project-image flora-thumb">
-            <img src="/floraquest.png" alt="FloraQuest plant discovery game" />
-            <span>02</span>
-          </a>
-          <div>
-            <p>Learning game · product design</p>
-            <h3>FloraQuest</h3>
-            <a href="/projects#floraquest">See the process →</a>
-          </div>
-        </article>
-      </div>
-      <a className="all-work-link" href="/projects">Open the project archive <span>→</span></a>
-    </div>
-  );
+function Ripple({ className = "" }: { className?: string }) {
+  return <span className={`pond-ripple ${className}`} aria-hidden="true"><i /><i /><i /></span>;
 }
 
-function HobbiesPanel() {
-  const hobbies = [
-    ["Embroidery", "thread, slowly", "✽"],
-    ["Sketching", "mostly people", "✎"],
-    ["Walking", "no destination", "⌁"],
-    ["London lately", "on film", "◉"],
-  ];
-
+function Leaf({ className = "", children }: { className?: string; children: React.ReactNode }) {
   return (
-    <div className="desk-hobbies">
-      <div className="desk-panel-heading compact-heading">
-        <p className="desk-kicker">Away from the screen</p>
-        <h2>Current <em>side quests.</em></h2>
-      </div>
-      <div className="hobby-cards">
-        {hobbies.map(([name, note, mark], index) => (
-          <div className="hobby-card" key={name}>
-            <span className="hobby-mark" aria-hidden="true">{mark}</span>
-            <span className="hobby-count">0{index + 1}</span>
-            <strong>{name}</strong>
-            <small>{note}</small>
-          </div>
-        ))}
-      </div>
-      <div className="hobby-footer">
-        <p className="scribble">collecting hobbies like little souvenirs</p>
-        <a className="desk-link" href="/outside">Open the visual diary <span>→</span></a>
-      </div>
+    <div className={`pond-leaf ${className}`}>
+      <span className="leaf-notch" aria-hidden="true" />
+      <span className="leaf-vein leaf-vein-a" aria-hidden="true" />
+      <span className="leaf-vein leaf-vein-b" aria-hidden="true" />
+      <span className="leaf-vein leaf-vein-c" aria-hidden="true" />
+      {children}
     </div>
   );
-}
-
-function ContactPanel() {
-  return (
-    <div className="desk-contact">
-      <p className="desk-kicker">A note can become a nice thing</p>
-      <h2>Have an idea?<br /><em>Let’s talk.</em></h2>
-      <p className="contact-copy">
-        I’m always happy to hear about thoughtful projects, creative collaborations or the hobby you think I
-        should try next.
-      </p>
-      <a className="email-button" href="mailto:tammana4513@gmail.com">
-        <span className="email-icon">↗</span>
-        <span><small>Write to me</small>tammana4513@gmail.com</span>
-      </a>
-      <div className="contact-bottom">
-        <a href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">Behance ↗</a>
-        <span>Based in London · open to good ideas</span>
-      </div>
-    </div>
-  );
-}
-
-function PanelContent({ active }: { active: PanelId }) {
-  if (active === "projects") return <ProjectsPanel />;
-  if (active === "hobbies") return <HobbiesPanel />;
-  if (active === "contact") return <ContactPanel />;
-  return <AboutPanel />;
 }
 
 export default function CardHome() {
-  const [active, setActive] = useState<PanelId>("about");
-  const [open, setOpen] = useState(true);
-
-  const showPanel = (id: PanelId) => {
-    setActive(id);
-    setOpen(true);
-  };
+  const pageRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState("home");
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-      const match = panels.find((panel) => panel.shortcut.toLowerCase() === event.key.toLowerCase());
-      if (match && !event.metaKey && !event.ctrlKey && !event.altKey) showPanel(match.id);
+    const page = pageRef.current;
+    if (!page) return;
+
+    const move = (event: PointerEvent) => {
+      page.style.setProperty("--pond-x", `${event.clientX}px`);
+      page.style.setProperty("--pond-y", `${event.clientY}px`);
     };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener("pointermove", move, { passive: true });
+
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => entry.isIntersecting && setActive(entry.target.id)),
+      { rootMargin: "-42% 0px -42% 0px" },
+    );
+    sections.forEach(({ id }) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      window.removeEventListener("pointermove", move);
+      observer.disconnect();
+    };
   }, []);
 
-  const activeLabel = panels.find((panel) => panel.id === active)?.label ?? "About me";
-
   return (
-    <main className="card-home">
-      <div className="desk-grain" aria-hidden="true" />
-      <header className="desk-topbar">
-        <a href="/" className="desk-brand">Tammana Kapoor <span>✦</span></a>
-        <p>Educator · designer · curious maker</p>
-        <span className="desk-status"><i /> London, UK</span>
+    <main className="pond-home" ref={pageRef}>
+      <div className="pond-water" aria-hidden="true"><span /><span /><span /></div>
+      <div className="cursor-glow" aria-hidden="true" />
+
+      <header className="pond-header">
+        <a className="pond-brand" href="#home" aria-label="Tammana Kapoor, back to the beginning">
+          <span>TK</span>
+          <i />
+          <strong>Tammana Kapoor</strong>
+        </a>
+        <p>London · 51.5072° N</p>
+        <a className="availability" href="mailto:tammana4513@gmail.com"><i /> Available for thoughtful ideas</a>
       </header>
 
-      <section className="desk-stage" aria-label="Tammana's portfolio desk">
-        <span className="background-word word-one" aria-hidden="true">curious</span>
-        <span className="background-word word-two" aria-hidden="true">maker</span>
-        <span className="desk-doodle doodle-one" aria-hidden="true">✷</span>
-        <span className="desk-doodle doodle-two" aria-hidden="true">⌇</span>
+      <nav className="pond-nav" aria-label="Portfolio sections">
+        {sections.map((item) => (
+          <a key={item.id} className={active === item.id ? "active" : ""} href={`#${item.id}`}>
+            <span>{item.number}</span>{item.label}
+          </a>
+        ))}
+      </nav>
 
-        <article className={`identity-card ${open ? "panel-is-open" : ""}`}>
-          <div className="identity-photo">
-            <img src="/hero-botanist.jpg" alt="A dreamy botanical illustration representing Tammana" />
-            <span className="available-pill"><i /> Currently creating</span>
+      <section className="pond-scene hero-pond" id="home">
+        <p className="water-caption caption-one">A quiet place for curious work</p>
+        <Ripple className="ripple-one" />
+        <Ripple className="ripple-two" />
+        <Leaf className="leaf-hero">
+          <Lotus className="lotus-hero" />
+          <div className="glass-panel hero-glass">
+            <p className="pond-kicker"><span>Portfolio · MMXXVI</span><i /></p>
+            <h1>Ideas that<br />grow <em>gently.</em></h1>
+            <p className="hero-intro">I’m Tammana—an educator, designer and curious maker creating thoughtful little experiences for the web.</p>
+            <a className="pond-cta" href="#projects"><span>Discover the work</span><i>↓</i></a>
           </div>
-          <div className="identity-copy">
-            <p className="desk-kicker">Hello, I’m Tammana</p>
-            <h1>I teach, design & make <em>small things</em> with big curiosity.</h1>
-            <p>Welcome to my little corner of the internet.</p>
-          </div>
-          <div className="identity-footer">
-            <span>TK · 2026</span>
-            <button type="button" onClick={() => showPanel("about")}>Open my desk <span>↗</span></button>
-          </div>
-        </article>
-
-        <aside className={`popup-window popup-${active} ${open ? "is-open" : ""}`} aria-live="polite">
-          <div className="window-bar">
-            <div className="window-dots" aria-hidden="true"><i /><i /><i /></div>
-            <span>tammana / {activeLabel.toLowerCase().replace(" ", "-")}</span>
-            <button type="button" onClick={() => setOpen(false)} aria-label={`Close ${activeLabel}`}>×</button>
-          </div>
-          <div className="window-content" key={active}>
-            <PanelContent active={active} />
-          </div>
-        </aside>
-
-        <nav className="app-dock" aria-label="Explore portfolio">
-          {panels.map((panel) => (
-            <button
-              type="button"
-              className={open && active === panel.id ? "active" : ""}
-              onClick={() => showPanel(panel.id)}
-              aria-pressed={open && active === panel.id}
-              key={panel.id}
-            >
-              <span className="dock-icon" aria-hidden="true">{panel.icon}</span>
-              <span>{panel.label}</span>
-              <kbd>{panel.shortcut}</kbd>
-            </button>
-          ))}
-        </nav>
+        </Leaf>
+        <Leaf className="decor-leaf decor-leaf-one"><span /></Leaf>
+        <Leaf className="decor-leaf decor-leaf-two"><Lotus className="lotus-small" /></Leaf>
+        <span className="floating-petal petal-one" aria-hidden="true" />
+        <span className="floating-petal petal-two" aria-hidden="true" />
       </section>
 
-      <footer className="desk-footer">
-        <span>© Tammana Kapoor</span>
-        <span className="scribble">made with curiosity + too much tea</span>
-        <span>Use A · P · H · C to explore</span>
-      </footer>
+      <section className="pond-scene about-pond" id="about">
+        <p className="water-index">01 <span>THE PERSON</span></p>
+        <Leaf className="leaf-about">
+          <Lotus className="lotus-blur lotus-about" />
+          <div className="glass-panel about-glass">
+            <div className="editorial-title">
+              <p className="pond-kicker"><span>A little context</span><i /></p>
+              <h2>Making learning feel<br /><em>clear and human.</em></h2>
+            </div>
+            <div className="about-columns">
+              <p className="dropcap">I’m an educator, UX/UI designer and curious maker based in London. I teach by day and build small, thoughtful things for the web by night.</p>
+              <p>Whether I’m adapting a lesson or designing an interface, I care about clarity, warmth and the tiny details that make an experience feel welcoming.</p>
+            </div>
+            <div className="now-line"><span>Currently</span><strong>Teaching · Building · Learning</strong></div>
+          </div>
+        </Leaf>
+        <Leaf className="decor-leaf decor-leaf-three"><span /></Leaf>
+        <Ripple className="ripple-three" />
+      </section>
+
+      <section className="pond-scene work-pond" id="projects">
+        <p className="water-index water-index-right">02 <span>SELECTED WORK</span></p>
+        <Leaf className="leaf-work">
+          <Lotus className="lotus-blur lotus-work" />
+          <div className="glass-panel work-glass">
+            <div className="editorial-title work-title">
+              <p className="pond-kicker"><span>Selected work</span><i /></p>
+              <h2>Things I’m<br /><em>growing.</em></h2>
+              <a className="quiet-link" href="/projects">View the archive ↗</a>
+            </div>
+            <div className="pond-projects">
+              <article>
+                <a className="project-frame" href="https://daily-cafe-psi.vercel.app" target="_blank" rel="noreferrer">
+                  <img src="/daily-cafe.png" alt="The illustrated Daily Café website" />
+                  <span>01</span>
+                </a>
+                <div className="project-meta"><p>Website · Illustration · Sound</p><h3>Daily Café</h3><a href="https://daily-cafe-psi.vercel.app" target="_blank" rel="noreferrer">Enter the café ↗</a></div>
+              </article>
+              <article>
+                <a className="project-frame" href="/projects#floraquest">
+                  <img src="/floraquest.png" alt="FloraQuest plant discovery game" />
+                  <span>02</span>
+                </a>
+                <div className="project-meta"><p>Learning game · Product design</p><h3>FloraQuest</h3><a href="/projects#floraquest">See the process ↗</a></div>
+              </article>
+            </div>
+          </div>
+        </Leaf>
+        <Leaf className="decor-leaf decor-leaf-four"><span /></Leaf>
+        <span className="floating-petal petal-three" aria-hidden="true" />
+      </section>
+
+      <section className="pond-scene curiosity-pond" id="curiosities">
+        <p className="water-index">03 <span>OFF SCREEN</span></p>
+        <Leaf className="leaf-curiosity">
+          <Lotus className="lotus-blur lotus-curiosity" />
+          <div className="glass-panel curiosity-glass">
+            <div className="editorial-title">
+              <p className="pond-kicker"><span>Elsewhere, lately</span><i /></p>
+              <h2>A collector of<br /><em>small obsessions.</em></h2>
+            </div>
+            <div className="curiosity-list">
+              {["Embroidery", "Sketching people", "Aimless walks", "London on film"].map((item, index) => (
+                <a href="/outside" key={item}><span>0{index + 1}</span><strong>{item}</strong><i>↗</i></a>
+              ))}
+            </div>
+            <p className="margin-note">The side quests are part of the work.</p>
+          </div>
+        </Leaf>
+        <Leaf className="decor-leaf decor-leaf-five"><Lotus className="lotus-small lotus-ivory" /></Leaf>
+        <Ripple className="ripple-four" />
+      </section>
+
+      <section className="pond-scene contact-pond" id="contact">
+        <Leaf className="leaf-contact">
+          <Lotus className="lotus-contact" />
+          <div className="glass-panel contact-glass">
+            <p className="pond-kicker"><span>Come say hello</span><i /></p>
+            <h2>Perhaps we’ll make<br /><em>something lovely.</em></h2>
+            <p>Thoughtful projects, creative collaborations, or simply a hobby I should try next—I’d love to hear from you.</p>
+            <a className="email-link" href="mailto:tammana4513@gmail.com"><span>Write to me</span><strong>tammana4513@gmail.com</strong><i>↗</i></a>
+            <div className="contact-links"><span>London, United Kingdom</span><a href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">Behance ↗</a></div>
+          </div>
+        </Leaf>
+        <p className="pond-signoff">Made with curiosity · Tammana Kapoor © 2026</p>
+        <Ripple className="ripple-five" />
+      </section>
     </main>
   );
 }

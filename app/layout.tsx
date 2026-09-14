@@ -11,14 +11,15 @@ const cormorant = Cormorant_Garamond({
 });
 const caveat = Caveat({ variable: "--font-caveat", subsets: ["latin"] });
 
-const title = "Tammana Kapoor — Creator, curious learner & vibe coder";
-const description = "Tammana Kapoor is a creator, curious learner and vibe coder making thoughtful little experiences for the web.";
+const title = "Tammana Kapoor — Ideas that grow gently";
+const description = "The moonlit portfolio pond of Tammana Kapoor—an educator, designer and curious maker creating thoughtful experiences for the web.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
   title,
   description,
-  openGraph: { title, description, type: "website", images: ["/og.png"] },
-  twitter: { card: "summary_large_image", title, description, images: ["/og.png"] },
+  openGraph: { title, description, type: "website", images: ["/og-pond.png"] },
+  twitter: { card: "summary_large_image", title, description, images: ["/og-pond.png"] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
