@@ -88,22 +88,17 @@ export default function CardHome() {
       </nav>
 
       <section className="pond-scene hero-pond" id="home">
-        <p className="water-caption caption-one">A quiet place for curious work</p>
-        <Ripple className="ripple-one" />
-        <Ripple className="ripple-two" />
-        <Leaf className="leaf-hero">
-          <Lotus className="lotus-hero" />
-          <div className="glass-panel hero-glass">
-            <p className="pond-kicker"><span>Portfolio · MMXXVI</span><i /></p>
-            <h1>Ideas that<br />grow <em>gently.</em></h1>
-            <p className="hero-intro">I’m Tammana—an educator, designer and curious maker creating thoughtful little experiences for the web.</p>
+        <div className="editorial-hero-art">
+          <img src="/og-pond.png" alt="A moonlit lotus pond with a glass panel reading Ideas that grow gently" />
+          <div className="hero-art-actions">
+            <h1 className="visually-hidden">Ideas that grow gently.</h1>
+            <p className="visually-hidden">Tammana Kapoor—educator, designer and curious maker.</p>
             <a className="pond-cta" href="#projects"><span>Discover the work</span><i>↓</i></a>
           </div>
-        </Leaf>
-        <Leaf className="decor-leaf decor-leaf-one"><span /></Leaf>
-        <Leaf className="decor-leaf decor-leaf-two"><Lotus className="lotus-small" /></Leaf>
+        </div>
+        <p className="water-caption caption-one">A quiet place for curious work</p>
+        <Ripple className="ripple-one" />
         <span className="floating-petal petal-one" aria-hidden="true" />
-        <span className="floating-petal petal-two" aria-hidden="true" />
       </section>
 
       <section className="pond-scene about-pond" id="about">
