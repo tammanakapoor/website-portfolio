@@ -52,83 +52,90 @@ const projects = [
 
 export default function ProjectsPage() {
   return (
-    <main id="top" className="subpage">
+    <main id="top" className="subpage desk-subpage">
       <TopBar current="projects" />
 
-      <div className="page-shell">
-        <header className="page-header">
-          <p className="section-kicker">Projects</p>
-          <h1>Two things I made, and how I thought about them.</h1>
-          <p className="page-intro">Both are self-initiated. Both started with a drawing or a lesson rather than a feature list. These pages are the working notes: what the idea was, the decisions along the way, and what I would tell myself at the start.</p>
-          <nav className="jump-links" aria-label="Jump to project">
-            {projects.map((p) => (
-              <a key={p.id} href={`#${p.id}`}>{p.number} <span>{p.title}</span> <ArrowRight className="arrow-inline" /></a>
-            ))}
-          </nav>
-        </header>
+      <div className="subpage-window page-shell">
+        <div className="subpage-titlebar">
+          <span className="subpage-dots" aria-hidden="true"><i /><i /><i /></span>
+          <span>tammana / project archive</span>
+          <a href="/" aria-label="Return home">×</a>
+        </div>
+        <div className="subpage-window-content">
+          <header className="page-header">
+            <p className="section-kicker">Projects · selected work</p>
+            <h1>Two things I made, and how I thought about them.</h1>
+            <p className="page-intro">Both are self-initiated. Both started with a drawing or a lesson rather than a feature list. These pages are the working notes: what the idea was, the decisions along the way, and what I would tell myself at the start.</p>
+            <nav className="jump-links" aria-label="Jump to project">
+              {projects.map((p) => (
+                <a key={p.id} href={`#${p.id}`}>{p.number} <span>{p.title}</span> <ArrowRight className="arrow-inline" /></a>
+              ))}
+            </nav>
+          </header>
 
-        {projects.map((p, i) => (
-          <article className="case" id={p.id} key={p.id} aria-labelledby={`${p.id}-title`}>
-            <div className="case-head">
-              <div className="specimen">
-                <span>{p.number}</span>
-                <span>{p.tags}</span>
-                <span className="specimen-status">{p.status}</span>
+          {projects.map((p, i) => (
+            <article className="case" id={p.id} key={p.id} aria-labelledby={`${p.id}-title`}>
+              <div className="case-head">
+                <div className="specimen">
+                  <span>{p.number}</span>
+                  <span>{p.tags}</span>
+                  <span className="specimen-status">{p.status}</span>
+                </div>
+                <h2 id={`${p.id}-title`}>{p.title}</h2>
+                <p className="case-tagline">{p.tagline}</p>
               </div>
-              <h2 id={`${p.id}-title`}>{p.title}</h2>
-              <p className="case-tagline">{p.tagline}</p>
-            </div>
 
-            <figure className={`case-cover ${i % 2 ? "tilt-right" : "tilt-left"}`}>
-              <Tape className="tape-corner tape-corner-left" />
-              <img src={p.cover.src} alt={p.cover.alt} />
-              <figcaption className="note">{p.cover.note}</figcaption>
-            </figure>
+              <figure className={`case-cover ${i % 2 ? "tilt-right" : "tilt-left"}`}>
+                <Tape className="tape-corner tape-corner-left" />
+                <img src={p.cover.src} alt={p.cover.alt} />
+                <figcaption className="note">{p.cover.note}</figcaption>
+              </figure>
 
-            <div className="case-body">
-              <section className="case-block">
-                <h3>The idea</h3>
-                <p>{p.idea}</p>
-              </section>
+              <div className="case-body">
+                <section className="case-block">
+                  <h3>The idea</h3>
+                  <p>{p.idea}</p>
+                </section>
 
-              <section className="case-block">
-                <h3>Thought process</h3>
-                <ol className="process">
-                  {p.steps.map((step, n) => (
-                    <li key={step.title}>
-                      <span className="ringed process-n">
-                        {String(n + 1).padStart(2, "0")}
-                        <Ring className="ring-mark" />
-                      </span>
-                      <div>
-                        <h4>{step.title}</h4>
-                        <p>{step.text}</p>
-                      </div>
-                    </li>
+                <section className="case-block">
+                  <h3>Thought process</h3>
+                  <ol className="process">
+                    {p.steps.map((step, n) => (
+                      <li key={step.title}>
+                        <span className="ringed process-n">
+                          {String(n + 1).padStart(2, "0")}
+                          <Ring className="ring-mark" />
+                        </span>
+                        <div>
+                          <h4>{step.title}</h4>
+                          <p>{step.text}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </section>
+
+                <section className="case-block learned">
+                  <h3>What I learned</h3>
+                  <ul>
+                    {p.learned.map((l) => <li key={l} className="note">{l}</li>)}
+                  </ul>
+                </section>
+
+                <div className="link-row">
+                  {p.links.map((l) => (
+                    <a key={l.href} className="text-link" href={l.href} target={l.external ? "_blank" : undefined} rel={l.external ? "noreferrer" : undefined}>
+                      {l.label} <ArrowRight className="arrow-inline" />
+                    </a>
                   ))}
-                </ol>
-              </section>
-
-              <section className="case-block learned">
-                <h3>What I learned</h3>
-                <ul>
-                  {p.learned.map((l) => <li key={l} className="note">{l}</li>)}
-                </ul>
-              </section>
-
-              <div className="link-row">
-                {p.links.map((l) => (
-                  <a key={l.href} className="text-link" href={l.href} target={l.external ? "_blank" : undefined} rel={l.external ? "noreferrer" : undefined}>
-                    {l.label} <ArrowRight className="arrow-inline" />
-                  </a>
-                ))}
-                {p.id === "floraquest" && <small>Local demo · not yet public</small>}
+                  {p.id === "floraquest" && <small>Local demo · not yet public</small>}
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
 
-        <p className="back-link"><a className="text-link" href="/#work">Back to the overview <ArrowRight className="arrow-inline" /></a></p>
+          <p className="back-link"><a className="text-link" href="/">Back to the desk <ArrowRight className="arrow-inline" /></a></p>
+        </div>
       </div>
 
       <ContactBand />
