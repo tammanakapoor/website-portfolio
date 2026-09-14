@@ -1345,3 +1345,162 @@ footer a:hover { color: var(--ink); }
   .desk-subpage .learned { padding: 19px; }
   .desk-subpage .contact-section { padding: 78px 0 72px; }
 }
+
+/* Lotus leaf refinement: smaller scale and a natural cleft */
+.pond-home .pond-scene {
+  min-height: 820px;
+  padding-block: 110px 80px;
+}
+.pond-home .hero-pond { min-height: 100svh; }
+.pond-home .pond-leaf:not(.decor-leaf) {
+  width: min(680px, 58vw);
+  min-height: 610px;
+  border: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 27% 25%, rgba(236, 246, 216, .34) 0 2px, rgba(172, 204, 155, .12) 3px, transparent 6px),
+    radial-gradient(circle at 73% 68%, rgba(234, 246, 219, .25) 0 1px, rgba(174, 207, 157, .09) 2px, transparent 5px),
+    radial-gradient(circle at 64% 22%, rgba(237, 247, 221, .18) 0 2px, transparent 4px),
+    repeating-conic-gradient(from -7deg at 50% 51%, rgba(215, 232, 189, .14) 0 .35deg, transparent .55deg 12deg),
+    radial-gradient(ellipse at 34% 27%, #648563 0%, #3e674f 29%, #285344 58%, #153c35 82%, #0d2e2c 100%);
+  box-shadow: none;
+  filter: drop-shadow(0 34px 34px rgba(0, 7, 10, .32)) drop-shadow(0 0 1px rgba(188, 221, 177, .46));
+  -webkit-mask-image:
+    radial-gradient(ellipse 50% 49% at 50% 51%, #000 0 98.5%, transparent 100%),
+    conic-gradient(from 7deg at 50% 28%, #000 0 346deg, transparent 347deg 360deg);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse 50% 49% at 50% 51%, #000 0 98.5%, transparent 100%),
+    conic-gradient(from 7deg at 50% 28%, #000 0 346deg, transparent 347deg 360deg);
+  mask-composite: intersect;
+}
+.pond-home .pond-leaf:not(.decor-leaf)::before {
+  inset: 2.2%;
+  border: 2px solid rgba(204, 226, 188, .12);
+  border-radius: 50%;
+  box-shadow: inset 8px 10px 25px rgba(226, 242, 211, .045), inset -16px -20px 30px rgba(0, 14, 15, .18);
+}
+.pond-home .pond-leaf:not(.decor-leaf)::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 24% 23%, rgba(255,255,255,.58) 0 1px, rgba(194,224,204,.28) 2px, transparent 5px),
+    radial-gradient(ellipse at 76% 70%, rgba(255,255,255,.42) 0 1px, rgba(194,224,204,.18) 2px, transparent 4px),
+    linear-gradient(145deg, rgba(224,241,207,.08), transparent 28% 78%, rgba(0,20,20,.15));
+}
+.pond-home .pond-leaf:not(.decor-leaf) > .leaf-notch { display: none; }
+.pond-home .pond-leaf:not(.decor-leaf) .leaf-vein {
+  top: 51%;
+  width: 47%;
+  background: linear-gradient(90deg, rgba(219, 236, 196, .28), rgba(174, 210, 160, .04));
+  box-shadow: 0 1px rgba(5, 36, 31, .16);
+}
+.pond-home .pond-leaf:not(.decor-leaf) .leaf-vein-a { transform: rotate(30deg); }
+.pond-home .pond-leaf:not(.decor-leaf) .leaf-vein-b { transform: rotate(155deg); }
+.pond-home .pond-leaf:not(.decor-leaf) .leaf-vein-c { transform: rotate(236deg); }
+
+.pond-home .hero-glass {
+  width: 78%;
+  min-height: 455px;
+  padding: 10% 11%;
+}
+.pond-home .hero-glass h1 {
+  font-size: clamp(61px, 6.4vw, 92px);
+  line-height: .8;
+}
+.pond-home .leaf-about,
+.pond-home .leaf-curiosity,
+.pond-home .leaf-contact {
+  width: min(700px, 60vw);
+  min-height: 640px;
+}
+.pond-home .about-glass,
+.pond-home .curiosity-glass,
+.pond-home .contact-glass {
+  width: 80%;
+  min-height: 495px;
+  padding: 10% 11%;
+}
+.pond-home .editorial-title h2 { font-size: clamp(43px, 4.5vw, 62px); }
+.pond-home .leaf-work {
+  width: min(860px, 70vw);
+  min-height: 720px;
+}
+.pond-home .work-pond { min-height: 940px; }
+.pond-home .work-glass {
+  width: 84%;
+  min-height: 575px;
+  gap: 42px;
+  padding: 8%;
+}
+.pond-home .project-frame { height: 158px; }
+.pond-home .decor-leaf-one,
+.pond-home .decor-leaf-two,
+.pond-home .decor-leaf-three,
+.pond-home .decor-leaf-four,
+.pond-home .decor-leaf-five {
+  scale: .62;
+}
+
+@media (max-width: 1000px) {
+  .pond-home .pond-leaf:not(.decor-leaf),
+  .pond-home .leaf-about,
+  .pond-home .leaf-curiosity,
+  .pond-home .leaf-contact { width: min(680px, 76vw); }
+  .pond-home .leaf-work { width: min(800px, 82vw); }
+  .pond-home .work-glass { min-height: 570px; }
+}
+
+@media (max-width: 700px) {
+  .pond-home .pond-scene,
+  .pond-home .work-pond,
+  .pond-home .curiosity-pond,
+  .pond-home .contact-pond { min-height: 760px; padding-block: 80px; }
+  .pond-home .hero-pond { min-height: 780px; }
+  .pond-home .pond-leaf:not(.decor-leaf),
+  .pond-home .leaf-about,
+  .pond-home .leaf-curiosity,
+  .pond-home .leaf-contact {
+    width: min(86vw, 520px);
+    min-height: 570px;
+    transform: rotate(-1deg);
+  }
+  .pond-home .leaf-work {
+    width: min(92vw, 580px);
+    min-height: 680px;
+  }
+  .pond-home .hero-glass,
+  .pond-home .about-glass,
+  .pond-home .curiosity-glass,
+  .pond-home .contact-glass {
+    width: 76%;
+    min-height: 465px;
+  }
+  .pond-home .hero-glass h1 { font-size: clamp(49px, 13vw, 70px); }
+  .pond-home .hero-intro { font-size: 12px; line-height: 1.55; }
+  .pond-home .editorial-title h2 { font-size: 41px; }
+  .pond-home .about-columns { gap: 12px; }
+  .pond-home .now-line { display: none; }
+  .pond-home .work-glass { width: 80%; min-height: 575px; }
+  .pond-home .work-title h2 { font-size: 42px; }
+  .pond-home .project-frame { height: 112px; }
+  .pond-home .project-meta h3 { font-size: 22px; }
+  .pond-home .lotus-hero { right: -5%; bottom: -1%; transform: scale(.62); }
+  .pond-home .decor-leaf-two { right: -112px; scale: .46; }
+}
+
+@media (max-width: 430px) {
+  .pond-home .pond-leaf:not(.decor-leaf),
+  .pond-home .leaf-about,
+  .pond-home .leaf-curiosity,
+  .pond-home .leaf-contact { width: 92vw; min-height: 550px; }
+  .pond-home .leaf-work { width: 96vw; min-height: 660px; }
+  .pond-home .hero-glass,
+  .pond-home .about-glass,
+  .pond-home .curiosity-glass,
+  .pond-home .contact-glass { width: 79%; }
+}
