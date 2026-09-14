@@ -884,23 +884,23 @@ footer a:hover { color: var(--ink); }
   .desk-subpage .contact-section { padding: 78px 0 72px; }
 }
 
-/* Pantone CMYK Uncoated study: P 7-9 U · P 109-10 U · P 101-16 U */
+/* Pantone FHI study: Alabaster Gleam · Plum Wine · Olive Drab */
 :root {
-  --pantone-cream: #f9edd3;
-  --pantone-blue: #b6cadf;
-  --pantone-plum: #4d424c;
-  --pantone-cream-light: #fff8e9;
-  --pantone-blue-light: #dce6ef;
-  --pantone-plum-soft: #746773;
+  --pantone-cream: #f0debd;
+  --pantone-blue: #756d47;
+  --pantone-plum: #674550;
+  --pantone-cream-light: #fbf1df;
+  --pantone-blue-light: #ded9bd;
+  --pantone-plum-soft: #8b6e78;
   --ink: var(--pantone-plum);
   --paper: var(--pantone-cream);
   --surface: var(--pantone-cream-light);
-  --muted: #746b72;
-  --soft: #5b5159;
-  --line: #d7cbb9;
+  --muted: #786a67;
+  --soft: #5b4f4c;
+  --line: #d3c09f;
   --accent: var(--pantone-plum);
-  --accent-deep: #392f38;
-  --moss: #7e9bb8;
+  --accent-deep: #493039;
+  --moss: #756d47;
   --tape: rgba(240, 217, 157, .74);
 }
 
@@ -915,8 +915,8 @@ footer a:hover { color: var(--ink); }
     radial-gradient(circle at 18% 18%, rgba(255,255,255,.72) 0 1px, transparent 2px) 0 0 / 28px 28px,
     var(--pantone-blue);
 }
-.card-home::before { background: #dbe5ed; }
-.card-home::after { background: #f5dfbd; }
+.card-home::before { background: #d7d4b8; }
+.card-home::after { background: #ead0c4; }
 .desk-brand span,
 .desk-panel-heading h2 em,
 .desk-contact h2 em,
@@ -928,21 +928,21 @@ footer a:hover { color: var(--ink); }
 .contact-bottom a:hover { color: var(--pantone-plum); }
 .desk-doodle { color: var(--pantone-plum); }
 .desk-status i,
-.available-pill i { background: #7b91a8; box-shadow: 0 0 0 3px rgba(77,66,76,.1); }
-.window-bar { background: #eee4d2; }
+.available-pill i { background: #8f895d; box-shadow: 0 0 0 3px rgba(103,69,80,.1); }
+.window-bar { background: #e8d8bd; }
 .window-bar > button:hover { background: var(--pantone-plum); }
 .window-dots i:first-child { background: var(--pantone-cream); }
 .window-dots i:nth-child(2) { background: var(--pantone-blue); }
 .window-dots i:last-child { background: var(--pantone-plum-soft); }
 .field-note { background: var(--pantone-blue-light); }
 .field-note .pin { background: var(--pantone-plum); }
-.hobby-card:nth-child(1) { background: #f3e3c4; }
+.hobby-card:nth-child(1) { background: #ead6b5; }
 .hobby-card:nth-child(2) { background: var(--pantone-blue-light); }
-.hobby-card:nth-child(3) { background: #cbd9e7; }
-.hobby-card:nth-child(4) { background: #eee1c4; }
+.hobby-card:nth-child(3) { background: #c8c6a2; }
+.hobby-card:nth-child(4) { background: #e8cfbc; }
 .hobby-card:hover { background: var(--pantone-cream); }
 .email-button { background: var(--pantone-blue); }
-.app-dock { background: rgba(255,248,233,.9); }
+.app-dock { background: rgba(251,241,223,.9); }
 .app-dock button:hover { background: var(--pantone-blue-light); }
 .dock-icon,
 .app-dock button:nth-child(2) .dock-icon,
@@ -958,14 +958,14 @@ footer a:hover { color: var(--ink); }
   --desk-page-cream: var(--pantone-cream-light);
   background:
     radial-gradient(circle at 18% 18%, rgba(255,255,255,.68) 0 1px, transparent 2px) 0 0 / 28px 28px,
-    radial-gradient(circle at -4% 4%, rgba(249,237,211,.64), transparent 24%),
-    radial-gradient(circle at 102% 94%, rgba(255,248,233,.55), transparent 27%),
+    radial-gradient(circle at -4% 4%, rgba(240,222,189,.64), transparent 24%),
+    radial-gradient(circle at 102% 94%, rgba(251,241,223,.55), transparent 27%),
     var(--pantone-blue);
 }
 .desk-subpage .brand-leaf { color: var(--pantone-plum); }
-.desk-subpage .nav { background: rgba(255,248,233,.72); }
-.subpage-window { background: rgba(255,248,233,.96); box-shadow: 0 34px 90px -35px rgba(77,66,76,.46), 10px 12px 0 rgba(77,66,76,.12); }
-.subpage-titlebar { background: #eee4d2; }
+.desk-subpage .nav { background: rgba(251,241,223,.72); }
+.subpage-window { background: rgba(251,241,223,.96); box-shadow: 0 34px 90px -35px rgba(103,69,80,.46), 10px 12px 0 rgba(103,69,80,.12); }
+.subpage-titlebar { background: #e8d8bd; }
 .subpage-dots i:first-child { background: var(--pantone-cream); }
 .subpage-dots i:nth-child(2) { background: var(--pantone-blue); }
 .subpage-dots i:last-child { background: var(--pantone-plum-soft); }
@@ -974,17 +974,17 @@ footer a:hover { color: var(--ink); }
 .desk-subpage .jump-links a,
 .desk-subpage .jump-links a:nth-child(2) { background: var(--pantone-blue-light); color: var(--pantone-plum); }
 .desk-subpage .jump-links a:nth-child(2) { background: var(--pantone-cream); }
-.desk-subpage .jump-links a:hover { background: #fff3d8; }
-.desk-subpage .case:nth-of-type(even) { background: rgba(182,202,223,.22); }
-.desk-subpage .specimen-status { color: #6f8194; }
-.desk-subpage .learned { background: var(--pantone-blue-light); box-shadow: 5px 6px 0 rgba(77,66,76,.08); }
+.desk-subpage .jump-links a:hover { background: #f8e8c8; }
+.desk-subpage .case:nth-of-type(even) { background: rgba(117,109,71,.16); }
+.desk-subpage .specimen-status { color: #756d47; }
+.desk-subpage .learned { background: var(--pantone-blue-light); box-shadow: 5px 6px 0 rgba(103,69,80,.08); }
 .desk-subpage .board { background:
-  linear-gradient(rgba(77,66,76,.05) 1px, transparent 1px) 0 0 / 100% 30px,
-  #dce6ef;
+  linear-gradient(rgba(103,69,80,.05) 1px, transparent 1px) 0 0 / 100% 30px,
+  #ded9bd;
 }
 .desk-subpage .board .hobby:nth-child(3n + 1) { background: var(--pantone-cream-light); }
 .desk-subpage .board .hobby:nth-child(3n + 2) { background: var(--pantone-cream); }
-.desk-subpage .board .hobby:nth-child(3n) { background: #ccdbea; }
+.desk-subpage .board .hobby:nth-child(3n) { background: #c9c7a2; }
 .desk-subpage .contact-section { background: var(--pantone-plum); }
 .desk-subpage .contact-section .section-kicker,
 .desk-subpage .contact-note { color: var(--pantone-blue); }
