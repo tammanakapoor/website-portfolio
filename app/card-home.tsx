@@ -58,8 +58,8 @@ function ProjectsPanel() {
       </div>
       <div className="project-cards">
         <article className="mini-project">
-          <a href="https://daily-cafe-psi.vercel.app" target="_blank" rel="noreferrer" className="mini-project-image">
-            <img src="/daily-cafe.png" alt="Illustrated Daily Café website" />
+          <a href="https://daily-cafe-psi.vercel.app" target="_blank" rel="noreferrer" className="mini-project-image cafe-thumb">
+            <img src="/daily-cafe-cover.jpg" alt="Hand-drawn Daily Café interior with a barista and a guest at a table" />
             <span>01</span>
           </a>
           <div>
@@ -126,13 +126,20 @@ function ContactPanel() {
         I’m always happy to hear about thoughtful projects, creative collaborations or the hobby you think I
         should try next.
       </p>
-      <a className="email-button" href="mailto:tammana4513@gmail.com">
-        <span className="email-icon">↗</span>
-        <span><small>Write to me</small>tammana4513@gmail.com</span>
-      </a>
+      <div className="contact-actions">
+        <a className="email-button" href="mailto:tammana4513@gmail.com">
+          <span className="email-icon">↗</span>
+          <span><small>Write to me</small>tammana4513@gmail.com</span>
+        </a>
+        <a className="email-button secondary" href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">
+          <span className="email-icon">✦</span>
+          <span><small>See the portfolio</small>behance.net/tammanakapoor</span>
+        </a>
+      </div>
+      <p className="scribble contact-scribble">I usually reply within a day or two, tea in hand.</p>
       <div className="contact-bottom">
-        <a href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">Behance ↗</a>
         <span>Based in London · open to good ideas</span>
+        <span>Teaching · design · small web things</span>
       </div>
     </div>
   );
@@ -147,7 +154,9 @@ function PanelContent({ active }: { active: PanelId }) {
 
 export default function CardHome() {
   const [active, setActive] = useState<PanelId>("about");
-  const [open, setOpen] = useState(true);
+  // null = untouched: CSS shows the panel on wide screens and keeps it closed on phones.
+  const [open, setOpen] = useState<boolean | null>(null);
+  const panelState = open === null ? "default" : open ? "open" : "closed";
 
   const showPanel = (id: PanelId) => {
     setActive(id);
@@ -181,7 +190,7 @@ export default function CardHome() {
         <span className="desk-doodle doodle-one" aria-hidden="true">✷</span>
         <span className="desk-doodle doodle-two" aria-hidden="true">⌇</span>
 
-        <article className={`identity-card ${open ? "panel-is-open" : ""}`}>
+        <article className={`identity-card panel-is-${panelState}`}>
           <div className="identity-photo">
             <img src="/hero-botanist.jpg" alt="A dreamy botanical illustration representing Tammana" />
             <span className="available-pill"><i /> Currently creating</span>
@@ -193,11 +202,11 @@ export default function CardHome() {
           </div>
           <div className="identity-footer">
             <span>TK · 2026</span>
-            <button type="button" onClick={() => showPanel("about")}>Open my desk <span>↗</span></button>
+            <button type="button" onClick={() => showPanel("projects")}>See my work <span>↗</span></button>
           </div>
         </article>
 
-        <aside className={`popup-window popup-${active} ${open ? "is-open" : ""}`} aria-live="polite">
+        <aside className={`popup-window popup-${active} is-${panelState}`} aria-live="polite">
           <div className="window-bar">
             <div className="window-dots" aria-hidden="true"><i /><i /><i /></div>
             <span>tammana / {activeLabel.toLowerCase().replace(" ", "-")}</span>
@@ -208,13 +217,14 @@ export default function CardHome() {
           </div>
         </aside>
 
+        <p className="dock-hint" aria-hidden="true">Click a tab, or press <kbd>A</kbd> <kbd>P</kbd> <kbd>H</kbd> <kbd>C</kbd></p>
         <nav className="app-dock" aria-label="Explore portfolio">
           {panels.map((panel) => (
             <button
               type="button"
-              className={open && active === panel.id ? "active" : ""}
+              className={active === panel.id && open !== false ? `active-${panelState}` : ""}
               onClick={() => showPanel(panel.id)}
-              aria-pressed={open && active === panel.id}
+              aria-pressed={active === panel.id && open === true}
               key={panel.id}
             >
               <span className="dock-icon" aria-hidden="true">{panel.icon}</span>
@@ -228,7 +238,7 @@ export default function CardHome() {
       <footer className="desk-footer">
         <span>© Tammana Kapoor</span>
         <span className="scribble">made with curiosity + too much tea</span>
-        <span>Use A · P · H · C to explore</span>
+        <a href="mailto:tammana4513@gmail.com">tammana4513@gmail.com</a>
       </footer>
     </main>
   );
