@@ -40,7 +40,7 @@ export default function OutsidePage() {
 
           <div className="board" aria-label="Photographs from outside the screen">
             {frames.map((f) => (
-              <figure className={`spiral-card board-${f.shape}`} key={f.src}>
+              <figure className={`photo-print board-${f.shape}`} key={f.src}>
                 <img className="board-photo" src={f.src} alt={f.alt} loading="lazy" decoding="async" />
               </figure>
             ))}
