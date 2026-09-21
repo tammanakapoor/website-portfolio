@@ -25,6 +25,8 @@ export type Project = {
   learned: string[];
   quote?: Quote;
   links: ProjectLink[];
+  /** The live site, shown as a button on the archive tile. */
+  site?: ProjectLink;
 };
 
 export const projects: Project[] = [
@@ -77,6 +79,7 @@ export const projects: Project[] = [
     ],
     learned: ["Licensing is a design material, not paperwork.", "Restraint is a feature people can feel.", "Measure before you sort: loudness made a better playlist than taste alone."],
     links: [{ label: "Visit the café", href: "https://daily-cafe-psi.vercel.app", external: true }],
+    site: { label: "Visit the café", href: "https://daily-cafe-psi.vercel.app", external: true },
   },
   {
     id: "floraquest",
@@ -150,6 +153,7 @@ export const projects: Project[] = [
     ],
     learned: ["Content is the product. Reviewing 325 plants shaped the game more than any feature.", "Rules you can say in one breath are rules people trust.", "A design system needs a way to check itself."],
     links: [{ label: "Play FloraQuest", href: "https://floraquest.tammana4513.workers.dev", external: true }],
+    site: { label: "Play the game", href: "https://floraquest.tammana4513.workers.dev", external: true },
   },
   {
     id: "energy-changes",

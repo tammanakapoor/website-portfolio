@@ -32,7 +32,7 @@ export default function ProjectsPage() {
           <div className="project-grid" aria-label="Projects">
             {projects.map((p, i) => (
               <Reveal key={p.id} delay={i * 90}>
-                <a className="project-tile" href={`/projects/${p.id}`} id={p.id} aria-label={`${p.title}: read the project notes`}>
+                <article className="project-tile" id={p.id}>
                   <div className="project-tile-meta">
                     <span className="project-tile-number">{p.number} / Project</span>
                     <span className="project-tile-status">{p.status}</span>
@@ -43,8 +43,11 @@ export default function ProjectsPage() {
                   <ul className="project-tile-tags" aria-label="Disciplines">
                     {p.tagList.map((t) => <li key={t}>{t}</li>)}
                   </ul>
-                  <span className="project-tile-arrow" aria-hidden="true"><ArrowRight className="project-tile-arrow-mark" /></span>
-                </a>
+                  <div className="project-tile-foot">
+                    {p.site && <a className="project-tile-cta" href={p.site.href} target="_blank" rel="noreferrer">{p.site.label} ↗</a>}
+                    <a className="project-tile-arrow" href={`/projects/${p.id}`} aria-label={`${p.title}: read the project notes`}><ArrowRight className="project-tile-arrow-mark" /></a>
+                  </div>
+                </article>
               </Reveal>
             ))}
           </div>

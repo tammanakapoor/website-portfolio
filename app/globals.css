@@ -956,22 +956,27 @@ footer a:hover { color: var(--ink); }
 .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; padding: 34px 0 24px; border-top: 1px solid rgba(32,50,43,.3); }
 .project-grid > .reveal { display: flex; min-width: 0; }
 .project-tile { position: relative; display: flex; flex-direction: column; flex: 1; min-height: 420px; padding: 34px 32px 30px; border: 1px solid rgba(32,50,43,.22); border-radius: 4px; background: var(--desk-page-cream); color: var(--desk-page-ink); text-decoration: none; box-shadow: 0 1px 0 rgba(32,50,43,.04); transition: transform .45s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .45s ease; }
-a.project-tile:hover, a.project-tile:focus-visible { border-color: var(--desk-page-ink); transform: translateY(-5px); box-shadow: 7px 9px 0 rgba(40,75,62,.12), 0 28px 44px -34px rgba(26,48,39,.55); outline: none; }
+.project-tile:hover, .project-tile:focus-within { border-color: var(--desk-page-ink); transform: translateY(-5px); box-shadow: 7px 9px 0 rgba(40,75,62,.12), 0 28px 44px -34px rgba(26,48,39,.55); outline: none; }
 .project-tile-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 30px; }
 .project-tile-number { color: #c05056; font: 500 10px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
 .project-tile-status { padding: 5px 10px; border: 1px solid rgba(32,50,43,.2); border-radius: 30px; color: #5d8c48; font: 500 9px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; }
 .project-tile-title { margin: 0 0 12px; font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 2.6vw, 38px); line-height: 1.08; letter-spacing: -.025em; color: var(--desk-page-ink); font-variation-settings: "SOFT" 40, "opsz" 36; transition: color .3s ease; }
-a.project-tile:hover .project-tile-title { color: #c05056; }
+.project-tile:hover .project-tile-title { color: #c05056; }
 .project-tile-tagline { margin: 0 0 16px; font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.4; color: var(--desk-page-ink); }
 .project-tile-summary { margin: 0 0 30px; font-size: 14px; line-height: 1.7; color: rgba(32,50,43,.67); }
 .project-tile-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 26px; padding: 0; }
 .project-tile-tags li { padding: 5px 10px; border: 1px solid rgba(32,50,43,.16); border-radius: 30px; background: #f4d6d9; color: rgba(32,50,43,.78); font: 500 9px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .project-tile-tags li:nth-child(2) { background: #e8ecc5; }
 .project-tile-tags li:nth-child(3) { background: #d6e6ef; }
-.project-tile-arrow { align-self: flex-end; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgba(32,50,43,.3); border-radius: 50%; color: var(--desk-page-ink); transition: background .3s ease, color .3s ease, border-color .3s ease; }
+.project-tile-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.project-tile-cta { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 6px; padding-bottom: 3px; border-bottom: 1px solid currentColor; color: #c05056; font-size: 13px; font-weight: 600; text-decoration: none; transition: color .2s ease; }
+.project-tile-cta:hover { color: var(--desk-page-ink); }
+.project-tile-arrow { margin-left: auto; text-decoration: none; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgba(32,50,43,.3); border-radius: 50%; color: var(--desk-page-ink); transition: background .3s ease, color .3s ease, border-color .3s ease; }
+.project-tile-arrow::after { content: ""; position: absolute; inset: 0; border-radius: 4px; }
+.project-tile-arrow:focus-visible { outline: none; }
 .project-tile-arrow-mark { width: 22px; height: 11px; color: currentColor; transition: transform .25s ease; }
-a.project-tile:hover .project-tile-arrow { background: var(--desk-page-green); border-color: var(--desk-page-green); color: var(--desk-page-cream); }
-a.project-tile:hover .project-tile-arrow-mark { transform: translateX(3px); }
+.project-tile:hover .project-tile-arrow { background: var(--desk-page-green); border-color: var(--desk-page-green); color: var(--desk-page-cream); }
+.project-tile:hover .project-tile-arrow-mark { transform: translateX(3px); }
 .project-tile-placeholder { border-style: dashed; background: rgba(255,250,240,.45); }
 .project-tile-placeholder .project-tile-title, .project-tile-placeholder .project-tile-tagline { color: rgba(32,50,43,.55); }
 .project-tile-placeholder .project-tile-status { color: rgba(32,50,43,.5); }
