@@ -98,10 +98,10 @@ function ProjectsPanel() {
 
 function HobbiesPanel() {
   const hobbies = [
-    ["Embroidery", "thread, slowly", "✽"],
-    ["Sketching", "mostly people", "✎"],
-    ["Walking", "no destination", "⌁"],
-    ["London lately", "on film", "◉"],
+    { name: "Embroidery", note: "thread, slowly", src: "/hobby-thumbs/embroidery.jpg", alt: "Cream tote bag embroidered with a colourful bouquet and bees", pos: "50% 45%" },
+    { name: "Sketching", note: "mostly people", src: "/hobby-thumbs/sketching.jpg", alt: "Colourful sketch of two people riding a pale blue scooter", pos: "50% 40%" },
+    { name: "Walking", note: "no destination", src: "/hobby-thumbs/walking.jpg", alt: "Winding road between steep rocky cliffs at Cheddar Gorge", pos: "50% 55%" },
+    { name: "London lately", note: "on film", src: "/hobby-thumbs/london.jpg", alt: "Barbican lake with waterlilies and fountains", pos: "50% 60%" },
   ];
 
   return (
@@ -111,13 +111,13 @@ function HobbiesPanel() {
         <h2>Current <em>side quests.</em></h2>
       </div>
       <div className="hobby-cards">
-        {hobbies.map(([name, note, mark], index) => (
-          <div className="hobby-card" key={name}>
-            <span className="hobby-mark" aria-hidden="true">{mark}</span>
+        {hobbies.map((hobby, index) => (
+          <a className="hobby-card" href="/outside" key={hobby.name}>
+            <img src={hobby.src} alt={hobby.alt} loading="lazy" style={{ objectPosition: hobby.pos }} />
             <span className="hobby-count">0{index + 1}</span>
-            <strong>{name}</strong>
-            <small>{note}</small>
-          </div>
+            <strong>{hobby.name}</strong>
+            <small>{hobby.note}</small>
+          </a>
         ))}
       </div>
       <div className="hobby-footer">
