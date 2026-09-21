@@ -26,7 +26,6 @@ export function Footer() {
         © Tammana Kapoor <Asterisk className="footer-mark" /> <span className="note">made with curiosity</span>
       </p>
       <div>
-        <a href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">Behance <ArrowRight className="arrow-inline" /></a>
         <a href="#top">Back to top <ArrowUp className="arrow-inline arrow-inline-up" /></a>
       </div>
     </footer>

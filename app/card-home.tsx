@@ -21,29 +21,26 @@ function AboutPanel() {
       <div className="about-grid">
         <div className="about-copy">
           <p>
-            I’m an educator, UX/UI designer and curious maker based in London. I teach by day and build small,
-            thoughtful things for the web by night.
+            I’m an educator, designer and curious maker based in London. Until August 2026 I worked in learning
+            support, and I build small, thoughtful things for the web.
           </p>
           <p>
             Whether I’m adapting a lesson or designing an interface, I care about making things clear, welcoming
             and a little more human.
           </p>
-          <a className="desk-link" href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">
-            More on Behance <span>↗</span>
-          </a>
         </div>
         <aside className="field-note">
           <span className="pin" aria-hidden="true" />
           <p className="scribble">right now...</p>
           <dl>
-            <div><dt>Teaching</dt><dd>Learning support in London</dd></div>
+            <div><dt>Recently</dt><dd>Learning support in London, until 31 Aug 2026</dd></div>
             <div><dt>Building</dt><dd>Daily Café, FloraQuest + a chemistry pathway</dd></div>
             <div><dt>Learning</dt><dd>Whatever has caught my eye</dd></div>
           </dl>
         </aside>
       </div>
       <div className="tiny-tags" aria-label="Skills and interests">
-        <span>Inclusive learning</span><span>UX / UI</span><span>Visual stories</span><span>Creative coding</span>
+        <span>Inclusive learning</span><span>Design</span><span>Visual stories</span><span>Creative coding</span>
       </div>
     </div>
   );
@@ -141,10 +138,6 @@ function ContactPanel() {
         <a className="email-button" href="mailto:tammana4513@gmail.com">
           <span className="email-icon">↗</span>
           <span><small>Write to me</small>tammana4513@gmail.com</span>
-        </a>
-        <a className="email-button secondary" href="https://www.behance.net/tammanakapoor" target="_blank" rel="noreferrer">
-          <span className="email-icon">✦</span>
-          <span><small>See the portfolio</small>behance.net/tammanakapoor</span>
         </a>
       </div>
       <p className="scribble contact-scribble">I usually reply within a day or two, tea in hand.</p>
