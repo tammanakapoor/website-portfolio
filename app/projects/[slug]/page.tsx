@@ -51,6 +51,14 @@ export default async function ProjectPage({ params }: Params) {
               </div>
               <h1 id="project-title">{p.title}</h1>
               <p className="case-tagline">{p.tagline}</p>
+              <div className="link-row case-links">
+                {p.links.map((l) => (
+                  <a key={l.href} className="text-link" href={l.href} target={l.external ? "_blank" : undefined} rel={l.external ? "noreferrer" : undefined}>
+                    {l.label} <ArrowRight className="arrow-inline" />
+                  </a>
+                ))}
+                {p.id === "floraquest" && <small>Public beta · still changing</small>}
+              </div>
               <section className="case-block case-idea">
                 <h3>The idea</h3>
                 <p>{p.idea}</p>
@@ -137,15 +145,6 @@ export default async function ProjectPage({ params }: Params) {
                     {p.learned.map((l) => <li key={l}>{l}</li>)}
                   </ul>
                 </section>
-
-                <div className="link-row">
-                  {p.links.map((l) => (
-                    <a key={l.href} className="text-link" href={l.href} target={l.external ? "_blank" : undefined} rel={l.external ? "noreferrer" : undefined}>
-                      {l.label} <ArrowRight className="arrow-inline" />
-                    </a>
-                  ))}
-                  {p.id === "floraquest" && <small>Public beta · still changing</small>}
-                </div>
               </div>
             </div>
           </article>

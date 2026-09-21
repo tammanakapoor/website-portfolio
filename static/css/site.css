@@ -750,6 +750,7 @@ footer a:hover { color: var(--ink); }
 .case-body { grid-area: body; }
 .case-block + .case-block { margin-top: 64px; }
 .case-idea { margin-top: 36px; }
+.case-head .case-links { margin-top: 26px; }
 .case-block h3 { margin: 0 0 14px; font-size: 13px; font-family: var(--mono); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-variation-settings: normal; }
 .case-block > p { max-width: 560px; margin: 0; color: var(--soft); font-size: 16px; line-height: 1.75; }
 .timeline { list-style: none; margin: 0; padding: 26px 6px 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(168px, 100%), 1fr)); gap: 26px 22px; border-top: 1px solid var(--line); }
