@@ -21,8 +21,8 @@ function AboutPanel() {
       <div className="about-grid">
         <div className="about-copy">
           <p>
-            I’m an educator, designer and curious maker based in London. Until August 2026 I worked in learning
-            support, and I build small, thoughtful things for the web.
+            I’m an educator, designer and curious maker based in London. I worked as a learning support assistant,
+            and I build small, thoughtful things for the web.
           </p>
           <p>
             Whether I’m adapting a lesson or designing an interface, I care about making things clear, welcoming
@@ -33,7 +33,7 @@ function AboutPanel() {
           <span className="pin" aria-hidden="true" />
           <p className="scribble">right now...</p>
           <dl>
-            <div><dt>Recently</dt><dd>Learning support in London, until 31 Aug 2026</dd></div>
+            <div><dt>Recently</dt><dd>Worked as a learning support assistant in London</dd></div>
             <div><dt>Building</dt><dd>Daily Café, FloraQuest + a chemistry pathway</dd></div>
             <div><dt>Learning</dt><dd>Whatever has caught my eye</dd></div>
           </dl>
