@@ -69,14 +69,14 @@ function ProjectsPanel() {
           </div>
         </article>
         <article className="mini-project">
-          <a href="/projects#floraquest" className="mini-project-image flora-thumb">
+          <a href="/projects/floraquest" className="mini-project-image flora-thumb">
             <img src="/floraquest.png" alt="FloraQuest plant discovery game" />
             <span>02</span>
           </a>
           <div>
             <p>Learning game · product design</p>
             <h3>FloraQuest</h3>
-            <a href="/projects#floraquest">See the process →</a>
+            <a href="/projects/floraquest">See the process →</a>
           </div>
         </article>
       </div>
