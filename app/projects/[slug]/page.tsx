@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ContactBand, Footer, TopBar } from "../../chrome";
-import { ArrowRight, Ring, Tape } from "../../marks";
+import { ArrowRight, Ring } from "../../marks";
 import { getProject, projects } from "../data";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -58,7 +58,6 @@ export default async function ProjectPage({ params }: Params) {
             </div>
 
             <figure className={`case-cover ${index % 2 ? "tilt-right" : "tilt-left"}`}>
-              <Tape className="tape-corner tape-corner-left" />
               <img src={p.cover.src} alt={p.cover.alt} />
               <figcaption className="note">{p.cover.note}</figcaption>
             </figure>
@@ -135,7 +134,7 @@ export default async function ProjectPage({ params }: Params) {
                 <section className="case-block learned">
                   <h3>What I learned</h3>
                   <ul>
-                    {p.learned.map((l) => <li key={l} className="note">{l}</li>)}
+                    {p.learned.map((l) => <li key={l}>{l}</li>)}
                   </ul>
                 </section>
 

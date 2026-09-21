@@ -37,7 +37,7 @@ function AboutPanel() {
           <p className="scribble">right now...</p>
           <dl>
             <div><dt>Teaching</dt><dd>Learning support in London</dd></div>
-            <div><dt>Building</dt><dd>Daily Café + FloraQuest</dd></div>
+            <div><dt>Building</dt><dd>Daily Café, FloraQuest + a chemistry pathway</dd></div>
             <div><dt>Learning</dt><dd>Whatever has caught my eye</dd></div>
           </dl>
         </aside>
@@ -77,6 +77,17 @@ function ProjectsPanel() {
             <p>Learning game · product design</p>
             <h3>FloraQuest</h3>
             <a href="/projects/floraquest">See the process →</a>
+          </div>
+        </article>
+        <article className="mini-project">
+          <a href="/projects/energy-changes" className="mini-project-image energy-thumb">
+            <img src="/energy-changes-cover.svg" alt="Hand-drawn energy-profile diagram with two reaction pathways" />
+            <span>03</span>
+          </a>
+          <div>
+            <p>Learning design · H5P · chemistry</p>
+            <h3>Energy Changes</h3>
+            <a href="/projects/energy-changes">Read the case study →</a>
           </div>
         </article>
       </div>
