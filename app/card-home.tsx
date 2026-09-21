@@ -21,7 +21,7 @@ function AboutPanel() {
       <div className="about-grid">
         <div className="about-copy">
           <p>
-            I’m an educator, designer and curious maker based in London. I worked as a learning support assistant,
+            I’m an educator, designer, vibe coder and curious maker based in London. I worked as a learning support assistant,
             and I build small, thoughtful things for the web.
           </p>
           <p>
@@ -184,7 +184,7 @@ export default function CardHome() {
       <div className="desk-grain" aria-hidden="true" />
       <header className="desk-topbar">
         <a href="/" className="desk-brand">Tammana Kapoor <span>✦</span></a>
-        <p>Educator · designer · curious maker</p>
+        <p>Educator · designer · vibe coder · curious maker</p>
         <span className="desk-status"><i /> London, UK</span>
       </header>
 

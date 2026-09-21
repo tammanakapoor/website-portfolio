@@ -92,7 +92,7 @@ export default function LabExperience() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08, duration: 0.6 }}
             >
-              Educator · designer · curious maker
+              Educator · designer · vibe coder · curious maker
             </motion.p>
             <h1 id="lab-title" aria-label="Designing things that feel alive">
               <WordReveal delay={0.12}>Designing</WordReveal>{" "}
