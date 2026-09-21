@@ -21,7 +21,7 @@ function AboutPanel() {
       <div className="about-grid">
         <div className="about-copy">
           <p>
-            I’m an educator, designer, vibe coder and curious maker based in London. I worked as a learning support assistant,
+            I’m an educator, designer, vibe coder and curious maker based in London. I have worked in education,
             and I build small, thoughtful things for the web.
           </p>
           <p>
@@ -33,7 +33,7 @@ function AboutPanel() {
           <span className="pin" aria-hidden="true" />
           <p className="scribble">right now...</p>
           <dl>
-            <div><dt>Recently</dt><dd>Worked as a learning support assistant in London</dd></div>
+            <div><dt>Recently</dt><dd>Worked in education in London</dd></div>
             <div><dt>Building</dt><dd>Daily Café, FloraQuest + a chemistry pathway</dd></div>
             <div><dt>Learning</dt><dd>Whatever has caught my eye</dd></div>
           </dl>
