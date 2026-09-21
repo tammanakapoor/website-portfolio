@@ -91,7 +91,7 @@ function ProjectsPanel() {
           </div>
         </article>
       </div>
-      <a className="all-work-link" href="/projects">Open the project archive <span>→</span></a>
+      <a className="all-work-link" href="/projects">See all the projects <span>→</span></a>
     </div>
   );
 }
@@ -213,7 +213,7 @@ export default function CardHome() {
           </div>
           <div className="identity-footer">
             <span>TK · 2026</span>
-            <button type="button" onClick={() => showPanel("projects")}>See my work <span>↗</span></button>
+            <a href="/projects">See my work <span>↗</span></a>
           </div>
         </article>
 

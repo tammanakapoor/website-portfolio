@@ -375,8 +375,8 @@ footer a:hover { color: var(--ink); }
 .identity-copy > p:last-child { margin: 0; color: rgba(32,50,43,.63); font-size: 13px; line-height: 1.5; }
 .identity-footer { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px 14px 28px; border-top: 1px dashed rgba(32,50,43,.24); }
 .identity-footer > span { color: rgba(32,50,43,.48); font: 500 9px/1 var(--mono); letter-spacing: .1em; }
-.identity-footer button { display: inline-flex; align-items: center; gap: 22px; padding: 11px 14px; border: 0; border-radius: 2px; color: var(--desk-cream); background: var(--desk-green); cursor: pointer; font: 600 10px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; transition: transform .2s ease, background .2s ease; }
-.identity-footer button:hover { background: #c05056; transform: translateY(-2px); }
+.identity-footer button, .identity-footer a { text-decoration: none; display: inline-flex; align-items: center; gap: 22px; padding: 11px 14px; border: 0; border-radius: 2px; color: var(--desk-cream); background: var(--desk-green); cursor: pointer; font: 600 10px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; transition: transform .2s ease, background .2s ease; }
+.identity-footer button:hover, .identity-footer a:hover { background: #c05056; transform: translateY(-2px); }
 
 .popup-window {
   position: absolute;
@@ -431,7 +431,8 @@ footer a:hover { color: var(--ink); }
 .tiny-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(32,50,43,.15); }
 .tiny-tags span { padding: 7px 9px; border: 1px solid rgba(32,50,43,.18); border-radius: 30px; color: rgba(32,50,43,.65); font: 550 8px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; }
 
-.project-cards { display: grid; gap: 13px; }
+.desk-projects { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.project-cards { display: grid; gap: 13px; flex: 1 1 auto; min-height: 0; overflow-y: auto; padding-right: 8px; align-content: start; }
 .mini-project { display: grid; grid-template-columns: 44% 1fr; align-items: center; gap: 20px; padding-bottom: 13px; border-bottom: 1px solid rgba(32,50,43,.16); }
 .mini-project-image { position: relative; display: block; height: 123px; padding: 6px; background: white; border: 1px solid rgba(32,50,43,.38); box-shadow: 4px 5px 0 rgba(32,50,43,.12); transform: rotate(-1.2deg); transition: transform .3s ease; }
 .mini-project:nth-child(2) .mini-project-image { transform: rotate(1.2deg); }
@@ -445,7 +446,7 @@ footer a:hover { color: var(--ink); }
 .mini-project > div > p { margin: 0 0 5px; color: rgba(32,50,43,.52); font: 550 8px/1.2 var(--mono); letter-spacing: .065em; text-transform: uppercase; }
 .mini-project h3 { margin: 0 0 10px; font-size: 29px; line-height: 1; }
 .mini-project > div > a { color: #b6484e; font-size: 10px; font-weight: 650; text-decoration: none; }
-.all-work-link { display: flex; justify-content: space-between; margin-top: 17px; padding: 13px 0 7px; border-bottom: 1px solid var(--desk-ink); font: 650 10px/1 var(--mono); letter-spacing: .05em; text-decoration: none; text-transform: uppercase; }
+.all-work-link { flex: none; display: flex; justify-content: space-between; margin-top: 17px; padding: 13px 0 7px; border-bottom: 1px solid var(--desk-ink); font: 650 10px/1 var(--mono); letter-spacing: .05em; text-decoration: none; text-transform: uppercase; }
 .all-work-link span { color: #c05056; transition: transform .2s ease; }
 .all-work-link:hover span { transform: translateX(4px); }
 
