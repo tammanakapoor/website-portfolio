@@ -348,18 +348,6 @@ footer a:hover { color: var(--ink); }
   transform: translateY(-54%) rotate(-2.3deg);
   transition: transform .55s cubic-bezier(.2,.75,.2,1), filter .55s ease;
 }
-.identity-card::before {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  top: -13px;
-  left: 50%;
-  width: 105px;
-  height: 27px;
-  background: rgba(255,238,178,.76);
-  box-shadow: 0 1px 2px rgba(0,0,0,.05);
-  transform: translateX(-50%) rotate(1deg);
-}
 .identity-card:hover { transform: translateY(-55%) rotate(-1deg); }
 .identity-photo { position: relative; height: clamp(190px, 25vh, 260px); margin: 13px 13px 0; overflow: hidden; background: #e5d9c5; }
 .identity-photo::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px rgba(32,50,43,.12); pointer-events: none; }
