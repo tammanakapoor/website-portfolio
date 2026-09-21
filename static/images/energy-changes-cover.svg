@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-labelledby="t d">
+  <title id="t">Energy-profile diagram</title>
+  <desc id="d">A hand-drawn energy-profile diagram. Pathway A rises to a high peak without a catalyst; Pathway B, with a catalyst, peaks lower. Reactants and products sit at the same levels on both.</desc>
+  <defs>
+    <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="wobble2" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="800" fill="#fbf7ee"/>
+  <g stroke="#221d18" stroke-opacity=".055" stroke-width="1">
+    <path d="M0 100H1200M0 200H1200M0 300H1200M0 400H1200M0 500H1200M0 600H1200M0 700H1200"/>
+  </g>
+
+  <g fill="none" stroke="#221d18" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#wobble)">
+    <!-- axes -->
+    <path d="M190 690 L190 120"/>
+    <path d="M178 140 L190 118 L203 140"/>
+    <path d="M190 690 L1040 690"/>
+    <path d="M1018 677 L1042 690 L1018 703"/>
+  </g>
+
+  <!-- reference levels -->
+  <g fill="none" stroke="#c3583a" stroke-width="2" stroke-dasharray="7 9" stroke-linecap="round" opacity=".7" filter="url(#wobble2)">
+    <path d="M190 470 L900 470"/>
+    <path d="M190 560 L900 560"/>
+    <path d="M572 470 L572 178"/>
+  </g>
+
+  <!-- Pathway B (with catalyst) -->
+  <path d="M250 470 C330 468, 420 470, 470 400 S560 275, 600 272 S680 355, 725 450 C748 505, 790 560, 860 560" fill="none" stroke="#6f7d5c" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="14 10" filter="url(#wobble2)"/>
+
+  <!-- Pathway A (no catalyst) -->
+  <path d="M250 470 C330 468, 420 470, 470 340 S545 180, 585 176 S655 290, 705 420 C735 495, 790 560, 860 560" fill="none" stroke="#221d18" stroke-width="5" stroke-linecap="round" filter="url(#wobble2)"/>
+
+  <!-- activation energy arrow -->
+  <g fill="none" stroke="#c3583a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#wobble2)">
+    <path d="M905 470 L905 178"/>
+    <path d="M893 194 L905 176 L917 194"/>
+    <path d="M893 454 L905 472 L917 454"/>
+  </g>
+
+  <!-- overall change arrow -->
+  <g fill="none" stroke="#6f7d5c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#wobble2)">
+    <path d="M960 470 L960 560"/>
+    <path d="M948 486 L960 468 L972 486"/>
+    <path d="M948 544 L960 562 L972 544"/>
+  </g>
+
+  <g font-family="'Bradley Hand', 'Segoe Print', 'Comic Sans MS', 'Marker Felt', cursive" fill="#221d18">
+    <text x="150" y="104" font-size="30" transform="rotate(-2 150 104)">Energy</text>
+    <text x="800" y="740" font-size="30" transform="rotate(-1 800 740)">Progress of reaction</text>
+    <text x="215" y="452" font-size="30">Reactants</text>
+    <text x="760" y="600" font-size="30">Products</text>
+    <text x="600" y="150" font-size="26" fill="#221d18">Pathway A</text>
+    <text x="600" y="180" font-size="21" fill="#6d665c">without catalyst</text>
+    <text x="640" y="262" font-size="26" fill="#6f7d5c">Pathway B</text>
+    <text x="640" y="292" font-size="21" fill="#6d665c">with catalyst</text>
+    <text x="925" y="300" font-size="24" fill="#c3583a" transform="rotate(-90 925 300)">activation energy</text>
+    <text x="988" y="524" font-size="21" fill="#6f7d5c">overall</text>
+    <text x="988" y="548" font-size="21" fill="#6f7d5c">change</text>
+  </g>
+
+  <g font-family="'Bradley Hand', 'Segoe Print', 'Comic Sans MS', 'Marker Felt', cursive" fill="#6d665c" font-size="26">
+    <text x="330" y="650" transform="rotate(-2 330 650)">only the barrier changes.</text>
+  </g>
+</svg>
