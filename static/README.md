@@ -34,4 +34,4 @@ Upload this folder as-is to any static host (GitHub Pages, Cloudflare Pages, Net
 
 - Links between pages are relative (`projects.html`, `images/…`), so the folder works at a domain root or in a sub-folder.
 - The lab page's 3D scene uses a JavaScript module, which browsers block when a page is opened from disk. It works once the folder is served by any web server or host.
-- This folder is published to GitHub Pages at https://tammanakapoor.github.io from the `main` branch of the tammanakapoor.github.io repo. GitHub rebuilds it on every push; if a build shows as failed under the repo's Actions tab, pushing again retriggers it.
+- This folder is published to GitHub Pages at https://tammanakapoor.github.io from the `main` branch of the tammanakapoor.github.io repo. GitHub rebuilds it on every push. If a build fails under the repo's Actions tab with "in progress deployment", GitHub has a stuck deployment: wait ten minutes and push again.
