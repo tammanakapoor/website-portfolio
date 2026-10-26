@@ -38,7 +38,12 @@ await build({
   bundle: true,
   format: 'iife',
   globalName: 'WhimsyHome',
+  minify: true,
   footer: { js: 'WhimsyHome.initWhimsyHome(document);' },
 });
+// Normalize whitespace inside the bundled vendor shader strings.
+const bundlePath = path.join(root, 'static/js/whimsy-home.js');
+const bundle = await readFile(bundlePath, 'utf8');
+await writeFile(bundlePath, bundle.replace(/[ \t]+$/gm, '').replace(/^ +\t/gm, '\t'));
 await writeFile(path.join(root, 'static/index.html'), html);
-console.log('Static video typewriter homepage generated from the shared scene, CSS and controller.');
+console.log('Static 3D typewriter homepage generated from the shared scene, CSS and controller.');

@@ -1,4 +1,4 @@
 import type { Metadata } from "next";
-import RetroHome from "./retro-home";
-export const metadata: Metadata = {title:"Tammana's little world — Educator, designer & curious maker",description:"A little desktop of projects, creative experiments and everyday discoveries by Tammana Kapoor."};
-export default function Home(){return <RetroHome/>;}
+import TypewriterHome from "./typewriter-home";
+export const metadata: Metadata = {title:"Tammana Kapoor — A little curiosity",description:"Letters from the little world of Tammana Kapoor. Educator, designer and curious maker based in London."};
+export default function Home(){return <TypewriterHome/>;}
