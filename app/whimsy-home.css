@@ -1,0 +1,71 @@
+.whimsy-home {
+  --whimsy-ink: #40372e;
+  --paper-left: 35.5%;
+  --paper-top: 13.83%;
+  --paper-width: 54%;
+  --paper-height: 26.67%;
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--whimsy-ink);
+  background: #f7f0df;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.whimsy-home *, .whimsy-home *::before, .whimsy-home *::after { box-sizing: border-box; }
+.whimsy-home a { color: inherit; text-decoration: none; }
+.whimsy-home button { color: inherit; font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.whimsy-home a:focus-visible, .whimsy-home button:focus-visible { outline: 2px solid #8d6c4e; outline-offset: 5px; }
+.whimsy-home ::selection { background: #d3b9ac; color: #532b2d; }
+.whimsy-backdrop { position: absolute; z-index: -2; inset: 0; background: linear-gradient(#fffaf022, #fffaf000 65%, #f7f0dfb0), url("/media/whimsy-garden.webp") center top / cover no-repeat; }
+.whimsy-pollen { position: absolute; z-index: -1; inset: 0; overflow: hidden; pointer-events: none; }
+.whimsy-pollen i { position: absolute; top: 90%; width: 4px; height: 4px; border-radius: 50%; background: #cfae67; opacity: 0; box-shadow: 0 0 7px 3px #ead19e44; animation: whimsy-drift 20s linear infinite; }
+.whimsy-studio { position: relative; width: min(580px, calc(100% - 36px)); margin: 30px auto 0; }
+.whimsy-frame { padding: 7px; border: 1px solid #e8d9bfa6; border-radius: 90px 90px 22px 22px; background: #fffaf079; box-shadow: 0 3px 12px #70562d0a, 0 22px 65px -28px #654e3e40; }
+.whimsy-reel { position: relative; width: 100%; aspect-ratio: 685 / 810; overflow: hidden; border-radius: 84px 84px 16px 16px; background: #ddd1b9; }
+.whimsy-video { display: block; position: absolute; top: 0; left: 0; width: 100%; height: auto; aspect-ratio: 685 / 1200; transform: translateY(-19%); pointer-events: none; }
+.whimsy-letter { position: absolute; left: var(--paper-left); top: var(--paper-top); width: var(--paper-width); height: var(--paper-height); padding: 13px 17px 12px; overflow: hidden; color: #852f31; mix-blend-mode: multiply; }
+.whimsy-ink { height: 100%; display: flex; flex-direction: column; min-height: 0; }
+.whimsy-letter h2 { flex: 0 0 auto; min-height: 48px; max-width: none; margin: 0 0 9px; color: inherit; font: 700 23px/1.08 "Courier New", Courier, monospace; letter-spacing: -.9px; white-space: pre-line; }
+.whimsy-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #b7a38266 transparent; color: inherit; font: 700 13px/1.42 "Courier New", Courier, monospace; }
+.whimsy-body p { margin: 0 0 8px; font: inherit; }
+.whimsy-body p:last-child { margin-bottom: 0; }
+.whimsy-scroll-cue { display: none; position: absolute; right: 3px; bottom: 7px; width: 9px; height: 14px; opacity: .5; pointer-events: none; }
+[data-paper-overflow="true"] .whimsy-scroll-cue { display: block; }
+.whimsy-explore { position: relative; width: min(680px, calc(100% - 36px)); margin: 24px auto 0; text-align: center; }
+.whimsy-explore > p { margin: 0 0 14px; color: #6f634f; font: 8px/1.5 var(--mono, monospace); letter-spacing: 1.8px; }
+.whimsy-tabs { display: flex; justify-content: center; gap: 9px; }
+.whimsy-tabs > button { display: flex; align-items: center; gap: 10px; padding: 13px 14px; border: 1px solid #bcac94; border-radius: 5px; background: #fffaf0a8; font-size: 11px; white-space: nowrap; backdrop-filter: blur(8px); transition: background .2s, border-color .2s, transform .2s; }
+.whimsy-tabs > button > span:first-child { font: 8px/1 var(--mono, monospace); color: #8a7762; }
+.whimsy-tabs > button:hover { background: #fffaf0; transform: translateY(-2px); }
+.whimsy-tabs > button[aria-pressed="true"] { background: #e8dcc2e8; border-color: #92795b; }
+.whimsy-tab-arrow { font-size: 13px; }
+.whimsy-story-link { display: inline-block; margin-top: 19px; padding-bottom: 4px; border-bottom: 1px solid #ac9474; font-size: 12px; }
+.whimsy-story-link[hidden] { display: none; }
+.whimsy-footer { width: calc(100% - 112px); max-width: 1480px; display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 38px auto 0; padding: 22px 0; border-top: 1px solid #b7a48666; font: 8px/1.5 var(--mono, monospace); }
+.whimsy-footer > span:nth-child(2) { display: flex; align-items: center; gap: 7px; }
+.whimsy-footer i { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: #738361; }
+.whimsy-footer-divider { margin: 0 8px; }
+.whimsy-footer-script { font: 18px/1 var(--hand, cursive); }
+.whimsy-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@keyframes whimsy-drift { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: .35; } 75% { opacity: .2; } 100% { opacity: 0; transform: translate(35px, -75vh); } }
+@media (min-width: 1600px) { .whimsy-studio { width: 620px; margin-top: 38px; }.whimsy-letter { padding: 17px 20px 14px; }.whimsy-letter h2 { font-size: 25px; }.whimsy-body { font-size: 14px; } }
+@media (max-width: 900px) { .whimsy-footer { width: calc(100% - 56px); }.whimsy-footer-script { display: none; } }
+@media (max-width: 650px) {
+  .whimsy-studio { width: min(530px, calc(100% - 20px)); margin-top: 22px; }
+  .whimsy-frame { padding: 5px; border-radius: 54px 54px 19px 19px; }
+  .whimsy-reel { border-radius: 48px 48px 14px 14px; }
+  .whimsy-letter { padding: 8px 10px; }
+  .whimsy-letter h2 { min-height: 37px; font-size: clamp(17px, 4.4vw, 23px); letter-spacing: -.75px; margin-bottom: 5px; }
+  .whimsy-body { font-size: clamp(11.5px, 2.9vw, 13px); line-height: 1.4; }
+  .whimsy-body p { margin-bottom: 7px; }
+  .whimsy-explore { margin-top: 21px; }
+  .whimsy-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 365px; margin: auto; }
+  .whimsy-tabs > button { padding: 13px 11px; font-size: 11px; }
+  .whimsy-tab-arrow { margin-left: auto; }
+  .whimsy-footer { width: calc(100% - 40px); margin-top: 30px; padding: 19px 0; font-size: 7px; align-items: start; }
+  .whimsy-footer > span:nth-child(2) { flex-wrap: wrap; justify-content: end; max-width: 160px; gap: 5px; }
+  .whimsy-footer-divider { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .whimsy-home *, .whimsy-home *::before { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

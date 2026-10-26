@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "Little Red Stitches";
+  src: url("/fonts/little-red-stitches.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+.oval-home {
+  --oval-gold: #efd49a;
+  --oval-cream: #f4e8d3;
+  --oval-line: #d8c8b5;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #f3eddf;
+  color: #39252a;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.oval-home *, .oval-home *::before, .oval-home *::after { box-sizing: border-box; }
+.oval-home button, .oval-home a { -webkit-tap-highlight-color: transparent; }
+.oval-home a { color: inherit; text-decoration: none; }
+.oval-home button:focus-visible, .oval-home a:focus-visible { outline: 2px solid #ab777c; outline-offset: 5px; }
+.oval-home ::selection { background: #bd8286; color: #fff4df; }
+.oval-studio { position: relative; width: min(680px, calc(100% - 32px)); aspect-ratio: 800 / 920; margin: 22px auto 0; isolation: isolate; }
+.oval-frame { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; filter: drop-shadow(0 8px 9px #49233216); }
+.oval-story { position: absolute; inset: 21% 19% 20%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #b52432; font-family: "Little Red Stitches", "Courier New", monospace; font-synthesis: none; }
+.oval-kicker { margin: 0 0 24px; color: inherit; font: 400 13px/1.6 "Little Red Stitches", monospace; letter-spacing: .5px; }
+.oval-story h1 { margin: 0 0 28px; max-width: none; color: inherit; font: 400 clamp(30px, 3.7vw, 46px)/1.28 "Little Red Stitches", monospace; letter-spacing: 0; white-space: pre-line; }
+.oval-body { width: 100%; max-width: 360px; font-size: 21px; line-height: 1.5; }
+.oval-body p { margin: 0 0 18px; }
+.oval-body p:last-child { margin-bottom: 0; }
+.oval-story-link { display: inline-block; margin-top: 24px; padding-bottom: 5px; border-bottom: 1px dashed currentColor; color: inherit !important; font-size: 17px; }
+.oval-story-link[hidden] { display: none; }
+.oval-story-link:hover { border-bottom-style: solid; }
+.oval-explore { position: relative; width: min(680px, calc(100% - 40px)); margin: 12px auto 0; text-align: center; }
+.oval-explore > p { margin: 0 0 15px; font: 8px/1.5 var(--mono, monospace); letter-spacing: 1.8px; }
+.oval-tabs { display: flex; justify-content: center; gap: 9px; }
+.oval-tabs > button { display: flex; align-items: center; gap: 10px; padding: 13px 15px; border: 1px solid #c5ad9d; border-radius: 0; background: transparent; color: inherit; font: inherit; font-size: 10px; white-space: nowrap; cursor: pointer; transition: background .2s, border-color .2s; }
+.oval-tabs > button > span:first-child { font: 7px/1 var(--mono, monospace); }
+.oval-tabs > button:hover { background: #eaded0; }
+.oval-tabs > button[aria-pressed="true"] { background: #e4c9bf; border-color: #ab777c; }
+.oval-tab-arrow { font-size: 12px; }
+.oval-footer { width: calc(100% - 112px); max-width: 1480px; display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 40px auto 0; padding: 22px 0; border-top: 1px solid var(--oval-line); font: 8px/1.5 var(--mono, monospace); }
+.oval-footer > span:nth-child(2) { display: flex; align-items: center; gap: 7px; }
+.oval-footer i { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: #70434b; }
+.oval-footer-divider { margin: 0 8px; }
+.oval-footer-script { font: 18px/1 var(--hand, cursive); }
+@media (max-width: 900px) { .oval-footer { width: calc(100% - 56px); }.oval-footer-script { display: none; } }
+@media (max-width: 650px) {
+  .oval-studio { width: calc(100% - 16px); height: 730px; aspect-ratio: auto; margin-top: 12px; }
+  .oval-story { inset: 19% 18% 18%; }
+  .oval-kicker { font-size: 11px; letter-spacing: 0; margin-bottom: 20px; }
+  .oval-story h1 { font-size: clamp(27px, 7vw, 40px); margin-bottom: 24px; }
+  .oval-body { max-width: 300px; font-size: 18px; line-height: 1.5; }
+  .oval-body p { margin-bottom: 16px; }
+  .oval-story-link { font-size: 16px; margin-top: 20px; }
+  .oval-explore { margin-top: 12px; }
+  .oval-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 365px; margin: auto; }
+  .oval-tabs > button { padding: 13px 12px; }
+  .oval-tab-arrow { margin-left: auto; }
+  .oval-footer { width: calc(100% - 40px); margin-top: 30px; padding: 19px 0; font-size: 7px; align-items: start; }
+  .oval-footer > span:nth-child(2) { flex-wrap: wrap; justify-content: end; max-width: 160px; gap: 5px; }
+  .oval-footer-divider { display: none; }
+}
+@media (max-width: 380px) {
+  .oval-studio { height: 760px; }
+  .oval-story { inset-inline: 17%; }
+  .oval-story h1 { font-size: 26px; }
+  .oval-body { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) { .oval-home * { transition: none !important; } }

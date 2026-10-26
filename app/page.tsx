@@ -1,12 +1,4 @@
 import type { Metadata } from "next";
-import CardHome from "./card-home";
-
-export const metadata: Metadata = {
-  title: "Tammana Kapoor — a curious little corner",
-  description:
-    "The portfolio of Tammana Kapoor: educator, designer, vibe coder and collector of new hobbies.",
-};
-
-export default function Home() {
-  return <CardHome />;
-}
+import RetroHome from "./retro-home";
+export const metadata: Metadata = {title:"Tammana's little world — Educator, designer & curious maker",description:"A little desktop of projects, creative experiments and everyday discoveries by Tammana Kapoor."};
+export default function Home(){return <RetroHome/>;}
