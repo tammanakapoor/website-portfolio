@@ -1,0 +1,33 @@
+/* The same accessible diary, with a real, progressively enhanced 3D cover. */
+.dy-3d-layer{position:absolute;inset:0;z-index:12;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s,visibility .45s}
+.dy-has-3d .dy-3d-layer{opacity:1;visibility:visible}
+.dy-3d-canvas{position:absolute;inset:-64px 0;pointer-events:none}
+.dy-3d-canvas canvas{display:block;width:100%;height:100%}
+.dy-3d-open{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%) rotate(-4deg);width:calc(var(--dy-height)*.73);height:calc(var(--dy-height)*1.04);border:0;border-radius:5%;background:transparent!important;pointer-events:auto;color:transparent;cursor:pointer!important}
+.dy-3d-open:focus-visible{outline:2px solid #9d8154!important;outline-offset:8px}
+.dy-has-3d .dy-cover-wrap{opacity:0!important;visibility:hidden;pointer-events:none;transition:opacity .35s}
+.dy-open.dy-has-3d .dy-3d-layer{opacity:0;visibility:hidden;transition:opacity .38s .76s,visibility 0s 1.2s}
+.dy-closed.dy-has-3d .dy-3d-layer{transition:opacity .45s .25s,visibility 0s}
+.dy-open .dy-3d-open{pointer-events:none}
+.dy-open.dy-has-3d .dy-open-book{transition-delay:.62s}
+.dy-3d-invitation{position:absolute;bottom:1.7%;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:#7b705c;white-space:nowrap;pointer-events:none}
+.dy-3d-invitation>.dy-hand{font-size:23px;transform:rotate(-2deg)}
+.dy-3d-invitation>span:last-child{font-size:7px;letter-spacing:.16em}
+.dy-3d-invitation i{font-style:normal;font-size:13px;margin-left:8px}
+.dy-has-3d.dy-closed .dy-desk-note{opacity:0}
+/* Photographic materials also improve the fallback for devices without WebGL. */
+.dy-cover{background-color:#3e2821;background-image:linear-gradient(105deg,#20140f44,transparent 24%,#d8b18b0a 55%,#1e130f55),url('/journal-3d/espresso-leather.jpg');background-size:100% 100%,cover}
+.dy-cover .dy-lace-bow{visibility:hidden}
+.dy-cover:after{content:'';position:absolute;left:-12%;top:0;width:65%;height:49%;background:url('/journal-3d/ivory-lace-bow.png') center/contain no-repeat;filter:drop-shadow(2px 5px 2px #201a1444);transform:rotate(-8deg);z-index:5;pointer-events:none}
+.dy-still .dy-3d-layer,.dy-still.dy-open .dy-3d-layer,.dy-still.dy-closed .dy-3d-layer{transition:none}
+.dy-still.dy-open.dy-has-3d .dy-open-book{transition-delay:0s}
+@media(max-width:700px){.dy-3d-open{width:min(calc(100vw - 68px),calc(var(--dy-height)*.65));height:calc(var(--dy-height)*.9);top:48%}.dy-3d-invitation{bottom:2%;gap:8px}.dy-3d-invitation>.dy-hand{font-size:19px}.dy-3d-invitation>span:last-child{font-size:6px}}
+@media(max-height:650px){.dy-3d-invitation>.dy-hand{font-size:18px}.dy-3d-invitation{gap:6px;bottom:0}}
+@media(prefers-reduced-motion:reduce){.dy-3d-layer,.dy-open .dy-3d-layer,.dy-closed .dy-3d-layer{transition:none!important}.dy-open.dy-has-3d .dy-open-book{transition-delay:0s}}
+
+@media(max-width:700px){.dy-3d-canvas{top:-64px;bottom:-70px}}
+@media(max-height:600px) and (min-width:701px){.dy-3d-canvas{inset:-45px 0}}
+@media(max-width:700px) and (max-height:700px){.dy-3d-canvas{top:-53px;bottom:-65px}}
+
+.dy-3d-invitation{top:var(--dy-cover-invite-top,calc(100% - 25px));bottom:auto;gap:8px}.dy-3d-invitation>.dy-hand{font-size:21px}
+@media(max-width:700px){.dy-3d-canvas{right:-20px}.dy-3d-invitation{bottom:auto;gap:7px}.dy-3d-invitation>.dy-hand{font-size:19px}}

@@ -5,6 +5,8 @@ import type { CSSProperties, PointerEvent, ReactNode } from "react";
 import { projects } from "./projects/data";
 import type { Project } from "./projects/data";
 import "./diary-home.css";
+import DiaryCover3D from "./diary-cover-3d";
+import "./diary-cover-3d.css";
 
 type Section = "about" | "projects" | "outside" | "hello" | "pages";
 type Photo = { file: string; title: string; note: string; category: string };
@@ -91,6 +93,7 @@ function PhotoScrap({ photo, className = "", onClick, label }: { photo: Photo; c
 
 export default function DiaryHome() {
   const [open, setOpen] = useState(false);
+  const [coverReady, setCoverReady] = useState(false);
   const [leaf, setLeaf] = useState(0);
   const [single, setSingle] = useState(false);
   const [motion, setMotion] = useState(true);
@@ -189,7 +192,7 @@ export default function DiaryHome() {
     }
   }
 
-  return <main className={`diary-app ${open ? 'dy-open' : 'dy-closed'} ${motion ? '' : 'dy-still'} ${single ? 'dy-single' : ''}`}>
+  return <main className={`diary-app ${open ? 'dy-open' : 'dy-closed'} ${motion ? '' : 'dy-still'} ${single ? 'dy-single' : ''} ${coverReady ? 'dy-has-3d' : ''}`}>
     <div className="dy-table-texture" aria-hidden="true"/>
     <header className="dy-room-header"><span>TAMMANA KAPOOR <i>✳</i> A PERSONAL JOURNAL</span><button onClick={() => { setOpen(!open); if (!open) { setLeaf(0); setTimeout(() => bookRef.current?.focus(), motion ? 1100 : 0); } }}>{open ? '↶ Close the journal' : 'A little world, waiting to be opened'}</button></header>
     <div className="dy-scene">
@@ -202,7 +205,8 @@ export default function DiaryHome() {
         <nav className="dy-tabs" aria-label="Journal sections">{tabs.map(tab => <button key={tab.id} className={`dy-tab dy-tab-${tab.id}`} aria-label={tab.title} aria-current={currentSection === tab.id ? 'page' : undefined} onClick={() => jump(tab.id)}><span className="dy-tab-long">{tab.title}</span><span className="dy-tab-short">{tab.short}</span></button>)}</nav>
         <div className="dy-ribbon" aria-hidden="true"/>
       </div>
-      <div className="dy-cover-wrap" aria-hidden={open} inert={open}>
+      <DiaryCover3D open={open} motion={motion} onReady={setCoverReady} onOpen={() => { setLeaf(0); setOpen(true); setTimeout(() => bookRef.current?.focus(), motion ? 1250 : 0); }}/>
+      <div className="dy-cover-wrap" aria-hidden={open || coverReady} inert={open || coverReady}>
         <button className="dy-cover" onClick={() => { setLeaf(0); setOpen(true); setTimeout(() => bookRef.current?.focus(), motion ? 1100 : 0); }} aria-label="Open Tammana’s journal">
           <span className="dy-cover-stitch"/><span className="dy-cover-spine"/>
           <span className="dy-cover-photo-strip"><img src="/visual-diary/regents-canal.jpg" alt=""/><img src="/visual-diary/embroidered-tote.jpg" alt=""/><img src="/visual-diary/scooter-sketch.jpg" alt=""/></span>
