@@ -31,3 +31,8 @@
 
 .dy-3d-invitation{top:var(--dy-cover-invite-top,calc(100% - 25px));bottom:auto;gap:8px}.dy-3d-invitation>.dy-hand{font-size:21px}
 @media(max-width:700px){.dy-3d-canvas{right:-20px}.dy-3d-invitation{bottom:auto;gap:7px}.dy-3d-invitation>.dy-hand{font-size:19px}}
+
+.dy-cover-message{position:absolute;left:10%;right:10%;top:29%;padding:15px 18px;background:#e7dfc9;color:#30281e;font:400 clamp(10px,1.7vh,15px)/1.4 Georgia,serif;text-align:left;border:1px solid #b9ad8e;box-shadow:1px 3px 5px #211b1644;transform:rotate(2deg);z-index:6;text-shadow:none}
+.dy-cover-message:after{content:'';position:absolute;inset:5px;border:1px solid #b5a98b88;pointer-events:none}
+.dy-cover-note-accessible{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+@media(max-width:700px){.dy-cover-message{font-size:clamp(10px,1.45vh,13px);padding:13px 14px}}

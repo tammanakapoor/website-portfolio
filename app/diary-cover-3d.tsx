@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { coverMessage } from "./diary-cover-copy";
 
 export default function DiaryCover3D({ open, motion, onOpen, onReady }: {
   open: boolean; motion: boolean; onOpen: () => void; onReady: (ready: boolean) => void;
@@ -20,7 +21,8 @@ export default function DiaryCover3D({ open, motion, onOpen, onReady }: {
   }, [onReady]);
   return <div className="dy-3d-layer" aria-hidden={open} inert={open}>
     <div className="dy-3d-canvas" ref={host} aria-hidden="true"/>
-    <button className="dy-3d-open" onClick={onOpen} aria-label="Open Tammana’s journal"/>
+    <button className="dy-3d-open" onClick={onOpen} aria-label="Open Tammana’s journal" aria-describedby="dy-cover-note"/>
+    <span id="dy-cover-note" className="dy-cover-note-accessible">{coverMessage}</span>
     <div className="dy-3d-invitation" aria-hidden="true"><span className="dy-hand">a little curiosity goes a long way</span><span>CLICK THE JOURNAL TO OPEN <i>↗</i></span></div>
   </div>;
 }
