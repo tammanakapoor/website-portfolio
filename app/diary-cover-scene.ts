@@ -252,6 +252,35 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
     box(cover, .05, .02, .102, 2.5, 1.28, .012, new THREE.MeshStandardMaterial({ color: 0xd6cbb3, roughness: 1 }), .008);
     const note = decal(cover, handwriting, .05, .02, .116, 2.48, 1.26, .025);
     note.material.roughness = 1; note.material.color.set(0xd9d6cc);
+    // Raised burgundy X stitches sit on the paper, below the elastic and lace.
+    const crossCenters: [number, number][] = [];
+    const edgeX = 2.48 / 2 - .045, edgeY = 1.26 / 2 - .045;
+    const columns = Math.round(edgeX * 2 / .064), rows = Math.round(edgeY * 2 / .064);
+    for (let i = 0; i <= columns; i++) {
+      const x = -edgeX + i * edgeX * 2 / columns;
+      crossCenters.push([x, -edgeY], [x, edgeY]);
+    }
+    for (let i = 1; i < rows; i++) {
+      const y = -edgeY + i * edgeY * 2 / rows;
+      crossCenters.push([-edgeX, y], [edgeX, y]);
+    }
+    const embroidery = new THREE.InstancedMesh(
+      new THREE.CapsuleGeometry(.0033, .043, 2, 5),
+      new THREE.MeshStandardMaterial({ color: 0x853e3c, roughness: 1 }),
+      crossCenters.length * 2,
+    );
+    const crossTransform = new THREE.Object3D();
+    crossCenters.forEach(([x, y], i) => {
+      for (let diagonal = 0; diagonal < 2; diagonal++) {
+        crossTransform.position.set(x, y, .006 + diagonal * .006);
+        crossTransform.rotation.z = diagonal ? Math.PI / 4 : -Math.PI / 4;
+        crossTransform.updateMatrix();
+        embroidery.setMatrixAt(i * 2 + diagonal, crossTransform.matrix);
+      }
+    });
+    embroidery.castShadow = true; embroidery.receiveShadow = true;
+    note.add(embroidery);
+
     // A photographic lace cutout supplies the actual thread detail and open holes.
     const lace = decal(cover, laceMap, -1.08, 1.28, .195, 1.34, 1.7, .11, true);
     lace.material.polygonOffset = true; lace.material.polygonOffsetFactor = -1;
