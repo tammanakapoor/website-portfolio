@@ -2,9 +2,11 @@
 
 The cover is a Three.js model with a hinged leather cover, 32 paper layers, a brass clip, an elastic cord, an amber locket, a pearl, stone beads, a stitched leather star, and a fountain pen. Pointer movement changes its angle and the charms sway. Existing personal photographs are used for the cover's photo strip. A native HTML opening button and the original cover provide keyboard access and a WebGL fallback.
 
-Two raster materials were created with the built-in image_gen tool. The leather was converted from PNG to JPEG for delivery; the lace retains its generated alpha channel. The cloth and lettered paper label are code-authored canvas textures.
+Two raster materials were created with the built-in image_gen tool. The leather was converted from PNG to JPEG for delivery; the lace retains its generated alpha channel. The cloth is a code-authored canvas texture. The note uses the user’s original handwritten photograph, cropped non-destructively with texture coordinates; no letters are regenerated. Camera metadata is omitted from the web copy. The note is below the elastic, and the lace sits above its upper corner.
 
-Saved assets:
+The handwritten note is saved at `/Users/tammanakapoor/Documents/website/public/journal-3d/handwritten-note.jpg`.
+
+Saved generated assets:
 - `/Users/tammanakapoor/Documents/website/public/journal-3d/espresso-leather.jpg`
 - `/Users/tammanakapoor/Documents/website/public/journal-3d/ivory-lace-bow.png`
 

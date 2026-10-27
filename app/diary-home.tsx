@@ -212,7 +212,7 @@ export default function DiaryHome() {
           <span className="dy-cover-stitch"/><span className="dy-cover-spine"/>
           <span className="dy-cover-photo-strip"><img src="/visual-diary/regents-canal.jpg" alt=""/><img src="/visual-diary/embroidered-tote.jpg" alt=""/><img src="/visual-diary/scooter-sketch.jpg" alt=""/></span>
           <LaceBow/>
-          <span className="dy-cover-message">{coverMessage}</span>
+          <span className="dy-cover-handwritten"><img src="/journal-3d/handwritten-note.jpg" alt={coverMessage}/></span>
           <span className="dy-cover-band"/><span className="dy-cover-clasp"><i/></span>
           <span className="dy-charm-chain"/><span className="dy-cover-charms"><span className="dy-charm-star">✧</span><span className="dy-pearl"/><span className="dy-charm-heart">♡</span></span>
           <svg className="dy-stitched-heart" viewBox="0 0 100 90" aria-hidden="true"><path d="M50 78C14 54 1 30 15 15 29 0 46 12 50 23c4-11 21-23 35-8 14 15 1 39-35 63Z" stroke="#d5bb86" strokeWidth="2.5" strokeDasharray="5 3" fill="none"/></svg>

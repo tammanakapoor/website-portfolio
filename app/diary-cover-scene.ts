@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { coverMessage } from "./diary-cover-copy";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 
@@ -231,10 +230,10 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
     geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose()); environment.dispose(); sun.shadow.map?.dispose(); renderer.dispose(); renderer.domElement.remove();
   };
   try {
-    const [leatherMap, laceMap, images] = await Promise.all([
+    const [leatherMap, laceMap, images, handwriting] = await Promise.all([
       load(rootAssets + "espresso-leather.jpg"), load(rootAssets + "ivory-lace-bow.png"),
       Promise.all(["regents-canal.jpg", "embroidered-tote.jpg", "scooter-sketch.jpg"].map(file => loadImage("/visual-diary/" + file))),
-      document.fonts.load('48px "Diary Instrument"'),
+      load(rootAssets + "handwritten-note.jpg"),
     ]);
     if (disposed) { releaseResources(); return releaseResources; }
     leather.map = leatherMap; leather.bumpMap = leatherMap; leather.needsUpdate = true;
@@ -245,37 +244,19 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
     const strip = decal(cover, photoTexture, .83, .95, .105, .64, 1.81, -.12);
     box(cover, .83, .95, .093, .655, 1.825, .018, new THREE.MeshStandardMaterial({ color: 0xcfbf9a, roughness: .95 }), .008);
     const tape = new THREE.Mesh(new THREE.PlaneGeometry(.76, .15), new THREE.MeshStandardMaterial({ color: 0xc0b28f, transparent: true, opacity: .6, roughness: 1, side: THREE.DoubleSide })); tape.position.set(.82, 1.86, .12); tape.rotation.z = .07; cover.add(tape);
-    const label = track(textureFromCanvas(1024, 768, ctx => {
-      ctx.fillStyle = '#e7dfc9'; ctx.fillRect(0, 0, 1024, 768);
-      ctx.strokeStyle = '#a99b79'; ctx.lineWidth = 2; ctx.strokeRect(22, 22, 980, 724);
-      ctx.fillStyle = '#211a14'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-      const maxWidth = 826;
-      let fontSize = 66;
-      let lines: string[] = [];
-      do {
-        ctx.font = `${fontSize}px Georgia`;
-        lines = [];
-        let line = '';
-        for (const word of coverMessage.split(' ')) {
-          const next = line ? `${line} ${word}` : word;
-          if (line && ctx.measureText(next).width > maxWidth) { lines.push(line); line = word; }
-          else line = next;
-        }
-        if (line) lines.push(line);
-        if (lines.length * fontSize * 1.32 <= 600) break;
-        fontSize -= 2;
-      } while (fontSize > 38);
-      const lineHeight = fontSize * 1.32;
-      const firstLine = (768 - (lines.length - 1) * lineHeight) / 2;
-      lines.forEach((line, i) => ctx.fillText(line, 99, firstLine + i * lineHeight));
-    }));
-    box(cover, -.12, .3, .173, 2.14, 1.61, .018, new THREE.MeshStandardMaterial({ color: 0xc0b697, roughness: .9 }), .012);
-    const labelMesh = decal(cover, label, -.12, .3, .194, 2.12, 1.59, .035); labelMesh.material.color.set(0xd9cdb7);
+    // Display the original photograph as a paper texture. UV cropping excludes
+    // the spiral and blank upper page without recreating any handwriting.
+    handwriting.wrapS = handwriting.wrapT = THREE.ClampToEdgeWrapping;
+    handwriting.repeat.set(.8004, .5409);
+    handwriting.offset.set(.1535, .0132);
+    box(cover, .05, .02, .102, 2.5, 1.28, .012, new THREE.MeshStandardMaterial({ color: 0xd6cbb3, roughness: 1 }), .008);
+    const note = decal(cover, handwriting, .05, .02, .116, 2.48, 1.26, .025);
+    note.material.roughness = 1; note.material.color.set(0xd9d6cc);
     // A photographic lace cutout supplies the actual thread detail and open holes.
-    const lace = decal(cover, laceMap, -.94, .9, .15, 1.64, 2.08, .11, true);
+    const lace = decal(cover, laceMap, -1.08, 1.28, .195, 1.34, 1.7, .11, true);
     lace.material.polygonOffset = true; lace.material.polygonOffsetFactor = -1;
     // Small curls in the lace geometry keep it from being a flat card.
-    const laceGeometry = new THREE.PlaneGeometry(1.64, 2.08, 14, 20); const lp = laceGeometry.attributes.position;
+    const laceGeometry = new THREE.PlaneGeometry(1.34, 1.7, 14, 20); const lp = laceGeometry.attributes.position;
     for (let i = 0; i < lp.count; i++) lp.setZ(i, .022 * Math.sin(lp.getX(i) * 8) * Math.cos(lp.getY(i) * 5));
     laceGeometry.computeVertexNormals(); lace.geometry.dispose(); lace.geometry = laceGeometry;
     renderer.render(scene, camera); ready();
