@@ -28,10 +28,16 @@ const { projects } = await import(pathToFileURL(path.join(cache, 'data.mjs')).hr
 
 const { default: worker } = await import(pathToFileURL(path.join(root, 'dist/server/index.js')).href);
 const env = { ASSETS: { fetch: async () => new Response('Not found', { status: 404 }) }, IMAGES: {} };
+// The app router answers Back/Forward by fetching the page's RSC data from the server. GitHub Pages
+// has no server, so that 404s and the router reloads, again and again. Every move on a static page is
+// a hash change on the same page, so stop those popstate events before the router hears them.
+const hashGuard = '<script>(function(){var p=location.pathname;addEventListener("popstate",function(e){if(location.pathname===p)e.stopImmediatePropagation()},true)})()</script>';
 async function render(route, expected = 200) {
   const response = await worker.fetch(new Request(site + route), env, { waitUntil() {}, passThroughOnException() {} });
   if (response.status !== expected) throw new Error(`${route} rendered with status ${response.status}`);
-  return response.text();
+  const html = await response.text();
+  // Pages without scripts (the 404 page) have no router to guard.
+  return html.replace('<script>', hashGuard + '<script>');
 }
 
 // A small page that forwards an old address to where that content lives now.
