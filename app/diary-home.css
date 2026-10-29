@@ -202,3 +202,21 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
 .diary-app .dy-photo-leaf img{width:auto;height:auto;max-width:100%;max-height:100%;background:none}
 /* The tote bag cut-out sits a little lower so its handles clear the iPod note. */
 .diary-app .dy-embroidery{top:48%}
+
+/* Handwriting throughout, in darker ink: Kalam for headings and reading text, Caveat (heavier) for notes. */
+.diary-app{--dy-serif:var(--font-kalam),'Segoe Print',cursive;--dy-ink:#231f19;--dy-red:#74382d;font-family:var(--font-kalam),'Segoe Print',cursive;color:var(--dy-ink)}
+.diary-app .dy-hand,.diary-app .jn-page{font-weight:600}
+.diary-app .dy-hand:not(.dy-red):not(.dy-oh){color:#3a2b20}
+.diary-app .dy-eyebrow,.diary-app .dy-about-role,.dy-room-header,.dy-room-footer,.diary-app .dy-control-label,.dy-folder-meta,.dy-folder-step,.dy-folder-hint,.dy-folder-tags li,.dy-motion{color:#3f382c!important}
+.diary-app .dy-about>p,.diary-app .dy-photo-note>p,.diary-app .dy-lately,.dy-folder-summary,.dy-folder-story>p,.dy-folder-walk,.dy-folder-takeaways li,.dy-folder-revisions p,.dy-folder-ticks li{color:var(--dy-ink)}
+.diary-app .dy-folder-opening,.diary-app .dy-folder-story>.dy-folder-aside,.dy-favourites-note,.dy-folder-end p,.dy-ipod-note{color:#3a2b20}
+.diary-app h1,.diary-app h2,.diary-app h3,.diary-app .dy-folder-title,.dy-menu>button{color:var(--dy-ink)}
+.diary-app h1 em,.diary-app h2 em,.diary-app h3 em,.diary-app .dy-about h1{color:var(--dy-red)}
+.diary-app .dy-about>p.dy-red{color:var(--dy-red)}
+/* Kalam runs wider and smaller than the old serif: small labels grow a little, the big name shrinks a little. */
+.diary-app .dy-eyebrow,.diary-app .dy-about-role{font-size:max(10px,1.45cqh)!important;letter-spacing:.06em}
+.dy-room-header,.dy-room-footer{font-size:10px;letter-spacing:.06em}
+.diary-app .dy-about h1{font-size:10.4cqh}
+.diary-app .dy-about>p:not(.dy-hand):not(.dy-eyebrow):not(.dy-about-role){font-size:2.3cqh;line-height:1.65}
+.diary-app .dy-lately ul{font-size:1.85cqh}
+@media(max-width:700px){.dy-room-header,.dy-room-footer{font-size:8px;letter-spacing:.04em}.dy-room-header>span{white-space:nowrap}}

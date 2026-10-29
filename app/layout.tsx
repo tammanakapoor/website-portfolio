@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
+import { Caveat, Cormorant_Garamond, Geist, Geist_Mono, Kalam } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -10,6 +10,7 @@ const cormorant = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
 });
 const caveat = Caveat({ variable: "--font-caveat", subsets: ["latin"] });
+const kalam = Kalam({ variable: "--font-kalam", subsets: ["latin"], weight: ["300", "400", "700"] });
 
 const title = "Tammana Kapoor — Creator, curious learner & vibe coder";
 const description = "Tammana Kapoor is a creator, curious learner and vibe coder making thoughtful little experiences for the web.";
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} ${caveat.variable}`}>{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} ${caveat.variable} ${kalam.variable}`}>{children}</body>
     </html>
   );
 }
