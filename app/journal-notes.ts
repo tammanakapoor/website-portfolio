@@ -1,0 +1,110 @@
+import type { Figure } from "./projects/data";
+
+/** Short journal entries distilled from the project archive, not invented diary dates. */
+export type JournalNotes = {
+  heading: string;
+  opening: string;
+  spark: string;
+  question: string;
+  intentions: string[];
+  process: string;
+  processNote: string;
+  snippets: Figure[];
+  revisions: { before: string; after: string; note: string }[];
+  result: string;
+  keepsake: [string, string];
+  takeaways: string[];
+  next: string;
+};
+
+export const journalNotes: Record<string, JournalNotes> = {
+  fieldnotes: {
+    heading: "A little closer to nature.",
+    opening: "A personal field guide to London’s trees. Find what’s growing nearby, collect a discovery on your walk, and keep the places and observations you want to remember. A little closer to nature. A little more curious about the everyday.",
+    spark: "A tree can be part of your daily route for years without ever becoming familiar. I wanted to turn that passing encounter into a small moment of attention: find its name, look a little closer, and leave a note for next time.",
+    question: "Could a map encourage someone to pay attention to the nature already around them?",
+    intentions: ["explore a tree on your usual route", "collect an encounter when you’re nearby", "remember it in a species journal"],
+    process: "The inventory brings together over 1.2 million mapped records from London’s public datasets and OpenStreetMap, with 447 identified species keys. These are source-linked inventory records, not verified living trees or personal discoveries. On screen, that scale becomes an area on the map and five nearby entries, with an option to see all.",
+    processNote: "Explore → visit → collect → remember. Give a familiar walk somewhere to live.",
+    snippets: [
+      { src: "/fieldnotes-explore.png", alt: "The Fieldnotes Explore screen, showing mapped tree records across London and the orange collected cluster", caption: "a clipping from Explore: a city of small discoveries" },
+    ],
+    revisions: [
+      { before: "a species-wide collected colour", after: "only the exact tree turns orange", note: "Unvisited neighbours stay green. Repeat visits remain separate encounters." },
+      { before: "small map targets", after: "more forgiving taps and keyboard activation", note: "A near-miss tap needed a better chance of finding its tree." },
+      { before: "a long nearby list", after: "five nearest entries, then See all", note: "Less to scan on a phone." },
+      { before: "unknown species at a dead end", after: "identification pending", note: "Keep the source clues and optional private photos without inventing a name." },
+      { before: "one journal for everything", after: "a species journal and its encounter map", note: "Give repeat encounters somewhere to return to." },
+    ],
+    result: "A working web and installed iPhone prototype, still in development. The web deployment is owner-private; the iPhone prototype is not an App Store release. Collection checks proximity, with exact-tree identity, repeat encounters, pending identification, private notes and optional personal photos. Automatic photo identification is not implemented.",
+    keepsake: ["private prototype", "still growing"],
+    takeaways: ["A map’s colours are promises. They need to mean exactly what the person thinks they mean.", "“I don’t know yet” can be a useful and honest product state.", "The details of a familiar walk can be enough to build an experience around."],
+    next: "Verify the full collecting and photo journey outdoors on the iPhone, including native photo upload and retrieval and collection retention after an update. Then observe whether someone new can find and save their first tree without help, before making claims about wider use.",
+  },
+  "daily-cafe": {
+    heading: "A room for quiet days.",
+    opening: "I missed the sound of a café more than the coffee. A playlist alone wasn’t quite it. I wanted the cups, the low hum of people, and the feeling that someone else was looking after the room.",
+    spark: "Working from home could feel too quiet. So I started with a small question: could a webpage feel like somewhere you could settle in? No account to make, no room to choose. Just arrive, press one button, and stay a while.",
+    question: "What if a webpage could feel like a place?",
+    intentions: ["one room, one button", "draw the mood before the interface", "let the sound look after itself"],
+    process: "I drew the room first: the barista, tiled counter, menu board and plants. That drawing decided the mood. Then I built the sound in layers—a riverside café, an espresso machine fading in later, and music moving gently through the day.",
+    processNote: "The drawing came first. Everything else had to belong in this room.",
+    snippets: [
+      { src: "/daily-cafe-cover.jpg", alt: "My hand-drawn Daily Café room, with plants, a tiled counter and a barista", caption: "the room, drawn before the code" },
+      { src: "/journal-pages/daily-cafe-clipping.jpg", alt: "Daily Café welcome screen with the music player over my hand-drawn café", caption: "a little clipping from the welcome screen" },
+    ],
+    revisions: [
+      { before: "a very quiet room", after: "people, cups, a little movement", note: "The first recording felt empty." },
+      { before: "a door bell", after: "let the room hum", note: "It was the one thing everyone noticed." },
+      { before: "songs with vocals", after: "instrumentals only", note: "Words pulled people away from their work." },
+    ],
+    result: "One button, a hand-drawn room, and 96 credited instrumental tracks by 59 artists. Tracks crossfade, the ambience keeps going, and the day rises towards midday before softening again. A small place to leave open while doing something else.",
+    keepsake: ["96 tracks", "one small button"],
+    takeaways: ["Licensing shapes what a project can become.", "Restraint is something people can feel.", "Sort with measurements. Listen with people."],
+    next: "Keep listening. The smallest sound can change how a whole room feels.",
+  },
+  floraquest: {
+    heading: "A little curiosity, planted.",
+    opening: "In the classroom, I’ve watched a guess made before an answer help that answer stick. I wondered whether that little moment of curiosity would survive outside the classroom, with nobody obliged to keep going.",
+    spark: "I didn’t want another catalogue of plant names. I wanted the pause before you know: looking closely, following a clue, taking a guess. Every discovery could become a page in your own growing field journal.",
+    question: "Could a wrong guess become a reason to keep exploring?",
+    intentions: ["make the first round easy to enter", "let a mistake teach something", "collect discoveries in a field journal"],
+    process: "The first private beta had 30 plants. I sat with people while they played, watching where they paused and when they stopped. Their feedback went into four piles: ideas, confusing moments, bugs and praise. Those pauses told me what needed work.",
+    processNote: "Follow the clue → make a guess → notice the difference → try again.",
+    snippets: [
+      { src: "/floraquest.png", alt: "FloraQuest Mystery Plant screen with clues and a branching plant search tree", caption: "a saved clipping from Mystery Plant" },
+      { src: "/floraquest-cover.png", alt: "FloraQuest illustration with a sunflower, fern, bee and notebook", caption: "finding a warmer, more curious feeling" },
+    ],
+    revisions: [
+      { before: "a penalty for a wrong guess", after: "show how the plants differ", note: "A penalty on its own taught nothing." },
+      { before: "three equal doors", after: "a guided first round", note: "New players hesitated before starting." },
+      { before: "a dashboard full of scores", after: "scores tucked into the journal", note: "The clue needed the attention." },
+    ],
+    result: "Three small guessing games and a Field Journal, with 325 reviewed plants and seasonal collections for the UK and India. Keyboard search and spoken updates make the clues easier to reach. It’s in public beta: still growing, still changing.",
+    keepsake: ["325 plants", "still growing"],
+    takeaways: ["The plant content matters more than another feature.", "Keep the rules short enough to say aloud.", "A design system needs a way to check itself."],
+    next: "Next: measure whether people return after a week, and write shorter, kinder clues.",
+  },
+  "energy-changes": {
+    heading: "Making the invisible visible.",
+    opening: "A thermometer reading feels real. An energy-profile diagram is a bigger leap. I wanted to build a bridge between them, so learners could reason their way to the science instead of trying to memorise its shape.",
+    spark: "I wrote down the misconceptions before designing a screen. “Exothermic means hot.” “Catalysts add energy.” What would a learner need to see, compare and explain to change that idea? That became the starting point for the whole pathway.",
+    question: "What needs to make sense before the diagram does?",
+    intentions: ["evidence before terminology", "one new idea at a time", "feedback that explains the reasoning"],
+    process: "I planned the sequence in Figma and built the activities in H5P through Lumi. First, notice a temperature change. Then explain where the energy went. Only then, read the energy diagram. Three experiences: observe, represent, apply.",
+    processNote: "Observe → explain → represent → apply. A thermometer before any terminology.",
+    snippets: [
+      { src: "/energy-changes/exp1-observe.jpg", alt: "Chemistry activity showing a temperature rise from 20 to 24 degrees Celsius", caption: "start with something you can observe" },
+      { src: "/energy-changes/exp2-arrows.jpg", alt: "Energy profile activity using separate arrows for activation energy and overall energy change", caption: "two ideas, two different arrows" },
+    ],
+    revisions: [
+      { before: "start with the vocabulary", after: "start with a thermometer", note: "Give the new words something to attach to." },
+      { before: "introduce the whole diagram", after: "build the model in small steps", note: "Year 10 and 11 testing showed the leap was too big." },
+      { before: "just mark an answer wrong", after: "explain what stayed the same", note: "A catalyst changes the pathway, not the overall energy change." },
+    ],
+    result: "Three interactive learning experiences, tested with Year 10 and 11 students. Testing led to more scaffolding, later introduction of terminology, and repeated visual cues. The pathway now moves from a concrete observation to a model, then to a new situation.",
+    keepsake: ["3 experiences", "observe · model · apply"],
+    takeaways: ["Begin with the thermometer, then build the model.", "Give activation energy and energy change separate arrows.", "Ask what a catalyst changes—and what it doesn’t."],
+    next: "Test with more learners, refine the feedback, and see what they remember over time.",
+  },
+};

@@ -9,7 +9,7 @@ Upload this folder as-is to any static host (GitHub Pages, Cloudflare Pages, Net
 | --- | --- |
 | `index.html` | Home (an interactive 3D typewriter, daisies and four personal letters) |
 | `projects.html` | Project archive |
-| `daily-cafe.html`, `floraquest.html`, `energy-changes.html` | One page per project |
+| `daily-cafe.html`, `floraquest.html`, `energy-changes.html`, `fieldnotes.html` | One page per project |
 | `outside.html` | Visual diary |
 | `lab.html` | Motion and 3D experiment (not linked from the other pages, and has no styles yet, same as the original) |
 

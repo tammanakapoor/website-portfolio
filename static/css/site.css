@@ -1020,3 +1020,6 @@ footer a:hover { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* The fourth project has a longer status label; keep both labels within its card. */
+#fieldnotes .project-tile-meta { flex-wrap: wrap; }

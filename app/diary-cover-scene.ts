@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
+import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 
 type State = { open: boolean; motion: boolean };
 const W = 3.12;
@@ -160,7 +161,7 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
   const starShape = new THREE.Shape(); const starPoints: THREE.Vector3[] = [];
   for (let i = 0; i < 10; i++) { const a = Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? .15 : .34; const x = Math.cos(a) * r, y = Math.sin(a) * r; if (!i) starShape.moveTo(x, y); else starShape.lineTo(x, y); starPoints.push(new THREE.Vector3(x * .81, y * .81, .065)); } starShape.closePath();
   const starGeo = new THREE.ExtrudeGeometry(starShape, { depth: .035, bevelEnabled: true, bevelSize: .012, bevelThickness: .012, bevelSegments: 3, steps: 1 });
-  const star = new THREE.Group(); star.position.set(.85, -1.62, .11); star.rotation.z = -.25; cover.add(star);
+  const star = new THREE.Group(); star.position.set(.85, -1.48, .11); star.rotation.z = -.25; cover.add(star);
   const starMesh = new THREE.Mesh(starGeo, new THREE.MeshStandardMaterial({ color: 0x313a3b, roughness: .76 })); starMesh.castShadow = true; star.add(starMesh);
   starPoints.push(starPoints[0]); const outline = new THREE.Line(new THREE.BufferGeometry().setFromPoints(starPoints), new THREE.LineDashedMaterial({ color: 0xd3c8a4, dashSize: .027, gapSize: .017 })); outline.computeLineDistances(); star.add(outline);
   ring(star, 0, .22, .07, .026, .01, metal);
@@ -230,13 +231,36 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
     geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose()); environment.dispose(); sun.shadow.map?.dispose(); renderer.dispose(); renderer.domElement.remove();
   };
   try {
-    const [leatherMap, laceMap, images, handwriting] = await Promise.all([
+    const [leatherMap, laceMap, images, handwriting, signature] = await Promise.all([
       load(rootAssets + "espresso-leather.jpg"), load(rootAssets + "ivory-lace-bow.png"),
       Promise.all(["regents-canal.jpg", "embroidered-tote.jpg", "scooter-sketch.jpg"].map(file => loadImage("/visual-diary/" + file))),
       load(rootAssets + "handwritten-note.jpg"),
+      new SVGLoader().loadAsync(rootAssets + "stitched-name.svg"),
     ]);
     if (disposed) { releaseResources(); return releaseResources; }
     leather.map = leatherMap; leather.bumpMap = leatherMap; leather.needsUpdate = true;
+    // Each X in the joined cursive artwork becomes two raised silver threads.
+    const signatureStitches: { start: THREE.Vector3; end: THREE.Vector3 }[] = [];
+    const onLeather = (p: THREE.Vector2) => new THREE.Vector3((p.x - 120) * .975 / 240 + .77, -1.84 - p.y * .975 / 240, .09);
+    signature.paths.forEach(path => path.subPaths.forEach(line => {
+      signatureStitches.push({ start: onLeather(line.getPoint(0)), end: onLeather(line.getPoint(1)) });
+    }));
+    const nameThread = new THREE.InstancedMesh(
+      new THREE.CapsuleGeometry(1, 1, 3, 6),
+      new THREE.MeshStandardMaterial({ color: 0xced3dc, metalness: .45, roughness: .48 }),
+      signatureStitches.length,
+    );
+    const stitchTransform = new THREE.Object3D();
+    const stitchAxis = new THREE.Vector3(0, 1, 0);
+    signatureStitches.forEach(({ start, end }, i) => {
+      const direction = end.clone().sub(start);
+      stitchTransform.position.copy(start).lerp(end, .5);
+      stitchTransform.position.z += (i % 2) * .0015 + Math.sin(i * 2.37) * .00025;
+      stitchTransform.quaternion.setFromUnitVectors(stitchAxis, direction.clone().normalize());
+      stitchTransform.scale.set(.0021, direction.length() / 3, .0021);
+      stitchTransform.updateMatrix(); nameThread.setMatrixAt(i, stitchTransform.matrix);
+    });
+    nameThread.castShadow = true; nameThread.receiveShadow = true; cover.add(nameThread);
     const photoTexture = track(textureFromCanvas(384, 1080, ctx => {
       ctx.fillStyle = "#d6c9a8"; ctx.fillRect(0, 0, 384, 1080);
       images.forEach((image, i) => { const x = 22, y = 22 + i * 350, w = 340, h = 320; const ratio = Math.max(w / image.width, h / image.height); ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip(); ctx.filter = 'sepia(.28) saturate(.64)'; ctx.drawImage(image, x + (w - image.width * ratio) / 2, y + (h - image.height * ratio) / 2, image.width * ratio, image.height * ratio); ctx.restore(); });

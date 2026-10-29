@@ -1,0 +1,61 @@
+/* Paper, ink and collected project fragments. All type remains real, selectable text. */
+.jn-page{--jn-accent:#795044;--jn-pencil:#8b806a;position:relative;height:100%;padding:5.2cqh 10% 5cqh;color:#383a30;font-family:var(--dy-hand);isolation:isolate;line-height:1.25}
+.jn-running{display:flex;justify-content:space-between;align-items:baseline;gap:4%;font-family:var(--dy-serif);font-size:1.5cqh;line-height:1.2;color:#716b57;border-bottom:1px solid #9a8c6b4a;padding-bottom:1.2cqh;margin-bottom:3.4cqh}
+.jn-running>span:first-child{max-width:65%}.jn-running>span:last-child{text-align:right;font-style:italic}
+.diary-app .jn-title{font-family:var(--dy-hand);font-size:7.3cqh;line-height:.95;letter-spacing:-.035em;font-weight:400;margin:0 0 2.8cqh;color:#3e4034;transform:rotate(-2deg)}
+.diary-app .jn-title em{font-weight:400;color:var(--jn-accent)}
+.jn-writing{font-size:3.05cqh;line-height:1.35;margin:0;letter-spacing:.005em}
+.jn-doodle{width:8cqh;height:8cqh;display:block;color:var(--jn-accent);pointer-events:none}
+.jn-small-label{display:block;font-family:var(--dy-serif);font-size:1.6cqh;text-transform:uppercase;letter-spacing:.1em;color:#7e725e;font-weight:400;line-height:1.3;margin:0 0 1.3cqh}
+.jn-paperclip{position:absolute;right:9%;top:-2cqh;height:8cqh;width:2.4cqh;border:1.4px solid #777766;border-top:0;border-radius:0 0 1.3cqh 1.3cqh;transform:rotate(9deg);filter:drop-shadow(1px 1px 1px #30281d33);z-index:5;pointer-events:none}
+.jn-paperclip:after{content:"";position:absolute;right:.45cqh;top:-.6cqh;width:1.05cqh;height:6.8cqh;border:1.2px solid #777766;border-bottom:0;border-radius:1cqh 1cqh 0 0}
+/* Contents as collected slips, followed by a sketchbook introduction. */
+/* Separate story and live links, styled as hand-cut black paper labels. */
+.jn-contents .jn-running{margin-bottom:2cqh}
+.jn-contents .jn-title{font-size:7.3cqh;margin-bottom:1.4cqh}
+.jn-contents-note{font-size:2.7cqh;color:#8b775c;margin:1cqh 0 1.4cqh;transform:rotate(-2deg)}
+.jn-contents-list{display:flex;flex-direction:column;gap:1.4cqh;list-style:none;padding:0;margin:0}
+.jn-content-slip{position:relative;background:#fff9e9;padding:1.1cqh 3% .8cqh;box-shadow:1px 2px 4px #49391f22;transform:rotate(-2deg)}
+.jn-content-slip:nth-child(2){transform:rotate(2deg);background:#e4e7d5}
+.jn-content-slip:nth-child(3){transform:rotate(-1deg);background:#e4e3d8}
+.jn-content-slip:nth-child(4){transform:rotate(1deg);background:#e3e8d7}
+.jn-content-slip:before{content:"";position:absolute;top:-.8cqh;left:40%;width:23%;height:1.8cqh;transform:rotate(3deg);background:#c3b48b66;pointer-events:none}
+.jn-content-no{font-family:var(--dy-serif);font-size:1.7cqh;position:absolute;left:-4%;top:1cqh;color:#8c775b;z-index:2}
+.jn-content-story{display:flex;align-items:center;gap:4%;text-align:left}
+.jn-content-story img{width:24%;height:5cqh;object-fit:cover;filter:saturate(.6);border:3px solid #fdf8e9}
+.jn-content-story>span{flex:1;min-width:0}
+.jn-content-story strong{font-size:3.3cqh;line-height:1;display:block;font-weight:400}
+.jn-content-story em{display:block;font-size:2cqh;line-height:1.1;font-style:normal;color:#8a785c;margin-top:.5cqh}
+.jn-content-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:0 3%;margin-top:.5cqh}
+.diary-app .jn-cutout-link{display:inline-flex;align-items:center;gap:.35em;min-height:30px;padding:0 .55cqh;background:#111;color:#fff8e8;font-family:var(--dy-serif);font-size:max(16px,3.1cqh);line-height:1.1;white-space:nowrap;box-shadow:1px 2px 1px #4c3d2626;transform:rotate(-3deg);transition:transform .2s,box-shadow .2s}
+.diary-app .jn-cutout-visit{transform:rotate(3deg)}
+.jn-content-slip:nth-child(even) .jn-cutout-link{transform:rotate(2deg)}
+.jn-content-slip:nth-child(even) .jn-cutout-visit{transform:rotate(-3deg)}
+.diary-app .jn-cutout-link:hover,.diary-app .jn-cutout-link:focus-visible{transform:rotate(0) translateY(-2px);box-shadow:1px 4px 3px #4c3d2633}
+.jn-content-story:hover strong{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.jn-prototype-note{font-family:var(--dy-serif);font-size:max(13px,2.3cqh);font-style:italic;color:#655d49}
+.jn-contents-foot{position:absolute;bottom:6cqh;left:10%;right:15%;font-size:2.8cqh;line-height:1.1;color:#8d7056;transform:rotate(-3deg);margin:0}.jn-contents>.jn-doodle{position:absolute;right:1%;bottom:4cqh;width:8cqh;height:13cqh;transform:rotate(17deg)}
+.jn-introduction .jn-title{font-size:8.2cqh}.jn-introduction>.jn-writing{font-size:3cqh}.jn-intro-scraps{position:relative;height:36cqh;margin:4cqh -2% 3cqh}.jn-intro-photo{position:absolute;left:0;top:0;width:66%;height:30cqh;padding:1cqh;background:#fffaec;transform:rotate(-6deg);box-shadow:1px 4px 6px #49391f2b;margin:0}.jn-intro-photo img{height:calc(100% - 4cqh);width:100%;object-fit:cover;filter:saturate(.65)}.jn-intro-photo figcaption{font-size:2cqh;text-align:center;line-height:1.1;margin-top:1cqh}.jn-intro-photo>.dy-tape{height:2.2cqh;top:-.8cqh;width:27%}.jn-intro-note{position:absolute;right:0;bottom:0;width:55%;min-height:24cqh;background:#ddd5b9;box-shadow:1px 2px 5px #49391f26;padding:3cqh 8% 2cqh 6%;transform:rotate(6deg);font-size:3.2cqh;line-height:1.1}.jn-intro-note p{margin:0 0 1.5cqh}.jn-intro-note>span:last-child{font-size:2.4cqh;color:#866c51}.jn-intro-note .jn-paperclip{right:13%;height:6cqh;top:-2cqh}.jn-intro-note .jn-paperclip:after{height:5cqh}.jn-intro-scraps>.jn-doodle{position:absolute;right:5%;top:-3cqh;width:7cqh;height:7cqh;transform:rotate(18deg)}
+.jn-introduction>.jn-intro-bottom{font-size:2.9cqh;transform:rotate(-1deg)}.jn-cutout-words{position:absolute;bottom:6cqh;left:10%;right:7%;font-family:var(--dy-serif);font-size:3.2cqh;transform:rotate(-2deg)}.jn-cutout-words>span{background:#ddd1b4;box-shadow:1px 2px 1px #59452315;padding:0 .7cqh;display:inline-block;line-height:1.2}.jn-cutout-words>span:last-child{transform:rotate(4deg);background:#e3e3d2;margin-left:1%}
+@media(max-width:700px){
+ .jn-page{padding-left:12%;padding-right:10%}.jn-running{font-size:1.45cqh;margin-bottom:3.2cqh}.jn-running>span:first-child{max-width:65%}
+ .jn-contents .jn-title{font-size:7.3cqh}.jn-contents-note{font-size:2.55cqh}.jn-contents-foot{font-size:2.6cqh}
+ .jn-introduction .jn-title{font-size:7.8cqh}.jn-introduction>.jn-writing{font-size:2.9cqh}.jn-intro-note{padding-right:5%;font-size:3cqh}.jn-intro-scraps{height:35cqh}.jn-intro-photo figcaption{font-size:1.9cqh}.jn-cutout-words{font-size:2.9cqh}
+}
+/* Leave room for all four projects in the opening spread. */
+.jn-introduction .jn-intro-scraps{height:31cqh;margin-top:3cqh;margin-bottom:2cqh}
+.jn-introduction .jn-intro-photo{height:28cqh}
+.jn-introduction>.jn-intro-bottom{font-size:2.65cqh;line-height:1.28}
+@media(max-width:700px){
+ .jn-contents{padding-top:3.6cqh}
+ .jn-contents .jn-title{font-size:6.5cqh}
+ .jn-contents .jn-running{margin-bottom:1.2cqh}
+ .jn-contents-list{gap:1.1cqh}
+ .jn-content-slip{padding-top:.7cqh;padding-bottom:.6cqh}
+ .jn-content-story strong{font-size:3.1cqh}
+ .jn-content-story em{font-size:1.9cqh}
+ .jn-content-story img{height:5cqh}
+ .jn-content-actions{justify-content:flex-start;gap:0 3%;margin-top:.7cqh}
+ .diary-app .jn-cutout-link{font-size:16px}
+ .jn-contents-foot{bottom:4cqh}
+}

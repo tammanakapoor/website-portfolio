@@ -1,3 +1,5 @@
+import { fieldnotes } from "./fieldnotes-data";
+
 /** Project archive content, shared by the index grid and each project page. */
 
 export type Figure = { src: string; alt: string; caption: string };
@@ -289,6 +291,7 @@ export const projects: Project[] = [
       { label: "Read the full case study on Figma", href: "https://www.figma.com/design/MqVTNTQ55VU0GxqFX8xK4c/Case-study--portfolio?node-id=0-1", external: true },
     ],
   },
+  fieldnotes,
 ];
 
 export function getProject(id: string): Project | undefined {
