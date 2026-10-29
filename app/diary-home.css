@@ -185,3 +185,20 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
  .dy-scrap-plants{left:8%;top:50%;width:44%;transform:rotate(-3deg)}
  .dy-favourites-shelf .dy-favourites-note{width:42%}
 }
+
+/* Photos as cut-outs: no frames or captions. Objects are lifted out of their backgrounds (dy-cut);
+   wide scenes are borderless prints (dy-paper). Both cast a soft 3D shadow and lift a little on hover. */
+.diary-app .dy-polaroid,.diary-app .dy-scrap,.diary-app .dy-photo-leaf>figure{padding:0;background:none;box-shadow:none}
+.diary-app .dy-polaroid:hover{rotate:0deg;box-shadow:none}
+.diary-app .dy-polaroid img{height:100%;background:none}
+.diary-app .dy-polaroid img,.diary-app .dy-scrap img,.diary-app .dy-photo-leaf img{transition:transform .3s ease,filter .3s ease,box-shadow .3s ease}
+.diary-app .dy-cut img{object-fit:contain;filter:drop-shadow(0 1px 1px #2e22144d) drop-shadow(3px 10px 10px #2e221440)}
+.diary-app .dy-paper img{object-fit:cover;filter:saturate(.85);box-shadow:0 1px 1px #2e22144d,3px 10px 16px #2e221445}
+.diary-app .dy-polaroid:hover img,.diary-app .dy-polaroid:focus-visible img,.diary-app .dy-scrap:hover img{transform:translateY(-4px) rotate(-1.5deg)}
+.diary-app .dy-cut:hover img{filter:drop-shadow(0 2px 2px #2e22144d) drop-shadow(5px 16px 14px #2e221438)}
+.diary-app .dy-paper:hover img{box-shadow:0 2px 2px #2e22144d,5px 16px 22px #2e221440}
+/* A photo's own page shows it whole, so the shadow hugs the picture rather than the frame. */
+.diary-app .dy-photo-leaf>figure{display:flex;align-items:center;justify-content:center}
+.diary-app .dy-photo-leaf img{width:auto;height:auto;max-width:100%;max-height:100%;background:none}
+/* The tote bag cut-out sits a little lower so its handles clear the iPod note. */
+.diary-app .dy-embroidery{top:48%}
