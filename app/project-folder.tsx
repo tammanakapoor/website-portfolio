@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import type { CSSProperties, KeyboardEvent, ReactNode, Ref, TouchEvent } from "react";
-import type { Project } from "./projects/data";
+import type { Figure, Project } from "./projects/data";
 import { journalNotes } from "./journal-notes";
 import "./project-folder.css";
 
@@ -13,6 +13,10 @@ const dividerNames: Record<string, [string, string]> = {
 };
 const dividerColours = ["#bdc3a0", "#d1a7a0", "#d4c18c", "#b1bfcc"];
 const visitLabels: Record<string, string> = { "daily-cafe": "visit café", floraquest: "play game", "energy-changes": "try lesson" };
+
+function Print({ image, className = "" }: { image: Figure; className?: string }) {
+  return <figure className={`dy-folder-print ${className}`}><span className="dy-tape" aria-hidden="true"/><img src={image.src} alt={image.alt} loading="lazy"/><figcaption>{image.caption}</figcaption></figure>;
+}
 
 type Props = {
   projects: Project[];
@@ -30,6 +34,7 @@ type Props = {
 export default function ProjectFolder({ projects, active, shown, onSelect, onKeyDown, onTouchStart, onTouchEnd, folderRef, children }: Props) {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const project = projects[active];
+  const note = journalNotes[project.id];
   const destination = project.site ?? project.links.find(link => link.external);
 
   function select(index: number) {
@@ -54,23 +59,65 @@ export default function ProjectFolder({ projects, active, shown, onSelect, onKey
       })}
     </div>
     <div className="dy-folder-sheet" id="folder-sheet" role="tabpanel" aria-labelledby={`folder-tab-${project.id}`}>
-      <article className="dy-folder-page" key={project.id}>
-        <figure className={`dy-folder-photo dy-folder-photo-${project.id}`}>
-          <span className="dy-tape" aria-hidden="true"/>
-          <img src={project.cover.src} alt={project.cover.alt}/>
-          <figcaption>{project.cover.note}</figcaption>
-        </figure>
-        <div className="dy-folder-copy">
-          <p className="dy-folder-meta">{project.number} <i aria-hidden="true">·</i> {project.status}</p>
-          <h2 className="dy-folder-title">{project.title}</h2>
-          <p className="dy-folder-heading">{journalNotes[project.id]?.heading}</p>
-          <ul className="dy-folder-tags" aria-label="What kind of project">{project.tagList.map(tag => <li key={tag}>{tag}</li>)}</ul>
-          <p className="dy-folder-summary">{project.summary}</p>
+      {/* Keyed by project, so switching dividers starts the new story from the top. */}
+      <article className="dy-folder-page" key={project.id} tabIndex={0} aria-label={`${project.title}: the story`}>
+        <header className="dy-folder-head">
+          <div className="dy-folder-copy">
+            <p className="dy-folder-meta">{project.number} <i aria-hidden="true">·</i> {project.status}</p>
+            <h2 className="dy-folder-title">{project.title}</h2>
+            <p className="dy-folder-heading">{note?.heading}</p>
+            <ul className="dy-folder-tags" aria-label="What kind of project">{project.tagList.map(tag => <li key={tag}>{tag}</li>)}</ul>
+          </div>
           <div className="dy-folder-actions">
-            <a className="dy-folder-link" href={`/projects/${project.id}`}>read the story <span aria-hidden="true">↗</span></a>
-            {destination ? <a className="dy-folder-link dy-folder-link-quiet" href={destination.href} target="_blank" rel="noopener noreferrer" aria-label={`${destination.label} (opens in a new tab)`}>{visitLabels[project.id] ?? destination.label.toLowerCase()} <span aria-hidden="true">↗</span></a> : <span className="dy-folder-private">private prototype</span>}
+            {destination ? <a className="dy-folder-link" href={destination.href} target="_blank" rel="noopener noreferrer" aria-label={`${destination.label} (opens in a new tab)`}>{visitLabels[project.id] ?? destination.label.toLowerCase()} <span aria-hidden="true">↗</span></a> : <span className="dy-folder-private">private prototype, not public yet</span>}
+          </div>
+        </header>
+        <div className="dy-folder-intro">
+          <Print image={{ src: project.cover.src, alt: project.cover.alt, caption: project.cover.note }} className={`dy-folder-photo dy-folder-photo-${project.id}`}/>
+          <div>
+            <p className="dy-folder-summary">{project.summary}</p>
+            {note && <p className="dy-folder-opening">{note.opening}</p>}
+            <p className="dy-folder-hint" aria-hidden="true">the story, from the beginning ↓</p>
           </div>
         </div>
+        {note && <>
+          <section className="dy-folder-story">
+            <span className="dy-folder-step">01 / the first thought</span>
+            <h3>It started with <em>a little “what if…”</em></h3>
+            <p>{note.spark}</p>
+            <blockquote className="dy-folder-question">{note.question}</blockquote>
+            <ul className="dy-folder-ticks">{note.intentions.map(item => <li key={item}>{item}</li>)}</ul>
+          </section>
+          <section className="dy-folder-story">
+            <span className="dy-folder-step">02 / on the worktable</span>
+            <h3>From a thought <em>to a first try.</em></h3>
+            <p>{note.process}</p>
+            {project.id === "fieldnotes" && <ol className="dy-folder-walk">{project.timeline.map(step => <li key={step.label}>{step.label}</li>)}</ol>}
+            <div className="dy-folder-prints">{note.snippets.map(image => <Print key={image.src} image={image}/>)}</div>
+            <p className="dy-folder-aside">{note.processNote}</p>
+          </section>
+          <section className="dy-folder-story">
+            <span className="dy-folder-step">03 / the crossed-out bits</span>
+            <h3>Try. Notice. <em>Try again.</em></h3>
+            <ol className="dy-folder-revisions">{note.revisions.map(revision => <li key={revision.before}><del>{revision.before}</del><strong><span aria-hidden="true">↳ </span>{revision.after}</strong><p>{revision.note}</p></li>)}</ol>
+          </section>
+          <section className="dy-folder-story">
+            <span className="dy-folder-step">{project.id === "fieldnotes" ? "04 / still in development" : "04 / out in the world"}</span>
+            <h3>The thing <em>{project.id === "fieldnotes" ? "it’s becoming." : "it became."}</em></h3>
+            <p>{note.result}</p>
+            <p className="dy-folder-ticket"><span>one little idea, later</span><strong>{note.keepsake[0]}</strong><em>{note.keepsake[1]}</em></p>
+          </section>
+          <section className="dy-folder-story">
+            <span className="dy-folder-step">05 / notes to keep</span>
+            <h3>A few things <em>for the next page.</em></h3>
+            <ul className="dy-folder-takeaways">{note.takeaways.map(line => <li key={line}>{line}</li>)}</ul>
+            <p className="dy-folder-aside">{note.next}</p>
+          </section>
+        </>}
+        <footer className="dy-folder-end">
+          <p>{project.id === "fieldnotes" ? "still growing, one walk at a time." : "still learning. still making."} <span aria-hidden="true">♡</span></p>
+          {projects.length > 1 && <button type="button" className="dy-folder-next" onClick={() => select(active + 1)}>next: {projects[(active + 1) % projects.length].title} →</button>}
+        </footer>
       </article>
     </div>
     <div className="dy-folder-lip" aria-hidden="true"/>
