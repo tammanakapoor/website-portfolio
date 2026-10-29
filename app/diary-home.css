@@ -173,7 +173,7 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
 .diary-app .dy-embroidery{top:48%}
 
 /* Handwriting throughout, in darker ink: Kalam for headings and reading text, Caveat (heavier) for notes. */
-.diary-app{--dy-serif:var(--font-kalam),'Segoe Print',cursive;--dy-ink:#231f19;--dy-red:#74382d;font-family:var(--font-kalam),'Segoe Print',cursive;color:var(--dy-ink)}
+.diary-app{--dy-serif:var(--font-grace),'Segoe Print',cursive;--dy-ink:#231f19;--dy-red:#74382d;font-family:var(--font-grace),'Segoe Print',cursive;color:var(--dy-ink)}
 .diary-app .dy-hand,.diary-app .jn-page{font-weight:600}
 .diary-app .dy-hand:not(.dy-red):not(.dy-oh){color:#3a2b20}
 .diary-app .dy-eyebrow,.diary-app .dy-about-role,.dy-room-header,.dy-room-footer,.diary-app .dy-control-label,.dy-folder-meta,.dy-folder-step,.dy-folder-hint,.dy-folder-tags li,.dy-motion{color:#3f382c!important}
