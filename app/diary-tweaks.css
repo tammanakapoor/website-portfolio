@@ -1,0 +1,41 @@
+/* Placements saved from the localhost edit mode (app/diary-editor.tsx). Generated from diary-tweaks.json: edit there, or drag on localhost. */
+@media(min-width:701px){
+.diary-app:not([data-editing]) .dy-kind-collage .dy-gem-1{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-gem-2{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-gem-3{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-botanical{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-collage-bottom{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-gem-4{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-gem-5{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-scrap-about-chai{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-about-signoff{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-scrap-about-plants{left:74%!important;top:7%!important;right:auto!important;bottom:auto!important;margin:0!important;width:21%!important;transform:rotate(-6deg)!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-add-mvu07hyl{left:47%!important;top:32%!important;right:auto!important;bottom:auto!important;margin:0!important;width:20%!important;transform:rotate(-3deg)!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-add-mvtzqa6f{left:73%!important;top:47%!important;right:auto!important;bottom:auto!important;margin:0!important;width:21%!important;transform:rotate(4deg)!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-add-mvu099md{left:78%!important;top:70%!important;right:auto!important;bottom:auto!important;margin:0!important;width:19%!important;transform:rotate(-5deg)!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-lucky-star{left:88%!important;top:84%!important;right:auto!important;bottom:auto!important;margin:0!important;width:10%!important}
+}
+@media(max-width:700px){
+.diary-app:not([data-editing]) .dy-kind-collage .dy-gem-3{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-gem-2{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-gem-1{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-gem-5{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-botanical{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-sketch{left:-6.09%!important;top:81.42%!important;right:auto!important;bottom:auto!important;margin:0!important;width:40%!important;height:17%!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-embroidery{left:-11.53%!important;top:59.31%!important;right:auto!important;bottom:auto!important;margin:0!important;width:42%!important;height:18%!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-mini-pourover{left:34.52%!important;top:75.66%!important;right:auto!important;bottom:auto!important;margin:0!important;width:15%!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-mini-books{left:26.36%!important;top:43.78%!important;right:auto!important;bottom:auto!important;margin:0!important;width:20%!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-mini-iced{left:53.03%!important;top:13.96%!important;right:auto!important;bottom:auto!important;margin:0!important;width:16%!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-add-mvtzqa6f{left:72.04%!important;top:47.12%!important;right:auto!important;bottom:auto!important;margin:0!important;width:24%!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-canal{left:3.58%!important;top:14.43%!important;right:auto!important;bottom:auto!important;margin:0!important;width:40.28%!important;height:15.83%!important;transform:matrix(0.994522, -0.104528, 0.104528, 0.994522, 0, 0) rotate(-7.38deg)!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-ipod{left:8.91%!important;top:35.29%!important;right:auto!important;bottom:auto!important;margin:0!important;width:15.12%!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-add-mvu07hyl{left:72.09%!important;top:23.25%!important;right:auto!important;bottom:auto!important;margin:0!important;width:24%!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-lucky-star{left:79.09%!important;top:76.1%!important;right:auto!important;bottom:auto!important;margin:0!important;width:17%!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-add-mvu099md{left:67.86%!important;top:84.65%!important;right:auto!important;bottom:auto!important;margin:0!important;width:24%!important;transform:rotate(-15.1deg)!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-about-signoff{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-mini-earphones{left:52.78%!important;top:46.17%!important;right:auto!important;bottom:auto!important;margin:0!important;width:16%!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-gem-4{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-scrap-about-chai{display:none!important}
+.diary-app:not([data-editing]) .dy-kind-about .dy-scrap-about-plants{left:76.77%!important;top:4.62%!important;right:auto!important;bottom:auto!important;margin:0!important;width:25.55%!important;transform:matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 0, 0) rotate(-8deg)!important}
+.diary-app:not([data-editing]) .dy-kind-collage .dy-collage-bottom{display:none!important}
+}

@@ -1,0 +1,289 @@
+{
+  "desktop": {
+    ".dy-kind-collage .dy-gem-1": {
+      "mode": "abs",
+      "left": 0,
+      "top": 0,
+      "hidden": true
+    },
+    ".dy-kind-collage .dy-gem-2": {
+      "mode": "abs",
+      "left": 0,
+      "top": 0,
+      "hidden": true
+    },
+    ".dy-kind-collage .dy-gem-3": {
+      "mode": "abs",
+      "left": 0,
+      "top": 0,
+      "hidden": true
+    },
+    ".dy-kind-collage .dy-botanical": {
+      "mode": "abs",
+      "left": 0,
+      "top": 0,
+      "hidden": true
+    },
+    ".dy-kind-collage .dy-collage-bottom": {
+      "mode": "abs",
+      "left": 0,
+      "top": 0,
+      "hidden": true
+    },
+    ".dy-kind-about .dy-gem-4": {
+      "mode": "abs",
+      "left": 0,
+      "top": 0,
+      "hidden": true
+    },
+    ".dy-kind-about .dy-gem-5": {
+      "mode": "abs",
+      "left": 0,
+      "top": 0,
+      "hidden": true
+    },
+    ".dy-kind-about .dy-scrap-about-chai": {
+      "mode": "abs",
+      "left": 0,
+      "top": 0,
+      "hidden": true
+    },
+    ".dy-kind-about .dy-about-signoff": {
+      "mode": "rel",
+      "left": 0,
+      "top": 0,
+      "hidden": true
+    },
+    ".dy-kind-about .dy-scrap-about-plants": {
+      "mode": "abs",
+      "left": 74,
+      "top": 7,
+      "width": 21,
+      "base": "none",
+      "rotate": -6
+    },
+    ".dy-kind-collage .dy-add-mvu07hyl": {
+      "mode": "abs",
+      "left": 47,
+      "top": 32,
+      "width": 20,
+      "base": "none",
+      "rotate": -3
+    },
+    ".dy-kind-collage .dy-add-mvtzqa6f": {
+      "mode": "abs",
+      "left": 73,
+      "top": 47,
+      "width": 21,
+      "base": "none",
+      "rotate": 4
+    },
+    ".dy-kind-collage .dy-add-mvu099md": {
+      "mode": "abs",
+      "left": 78,
+      "top": 70,
+      "width": 19,
+      "base": "none",
+      "rotate": -5
+    },
+    ".dy-kind-collage .dy-lucky-star": {
+      "mode": "abs",
+      "left": 88,
+      "top": 84,
+      "width": 10,
+      "base": "none",
+      "rotate": 0
+    }
+  },
+  "phone": {
+    ".dy-kind-collage .dy-gem-3": {
+      "mode": "abs",
+      "left": 82.00173234079412,
+      "top": 75.99982174688057,
+      "width": 12.998430850729969,
+      "base": "matrix(0.951057, 0.309017, -0.309017, 0.951057, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-collage .dy-gem-2": {
+      "mode": "abs",
+      "left": 73.99907106363214,
+      "top": 59.998930481283416,
+      "width": 12.998430850729969,
+      "base": "matrix(0.984808, 0.173648, -0.173648, 0.984808, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-collage .dy-gem-1": {
+      "mode": "abs",
+      "left": 51.99959829778686,
+      "top": 32.99910873440285,
+      "width": 12.998430850729969,
+      "base": "matrix(0.978148, -0.207912, 0.207912, 0.978148, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-about .dy-gem-5": {
+      "mode": "abs",
+      "left": 82.00173234079412,
+      "top": 65.99964349376114,
+      "width": 12.998430850729969,
+      "base": "matrix(0.978148, 0.207912, -0.207912, 0.978148, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-collage .dy-botanical": {
+      "mode": "abs",
+      "left": -38.69771628932369,
+      "top": 77.96443446230066,
+      "width": 40.99998744680584,
+      "height": 38,
+      "base": "none",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-collage .dy-sketch": {
+      "mode": "abs",
+      "left": -6.087673541949529,
+      "top": 81.41867843461894,
+      "width": 39.99949787223358,
+      "height": 16.999500891265594,
+      "base": "matrix(0.992546, -0.121869, 0.121869, 0.992546, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-collage .dy-embroidery": {
+      "mode": "abs",
+      "left": -11.526440239826655,
+      "top": 59.31148386127139,
+      "width": 41.998217446429244,
+      "height": 17.99946524064171,
+      "base": "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-collage .dy-mini-pourover": {
+      "mode": "abs",
+      "left": 34.52200649087512,
+      "top": 75.66063726589154,
+      "width": 14.996947407222844,
+      "base": "matrix(0.99863, 0.052336, -0.052336, 0.99863, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-collage .dy-mini-books": {
+      "mode": "abs",
+      "left": 26.364490596319488,
+      "top": 43.78402965594016,
+      "width": 19.998794893360614,
+      "base": "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-collage .dy-mini-iced": {
+      "mode": "abs",
+      "left": 53.0324404691417,
+      "top": 13.958427306113002,
+      "width": 15.999447659456948,
+      "base": "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-collage .dy-add-mvtzqa6f": {
+      "mode": "abs",
+      "left": 72.03739954646416,
+      "top": 47.122764451067,
+      "width": 23.9981672336526,
+      "base": "none",
+      "rotate": 0
+    },
+    ".dy-kind-collage .dy-canal": {
+      "mode": "abs",
+      "left": 3.5790758313536166,
+      "top": 14.433642993150535,
+      "width": 40.28460445464813,
+      "height": 15.825594842105822,
+      "base": "matrix(0.994522, -0.104528, 0.104528, 0.994522, 0, 0)",
+      "rotate": -7.379100433496719
+    },
+    ".dy-kind-collage .dy-ipod": {
+      "mode": "abs",
+      "left": 8.907064781090202,
+      "top": 35.28591440299069,
+      "width": 15.121713898676521,
+      "base": "matrix(0.990268, 0.139173, -0.139173, 0.990268, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-collage .dy-add-mvu07hyl": {
+      "mode": "abs",
+      "left": 72.08702832081241,
+      "top": 23.248921171938765,
+      "width": 23.9981672336526,
+      "base": "none",
+      "rotate": 0
+    },
+    ".dy-kind-collage .dy-lucky-star": {
+      "mode": "abs",
+      "left": 79.0898663134154,
+      "top": 76.09861452712629,
+      "width": 16.999761489310956,
+      "base": "none",
+      "rotate": 0
+    },
+    ".dy-kind-collage .dy-add-mvu099md": {
+      "mode": "abs",
+      "left": 67.85913600657447,
+      "top": 84.65182783269339,
+      "width": 23.9981672336526,
+      "base": "none",
+      "rotate": -15.095592077197585
+    },
+    ".dy-kind-about .dy-about-signoff": {
+      "mode": "rel",
+      "left": 0,
+      "top": 0,
+      "width": 81.06356783919597,
+      "base": "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-collage .dy-mini-earphones": {
+      "mode": "abs",
+      "left": 52.78478452994695,
+      "top": 46.16521356694187,
+      "width": 15.999447659456948,
+      "base": "matrix(0.990268, 0.139173, -0.139173, 0.990268, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-about .dy-gem-4": {
+      "mode": "abs",
+      "left": 63.00322617089918,
+      "top": 7.499162210338682,
+      "width": 12.998430850729969,
+      "base": "matrix(0.990268, -0.139173, 0.139173, 0.990268, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-about .dy-scrap-about-chai": {
+      "mode": "abs",
+      "left": 80.00100425553282,
+      "top": 2.9996613190730836,
+      "width": 15.999447659456948,
+      "base": "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-about .dy-scrap-about-plants": {
+      "mode": "abs",
+      "left": 76.77077697083052,
+      "top": 4.6183101552547665,
+      "width": 25.55176142198492,
+      "base": "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 0, 0)",
+      "rotate": -8.000405667616427
+    },
+    ".dy-kind-collage .dy-collage-bottom": {
+      "mode": "abs",
+      "left": 9.999397446680307,
+      "top": 93.26399286987522,
+      "width": 82.00173234079412,
+      "base": "matrix(0.999391, -0.0348995, 0.0348995, 0.999391, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    }
+  }
+}

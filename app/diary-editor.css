@@ -1,0 +1,38 @@
+/* Localhost-only edit mode (app/diary-editor.tsx). Plain sans-serif so it reads as a tool, not part of the journal. */
+.diary-app .dy-editor-toggle,.diary-app .dy-editor{font:500 13px/1.3 system-ui,-apple-system,sans-serif;color:#231f19}
+.dy-editor-toggle{position:fixed;left:20px;bottom:46px;z-index:200;padding:7px 13px;border:1px solid #b9ab92;border-radius:999px;background:#fffaf0;cursor:pointer;box-shadow:0 2px 8px rgba(40,30,20,.12)}
+.dy-editor-toggle:hover{background:#f3e8d4}
+.dy-editor{position:fixed;left:50%;bottom:14px;z-index:200;display:flex;align-items:center;gap:8px;width:max-content;max-width:calc(100vw - 32px);padding:9px 10px 9px 16px;border:1px solid #b9ab92;border-radius:14px;background:#fffaf0;box-shadow:0 6px 24px rgba(40,30,20,.18);transform:translateX(-50%)}
+.dy-editor-status{display:flex;flex-direction:column;gap:2px;min-width:0;margin:0 6px 0 0}
+.dy-editor-status span{font-weight:400;color:#5d5246;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:46ch}
+.dy-editor-status em{font-style:normal;font-weight:400;color:#74382d;max-width:46ch}
+.diary-app .dy-editor button{flex:none;padding:7px 12px;border:1px solid #b9ab92;border-radius:9px;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.diary-app .dy-editor button:hover{background:#f3e8d4}
+.diary-app .dy-editor .dy-editor-save{background:#74382d;border-color:#74382d;color:#fffaf0}
+.diary-app .dy-editor .dy-editor-save:hover{background:#5d2c23}
+.diary-app .dy-editor .dy-editor-save:disabled{background:transparent;border-color:#d8ccb6;color:#8a7d6b;cursor:default}
+.diary-app[data-editing] .dy-spread{cursor:move}
+.diary-app[data-editing] [contenteditable]{cursor:text;outline:2px solid #74382d;outline-offset:3px;border-radius:2px;background:rgba(255,250,240,.85)}
+.dy-edit-box{position:fixed;z-index:150;display:none;pointer-events:none;border-radius:3px}
+.dy-edit-hover{outline:1.5px dashed rgba(116,56,45,.55)}
+.dy-edit-picked{outline:2px solid #74382d;outline-offset:2px}
+.dy-edit-handle{position:absolute;width:14px;height:14px;border:2px solid #74382d;border-radius:50%;background:#fffaf0;pointer-events:auto;touch-action:none}
+.dy-edit-size{right:-9px;bottom:-9px;border-radius:3px;cursor:nwse-resize}
+.dy-edit-turn{left:calc(50% - 7px);top:-30px;cursor:grab}
+.dy-edit-turn::after{content:"";position:absolute;left:4px;top:12px;width:2px;height:14px;background:#74382d}
+@media(max-width:700px){.dy-editor{flex-wrap:wrap;bottom:8px}.dy-editor-status{flex-basis:100%}.dy-editor-toggle{bottom:auto;top:50px;left:8px}}
+.diary-app .dy-editor .dy-editor-on{background:#f3e8d4;border-color:#74382d}
+html.dy-placing .diary-app[data-editing] .dy-spread,html.dy-placing .diary-app[data-editing] .dy-spread *{cursor:copy!important}
+.dy-tray{position:fixed;left:50%;bottom:84px;z-index:210;width:min(560px,calc(100vw - 32px));max-height:min(62vh,560px);overflow:auto;padding:14px 16px 6px;border:1px solid #b9ab92;border-radius:14px;background:#fffaf0;box-shadow:0 10px 32px rgba(40,30,20,.22);transform:translateX(-50%);font:400 13px/1.35 system-ui,-apple-system,sans-serif;color:#231f19}
+.dy-tray section{margin-bottom:14px}
+.dy-tray h3{margin:0 0 7px;font:600 12px/1.2 system-ui,-apple-system,sans-serif;letter-spacing:.02em;color:#5d5246}
+.dy-tray-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+.dy-tray-grid.dy-tray-small{grid-template-columns:repeat(auto-fill,minmax(44px,1fr))}
+.dy-tray-grid button{display:grid;place-items:center;aspect-ratio:1;padding:6px;border:1px solid #e3d8c4;border-radius:9px;background:#f8f1e3;cursor:pointer;overflow:hidden}
+.dy-tray-grid button:hover{border-color:#74382d;background:#f3e8d4}
+.dy-tray-grid button>*{position:static!important;display:block;width:100%!important;height:100%!important;max-width:100%;margin:0!important;object-fit:contain;transform:none;animation:none;opacity:1;mix-blend-mode:multiply;-webkit-mask-image:none;mask-image:none}
+.dy-tray-actions{display:flex;flex-wrap:wrap;gap:8px}
+.dy-tray-actions button{padding:8px 12px;border:1px solid #b9ab92;border-radius:9px;background:#f8f1e3;font:500 13px/1.2 system-ui,-apple-system,sans-serif;color:#231f19;cursor:pointer}
+.dy-tray-actions button:hover{background:#f3e8d4}
+.dy-tray-hint{margin:7px 0 0;color:#6b5f4d;font-size:12px}
+@media(max-width:700px){.dy-tray{bottom:118px;max-height:52vh}}

@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useId, useRef, useState } from "react";
 import type { CSSProperties, PointerEvent, ReactNode } from "react";
 import { projects } from "./projects/data";
 import "./diary-home.css";
+import "./diary-tweaks.css";
+import additions from "./diary-additions.json";
+import type { Addition } from "./diary-tweaks-css";
 import DiaryCover3D from "./diary-cover-3d";
 import { HelloArtwork, HelloNote } from "./hello-journal";
 import ProjectFolder from "./project-folder";
@@ -138,6 +141,33 @@ function CafeIpod({ playing, onToggle }: { playing: boolean; onToggle: () => voi
   </div>;
 }
 
+/** Which page an added item belongs on: photo and gallery pages share a kind, so they also carry their photo or title. */
+function pageKey(page: Leaf) {
+  return page.photo ? `${page.kind}:${page.photo.file}` : page.title ? `${page.kind}:${page.title[0]}` : page.kind;
+}
+const starPath = <><path d="m50 3 12 31 34 2-27 22 8 34-28-19-28 19 8-34L3 36l34-2Z" fill="#b79a51" stroke="#f5e5ae" strokeWidth="5"/><path d="m50 15 8 25 26 1-21 16 7 25-21-15-21 15 7-25-20-16 26-1Z" fill="none" stroke="#947635"/></>;
+/** The artwork for something added from the edit mode's tray; the editor reuses it for its thumbnails. */
+function addedArt(item: Pick<Addition, "type" | "variant" | "src" | "text">): ReactNode {
+  switch (item.type) {
+    case "gem": { const [shape, tone] = (item.variant ?? "diamond-ice").split("-"); return <Gem shape={shape as keyof typeof gemShapes} tone={tone as keyof typeof gemTones} className=""/>; }
+    case "star": return <svg viewBox="0 0 100 100" aria-hidden="true">{starPath}</svg>;
+    case "butterfly": return <Butterfly/>;
+    case "daisy": return <Daisy/>;
+    case "ring": return <CoffeeRing n={Number(item.variant) as 1 | 2 | 3 || 1} className=""/>;
+    case "splash": return <TeaSplash n={Number(item.variant) as 1 | 2 || 1} className=""/>;
+    case "note": return <p className="dy-hand">{item.text}</p>;
+    default: return <img src={item.src} alt={item.text ?? ""} draggable={false} loading="lazy"/>;
+  }
+}
+function Additions({ page }: { page: Leaf }) {
+  const key = pageKey(page);
+  const here = (additions as Addition[]).filter(item => item.page === key);
+  return <div className="dy-additions">{here.map(item => <div key={item.id} className={`dy-added dy-added-${item.type} dy-add-${item.id}`} style={{ "--x": `${item.x}%`, "--y": `${item.y}%`, "--w": `${item.w}%` } as CSSProperties}>{addedArt(item)}</div>)}</div>;
+}
+
+// The drag-and-edit mode only exists on the dev server; production builds drop it.
+const DiaryEditor = import.meta.env.DEV ? lazy(() => import("./diary-editor")) : null;
+
 export default function DiaryHome() {
   const [open, setOpen] = useState(false);
   const [coverReady, setCoverReady] = useState(false);
@@ -154,6 +184,8 @@ export default function DiaryHome() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const swipe = useRef<{ x: number; y: number } | null>(null);
   const bookRef = useRef<HTMLDivElement>(null);
+  const [editable, setEditable] = useState(false);
+  useEffect(() => { if (DiaryEditor && ["localhost", "127.0.0.1"].includes(location.hostname)) setEditable(true); }, []);
 
   useEffect(() => {
     const mobile = matchMedia("(max-width: 700px)");
@@ -244,7 +276,7 @@ export default function DiaryHome() {
   function content(page: Leaf): ReactNode {
     switch (page.kind) {
       case "collage": return <div className="dy-collage"><CoffeeRing n={2} className="dy-ring-collage"/><CoffeeRing n={1} className="dy-ring-collage-2"/><TeaSplash n={1} className="dy-splash-collage"/><p className="dy-hand dy-collage-heading">a little bit of everything, a little bit of me</p><PhotoScrap photo={photos[0]} className="dy-canal" onClick={() => go(book.photoStarts[photos[0].file])}/><PhotoScrap photo={photos[1]} className="dy-embroidery" onClick={() => go(book.photoStarts[photos[1].file])}/><CafeIpod playing={cafeOn} onToggle={toggleCafe}/><PhotoScrap photo={photos[6]} className="dy-sketch" onClick={() => go(book.photoStarts[photos[6].file])}/><Scrap name="books" alt="A tall, slightly wobbly stack of paperbacks" className="dy-mini-books"/><Scrap name="pour-over" alt="Coffee dripping slowly through a glass pour-over" className="dy-mini-pourover"/><Scrap name="iced-coffee" alt="A tall glass of frothy iced coffee" className="dy-mini-iced"/><Scrap name="earphones" alt="Tangled wired earphones" className="dy-mini-earphones"/><Gem shape="heart" tone="rose" className="dy-gem-1"/><Gem shape="diamond" tone="ice" className="dy-gem-2"/><Gem shape="round" tone="emerald" className="dy-gem-3"/><img className="dy-botanical" src="/sketchbook/bloom.png" alt=""/><div className="dy-flying"><Butterfly/></div><LuckyStar/><span className="dy-round-stamp" aria-hidden="true">COLLECT LITTLE<br/><b>✿</b><br/>MOMENTS</span><span className="dy-hand dy-collage-bottom">making room for a little wonder.</span></div>;
-      case "about": return <div className="dy-about dy-page-content"><CoffeeRing n={3} className="dy-ring-about"/><TeaSplash n={2} className="dy-splash-about"/><Gem shape="diamond" tone="amethyst" className="dy-gem-4"/><Gem shape="heart" tone="amber" className="dy-gem-5"/><Scrap name="chai" alt="Chai being poured through a strainer into two small glasses" className="dy-scrap-about-chai"/><Scrap name="plants" alt="Trailing houseplants spilling over a wooden cabinet" className="dy-scrap-about-plants"/><p className="dy-eyebrow">THE PERSON BETWEEN THE PAGES</p><PhotoStrip/><p className="dy-hand dy-red dy-oh">Oh, hello. I’m</p><h1>Tammana<span>Kapoor.</span></h1><p className="dy-about-role">EDUCATOR · DESIGNER · CURIOUS MAKER</p><p>I’m a London-based educator, designer, and curious maker. I make thoughtful digital experiences, collect little moments, and learn by doing.</p><p>Away from the screen: sketchbooks, embroidery, and the long way home.</p><div className="dy-lately"><span className="dy-tape"/><p className="dy-hand">On my desk lately…</p><ul><li><a className="dy-lately-project" href="/projects/fieldnotes">Fieldnotes: finding familiar trees. ↗</a></li><li>Daily Café: a room for quiet days.</li><li>FloraQuest: a game for the plant-curious.</li><li>Chemistry, made visible.</li></ul></div><p className="dy-hand dy-about-signoff">Many interests. All me. ♡</p></div>;
+      case "about": return <div className="dy-about dy-page-content"><CoffeeRing n={3} className="dy-ring-about"/><TeaSplash n={2} className="dy-splash-about"/><Gem shape="diamond" tone="amethyst" className="dy-gem-4"/><Gem shape="heart" tone="amber" className="dy-gem-5"/><Scrap name="chai" alt="Chai being poured through a strainer into two small glasses" className="dy-scrap-about-chai"/><Scrap name="plants" alt="Trailing houseplants spilling over a wooden cabinet" className="dy-scrap-about-plants"/><p className="dy-eyebrow">THE PERSON BETWEEN THE PAGES</p><PhotoStrip/><p className="dy-hand dy-red dy-oh">Oh, hello. I’m</p><h1>Tammana<span>Kapoor.</span></h1><p className="dy-about-role">EDUCATOR · DESIGNER · CURIOUS MAKER</p><p>I’m a creative with background in education, botany and design. I make thoughtful digital experiences, collect little moments, and learn by doing.</p><p>Outside of work, I love reading, long walks, coffee, and anything that feels honest, imperfect, and personal which naturally influences my creative approach.</p><div className="dy-lately"><span className="dy-tape"/><p className="dy-hand">On my desk lately…</p><ul><li><a className="dy-lately-project" href="/projects/fieldnotes">Fieldnotes: finding familiar trees. ↗</a></li><li>Daily Café: a room for quiet days.</li><li>FloraQuest: a game for the plant-curious.</li><li>Chemistry, made visible.</li></ul></div><p className="dy-hand dy-about-signoff">Many interests. All me. ♡</p></div>;
       case "gallery": return <div className="dy-page-content dy-gallery"><p className="dy-eyebrow">WALKS / SKETCHES / THINGS MADE SLOWLY</p><h2>{page.title?.[0]}<br/><em>{page.title?.[1]}</em></h2><div className={`dy-gallery-grid dy-gallery-${page.images?.length}`}>{page.images?.map((photo, i) => <PhotoScrap key={photo.file} photo={photo} onClick={() => go(book.photoStarts[photo.file])} className={`dy-gallery-photo dy-photo-${i}`}/>)}</div></div>;
       case "photo": return page.photo && <div className="dy-photo-leaf"><figure className={page.photo.cutout ? "dy-cut" : "dy-paper"}>{!page.photo.cutout && <span className="dy-tape"/>}<img src={photoSrc(page.photo)} alt={page.photo.title}/></figure><Daisy/></div>;
       case "photo-note": return page.photo && <div className="dy-page-content dy-photo-note"><p className="dy-eyebrow">{page.photo.category}</p><h2>{page.photo.title}<em>.</em></h2><p className="dy-hand dy-photo-words">{page.photo.note}</p><p>From my camera roll & sketchbook.<br/>An ordinary thing, worth keeping.</p><button className="dy-text-link" onClick={() => page.photo && go(book.photoHomes[page.photo.file])}>Back to the collection <span>↶</span></button><div className="dy-flying dy-photo-butterfly"><Butterfly/></div></div>;
@@ -261,7 +293,7 @@ export default function DiaryHome() {
       <div className="dy-desk-note" aria-hidden="true"><p className="dy-hand">For all the little things<br/>that turn out to be<br/><em>the big things.</em></p><span>♡</span></div>
       <div className="dy-open-book" ref={bookRef} tabIndex={open ? 0 : -1} role="region" aria-label="Tammana’s journal. Use left and right arrow keys to turn pages." aria-hidden={!open || folder} inert={!open || folder} onKeyDown={e => { if ((e.target as HTMLElement).closest('input,textarea,select,button,a')) return; if (e.key === 'ArrowRight') { e.preventDefault(); flip(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); flip(-1); } if (e.key === 'Escape') closeJournal(); }} onTouchStart={e => { if ((e.target as HTMLElement).closest('input,textarea,select,button,a')) return; swipe.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }} onTouchEnd={e => { if (!swipe.current) return; const x = e.changedTouches[0].clientX - swipe.current.x; const y = e.changedTouches[0].clientY - swipe.current.y; if (Math.abs(x) > 55 && Math.abs(x) > Math.abs(y) * 1.5) flip(x < 0 ? 1 : -1); swipe.current = null; }}>
         <div className="dy-leather-base" aria-hidden="true"/><div className="dy-paper-stack" aria-hidden="true"/>
-        <div className="dy-spread" aria-live="polite" aria-atomic="false">{visibleLeaves.map((index, side) => <article key={index} className={`dy-leaf dy-leaf-${side === 0 ? 'left' : 'right'} dy-kind-${book.leaves[index].kind}`} aria-label={`Page ${index + 1}: ${book.leaves[index].section}`}><div className="dy-leaf-inner">{content(book.leaves[index])}</div><span className="dy-page-no">{String(index + 1).padStart(2, '0')}</span></article>)}</div>
+        <div className="dy-spread" aria-live="polite" aria-atomic="false">{visibleLeaves.map((index, side) => <article key={index} data-page={pageKey(book.leaves[index])} className={`dy-leaf dy-leaf-${side === 0 ? 'left' : 'right'} dy-kind-${book.leaves[index].kind}`} aria-label={`Page ${index + 1}: ${book.leaves[index].section}`}><div className="dy-leaf-inner">{content(book.leaves[index])}<Additions page={book.leaves[index]}/></div><span className="dy-page-no">{String(index + 1).padStart(2, '0')}</span></article>)}</div>
         <div className="dy-binding" aria-hidden="true">{Array.from({ length: 6 }, (_, i) => <span key={i} style={{ '--ring': i } as CSSProperties}><i/><b/></span>)}</div>
         {turn && <div className={`dy-turning-leaf ${turn.direction < 0 ? 'dy-turn-back' : ''}`} key={`${turn.old}-${leaf}`} aria-hidden="true"><div className="dy-leaf dy-turn-face" inert>{content(book.leaves[turn.old + (turn.direction > 0 && !single ? 1 : 0)])}</div><span className="dy-turn-mark">{String(leaf + 1).padStart(2, '0')}</span></div>}
         {!folder && sectionTabs}
@@ -287,5 +319,6 @@ export default function DiaryHome() {
       {open && !folder && <div className="dy-book-controls"><button className="dy-page-arrow" onClick={() => flip(-1)} disabled={!canPrev || !!turn} aria-label="Previous journal spread">←</button><span className="dy-control-label">{tabs.find(t => t.id === currentSection)?.title}<small>{single ? `${String(leaf + 1).padStart(2, '0')}` : `${String(leaf + 1).padStart(2, '0')} — ${String(leaf + 2).padStart(2, '0')}`} / {book.leaves.length}</small></span><button className="dy-page-arrow" onClick={() => flip(1)} disabled={!canNext || !!turn} aria-label="Next journal spread">→</button></div>}
     </div>
     <footer className="dy-room-footer"><span>{open && folder ? 'PICK A TAB. OPEN A LITTLE PROJECT.' : open ? single ? 'SWIPE OR TAP TO TURN A PAGE' : 'TURN A PAGE. FOLLOW A LITTLE CURIOSITY.' : 'LONDON & WHEREVER CURIOSITY GOES'}</span><div className="dy-status-message" role="status">{message}</div>{cafeOn && <button className="dy-cafe-playing" onClick={toggleCafe}>♪ café sounds <span>· pause</span></button>}<button className="dy-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ Pause the little movements' : '▷ Let things move'}</button></footer>
+    {editable && open && !folder && DiaryEditor && <Suspense fallback={null}><DiaryEditor art={addedArt}/></Suspense>}
   </main>;
 }

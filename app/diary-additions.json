@@ -1,0 +1,32 @@
+[
+  {
+    "id": "mvtzqa6f",
+    "page": "collage",
+    "type": "photo",
+    "src": "/visual-diary/cake-roll-sketch.jpg",
+    "text": "A sketch of a cake roll",
+    "x": 76,
+    "y": 56.2,
+    "w": 24
+  },
+  {
+    "id": "mvu07hyl",
+    "page": "collage",
+    "type": "photo",
+    "src": "/added/screenshot-2026-10-29-at-20-35-44-mvu07ev5.webp",
+    "text": "A label that reads Thoughts",
+    "x": 71.2,
+    "y": 16.3,
+    "w": 24
+  },
+  {
+    "id": "mvu099md",
+    "page": "collage",
+    "type": "photo",
+    "src": "/added/img-7020-mvu092cc.webp",
+    "text": "A sunset glowing along the horizon",
+    "x": 76,
+    "y": 85.2,
+    "w": 24
+  }
+]

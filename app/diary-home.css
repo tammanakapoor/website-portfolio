@@ -236,3 +236,16 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
  .dy-gem-4{right:24%;top:7.5%}
  .dy-gem-5{left:auto;right:5%;bottom:auto;top:66%}
 }
+/* Things added from the localhost edit mode (app/diary-additions.json). */
+.dy-additions{position:absolute;inset:0;pointer-events:none}
+.dy-added{position:absolute;left:var(--x);top:var(--y);width:var(--w);z-index:4;pointer-events:auto}
+.dy-added>*{position:static!important;display:block;width:100%!important;height:auto!important;margin:0!important;inset:auto!important;animation:none}
+.dy-added-ring,.dy-added-splash{z-index:0;pointer-events:none}
+.diary-app .dy-added-splash>img{opacity:.42}
+.dy-added-gem>svg{filter:drop-shadow(1px 3px 2px #3f352b40)}
+.dy-added-star>svg{filter:drop-shadow(1px 3px 2px #3f352b33)}
+.dy-added-cutout>img{filter:drop-shadow(0 1px 1px #2e22144d) drop-shadow(3px 10px 10px #2e221440)}
+.dy-added-photo>img{filter:saturate(.85);box-shadow:0 1px 1px #2e22144d,3px 10px 16px #2e221445}
+.dy-added-note>p{margin:0;font-size:2.6cqh;line-height:1.25;color:var(--dy-ink)}
+.diary-app[data-editing] .dy-spread *{pointer-events:auto!important}
+.diary-app[data-editing] .dy-spread .dy-additions{pointer-events:none!important}
