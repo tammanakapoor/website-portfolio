@@ -141,12 +141,10 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
 .dy-scrap img{display:block;width:100%;height:auto}
 .dy-scrap figcaption{padding:.8cqh .4cqh 1.1cqh;font-size:max(13px,2.3cqh);line-height:1.05;text-align:center;color:#5c5644}
 .dy-scrap>.dy-tape{top:-1.2cqh;width:34%;height:2.4cqh}
-.dy-scrap-chai{left:8%;top:26%;width:46%;transform:rotate(-4deg)}
-.dy-scrap-pourover{right:6%;top:34%;width:32%;transform:rotate(5deg)}
-.dy-scrap-iced{right:8%;top:5%;width:19%;z-index:2;transform:rotate(6deg)}
-.dy-scrap-books{left:8%;top:9%;width:34%;transform:rotate(-3deg)}
-.dy-scrap-plants{right:7%;top:7%;width:43%;transform:rotate(3deg)}
-.dy-scrap-earphones{left:28%;top:57%;width:25%;z-index:2;transform:rotate(-6deg)}
+.dy-scrap-pourover{left:9%;top:27%;width:40%;transform:rotate(-3deg)}
+.dy-scrap-iced{right:9%;top:31%;width:33%;z-index:2;transform:rotate(4deg)}
+.dy-scrap-books{left:9%;top:9%;width:38%;transform:rotate(-3deg)}
+.dy-scrap-earphones{right:10%;top:17%;width:34%;z-index:2;transform:rotate(5deg)}
 .dy-favourites-note{position:absolute;margin:0;font-size:max(15px,2.8cqh);line-height:1.15;color:#7b5a45}
 .dy-favourites-cups .dy-favourites-note{left:9%;bottom:8%;width:46%;transform:rotate(-3deg)}
 .dy-favourites-shelf .dy-favourites-note{right:8%;bottom:11%;width:34%;text-align:right;transform:rotate(3deg)}
@@ -160,12 +158,30 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
  .diary-app .dy-favourites h2{max-width:64%;font-size:5.2cqh}
  .dy-scrap figcaption{font-size:max(13px,1.9cqh)}
  .dy-scrap-iced{right:5%;top:5%;width:27%}
- .dy-scrap-chai{left:6%;top:27%;width:58%}
- .dy-scrap-pourover{right:6%;top:64%;width:38%}
+ .dy-scrap-pourover{left:6%;top:30%;width:62%}
  .dy-favourites-cups .dy-favourites-note{left:8%;bottom:7%;width:42%}
- .dy-scrap-books{left:5%;top:9%;width:40%}
- .dy-scrap-plants{right:4%;top:13%;width:46%}
- .dy-scrap-earphones{left:10%;top:50%;width:40%}
- .dy-favourites-shelf .dy-favourites-note{right:7%;top:60%;bottom:auto;width:38%}
+ .dy-scrap-books{left:5%;top:9%;width:44%}
+ .dy-scrap-earphones{right:6%;top:30%;width:42%}
+ .dy-favourites-shelf .dy-favourites-note{right:7%;top:70%;bottom:auto;width:50%}
  .dy-ring-c{right:4%;top:auto;bottom:5%;width:30%}
+}
+
+/* Two favourite things on the first about page: chai beside the name, plants beside the desk note. */
+.dy-about .dy-scrap{z-index:2}
+.dy-favourites .dy-phone-only{display:none}
+.dy-scrap-about-chai{right:6%;top:7%;width:25%;transform:rotate(5deg)}
+.dy-scrap-about-plants{right:5%;top:64%;width:24%;transform:rotate(-4deg)}
+.dy-about .dy-lately{margin-right:30%}
+.dy-about .dy-about-signoff{margin-right:32%}
+/* The photo strip takes the place beside the name once it has photos. */
+.dy-about:has(.dy-photo-strip) .dy-scrap-about-chai{display:none}
+@media(max-width:700px){
+ .dy-scrap-about-chai,.dy-scrap-about-plants{display:none}
+ .dy-about .dy-lately,.dy-about .dy-about-signoff{margin-right:0}
+ /* No room for them on the phone about page, so chai and plants join the favourite-things pages. */
+ .dy-favourites .dy-phone-only{display:block}
+ .dy-scrap-pourover{width:50%}
+ .dy-scrap-chai{right:5%;top:66%;width:42%;transform:rotate(4deg)}
+ .dy-scrap-plants{left:8%;top:50%;width:44%;transform:rotate(-3deg)}
+ .dy-favourites-shelf .dy-favourites-note{width:42%}
 }
