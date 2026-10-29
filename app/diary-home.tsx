@@ -23,6 +23,7 @@ const photos: Photo[] = [
   { file: "scooter-sketch.jpg", title: "Parked for a moment", note: "A colourful scooter, saved in a sketchbook. Drawing makes a passing detail into something you remember.", category: "From the sketchbook" },
   { file: "barbican-pond.jpg", title: "An afternoon at the Barbican", note: "Waterlilies, water, and a little moment in the city. A photograph from the camera roll.", category: "London wanderings" },
 ];
+const menu: { id: Section; label: string }[] = [{ id: "about", label: "about" }, { id: "projects", label: "projects" }, { id: "outside", label: "outside" }, { id: "hello", label: "contact" }];
 const tabs: { id: Section; title: string; short: string }[] = [
   { id: "about", title: "about me", short: "about me" }, { id: "projects", title: "projects", short: "projects" }, { id: "outside", title: "outside the internet", short: "outside" }, { id: "hello", title: "hello", short: "hello" },
 ];
@@ -66,6 +67,23 @@ function LuckyStar() {
 function PhotoScrap({ photo, className = "", onClick, label }: { photo: Photo; className?: string; onClick: () => void; label?: string }) {
   return <button className={`dy-polaroid ${className}`} onClick={onClick}><span className="dy-tape"/><img src={`/visual-diary/${photo.file}`} alt={photo.title} draggable={false}/><span>{label || photo.title}</span></button>;
 }
+/** Photo-booth strip on the about page. Add photos (kept in /public/about/) and it appears; while empty it stays hidden. */
+const portraits: { src: string; alt: string }[] = [];
+function PhotoStrip() {
+  if (!portraits.length) return null;
+  return <figure className="dy-photo-strip"><span className="dy-tape" aria-hidden="true"/>{portraits.map(photo => <img key={photo.src} src={photo.src} alt={photo.alt} draggable={false}/>)}<figcaption className="dy-hand">hello, it’s me ♡</figcaption></figure>;
+}
+/** A paper iPod that plays the Daily Café room: the same public-domain recordings the café itself uses. */
+function CafeIpod({ playing, onToggle }: { playing: boolean; onToggle: () => void }) {
+  return <div className={`dy-ipod ${playing ? 'dy-ipod-on' : ''}`}>
+    <span className="dy-tape" aria-hidden="true"/>
+    <div className="dy-ipod-body">
+      <div className="dy-ipod-screen" aria-hidden="true"><b>Daily Café</b><span>{playing ? 'now playing: the café' : 'a room for quiet days'}</span><i className="dy-ipod-bars"><i/><i/><i/><i/><i/></i></div>
+      <button className="dy-ipod-wheel" onClick={onToggle} aria-pressed={playing} aria-label={playing ? 'Pause the café sounds' : 'Play café sounds from Daily Café'}><span aria-hidden="true">MENU</span><b aria-hidden="true">{playing ? 'Ⅱ' : '▶'}</b></button>
+    </div>
+    <span className="dy-hand dy-ipod-note">{playing ? 'the café is open ♡' : 'press play for café sounds'}</span>
+  </div>;
+}
 
 export default function DiaryHome() {
   const [open, setOpen] = useState(false);
@@ -77,6 +95,8 @@ export default function DiaryHome() {
   const [message, setMessage] = useState("");
   const [folder, setFolder] = useState(false);
   const [project, setProject] = useState(0);
+  const [cafeOn, setCafeOn] = useState(false);
+  const cafe = useRef<{ room: HTMLAudioElement; barista: HTMLAudioElement; timer?: ReturnType<typeof setTimeout> } | null>(null);
   const folderRef = useRef<HTMLElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const swipe = useRef<{ x: number; y: number } | null>(null);
@@ -102,6 +122,16 @@ export default function DiaryHome() {
     window.addEventListener("hashchange", restoreSection);
     return () => { window.removeEventListener("hashchange", restoreSection); mobile.removeEventListener("change", resize); reduced.removeEventListener("change", reduce); if (timer.current) clearTimeout(timer.current); };
   }, []);
+  // Open the journal by itself shortly after arriving, unless the visitor has already clicked, typed or scrolled.
+  useEffect(() => {
+    if (window.location.hash.length > 1) return;
+    const events = ["pointerdown", "keydown", "wheel", "touchstart"];
+    const cancel = () => { clearTimeout(autoOpen); events.forEach(name => removeEventListener(name, cancel)); };
+    const autoOpen = setTimeout(() => { cancel(); setLeaf(0); setFolder(false); setOpen(true); }, 2600);
+    events.forEach(name => addEventListener(name, cancel, { passive: true }));
+    return cancel;
+  }, []);
+  useEffect(() => () => { const c = cafe.current; if (c) { clearTimeout(c.timer); c.room.pause(); c.barista.pause(); } }, []);
   function go(next: number) {
     const target = Math.max(0, Math.min(book.leaves.length - (single ? 1 : 2), single ? next : next - next % 2));
     if (target === leaf || turn) return;
@@ -125,7 +155,32 @@ export default function DiaryHome() {
     const next = Math.max(0, Math.min(projects.length - 1, index));
     setProject(next); history.replaceState(null, "", `#projects/${projects[next].id}`);
   }
-  function closeJournal() { setOpen(false); setFolder(false); }
+  function openAt(section: Section) {
+    history.replaceState(null, "", section === "projects" ? `#projects/${projects[project].id}` : `#${section}`);
+    setFolder(section === "projects");
+    if (section !== "projects") setLeaf(single ? book.starts[section] : book.starts[section] - book.starts[section] % 2);
+    setOpen(true);
+  }
+  function pauseCafe() {
+    const c = cafe.current;
+    if (!c) return;
+    clearTimeout(c.timer); c.room.pause(); c.barista.pause(); setCafeOn(false);
+  }
+  function toggleCafe() {
+    if (cafeOn) { pauseCafe(); setMessage("Café sounds paused."); return; }
+    if (!cafe.current) {
+      const room = new Audio("/audio/cafe-room.m4a"), barista = new Audio("/audio/cafe-barista.m4a");
+      room.loop = barista.loop = true;
+      cafe.current = { room, barista };
+    }
+    const c = cafe.current;
+    // As in the café itself, the room comes first and the espresso machine joins a few seconds later.
+    c.room.play().then(() => {
+      setCafeOn(true); setMessage("Café sounds playing.");
+      c.timer = setTimeout(() => { c.barista.play().catch(() => {}); }, 5000);
+    }).catch(() => setMessage("The café sounds couldn’t start in this browser."));
+  }
+  function closeJournal() { setOpen(false); setFolder(false); pauseCafe(); }
   function flip(direction: number) { go(leaf + direction * (single ? 1 : 2)); }
   const currentSection = folder ? "projects" : book.leaves[leaf].section;
   const sectionTabs = <nav className="dy-tabs" aria-label="Journal sections">{tabs.map(tab => <button key={tab.id} className={`dy-tab dy-tab-${tab.id}`} aria-label={tab.title} aria-current={currentSection === tab.id ? 'page' : undefined} onClick={() => jump(tab.id)}><span className="dy-tab-long">{tab.title}</span><span className="dy-tab-short">{tab.short}</span></button>)}</nav>;
@@ -135,8 +190,8 @@ export default function DiaryHome() {
 
   function content(page: Leaf): ReactNode {
     switch (page.kind) {
-      case "collage": return <div className="dy-collage"><p className="dy-hand dy-collage-heading">a little bit of everything, a little bit of me</p><PhotoScrap photo={photos[0]} className="dy-canal" onClick={() => go(book.photoStarts[photos[0].file])} label="taking the scenic route"/><PhotoScrap photo={photos[1]} className="dy-embroidery" onClick={() => go(book.photoStarts[photos[1].file])} label="one stitch at a time ♡"/><button className="dy-mini-project" onClick={() => { window.location.href = "/projects/daily-cafe"; }}><span className="dy-tape"/><img src="/daily-cafe-cover.jpg" alt="The hand-drawn Daily Café"/><span>an idea, brought to life</span></button><PhotoScrap photo={photos[6]} className="dy-sketch" onClick={() => go(book.photoStarts[photos[6].file])} label="from the sketchbook"/><img className="dy-botanical" src="/sketchbook/bloom.png" alt=""/><div className="dy-flying"><Butterfly/></div><LuckyStar/><span className="dy-round-stamp" aria-hidden="true">COLLECT LITTLE<br/><b>✿</b><br/>MOMENTS</span><span className="dy-hand dy-collage-bottom">making room for a little wonder.</span></div>;
-      case "about": return <div className="dy-about dy-page-content"><p className="dy-eyebrow">THE PERSON BETWEEN THE PAGES</p><p className="dy-hand dy-red dy-oh">Oh, hello. I’m</p><h1>Tammana<span>Kapoor.</span></h1><p className="dy-about-role">EDUCATOR · DESIGNER · CURIOUS MAKER</p><p>I’m a London-based educator, designer, and curious maker. I make thoughtful digital experiences, collect little moments, and learn by doing.</p><p>Away from the screen: sketchbooks, embroidery, and the long way home.</p><div className="dy-lately"><span className="dy-tape"/><p className="dy-hand">On my desk lately…</p><ul><li><a className="dy-lately-project" href="/projects/fieldnotes">Fieldnotes: finding familiar trees. ↗</a></li><li>Daily Café: a room for quiet days.</li><li>FloraQuest: a game for the plant-curious.</li><li>Chemistry, made visible.</li></ul></div><p className="dy-hand dy-about-signoff">Many interests. All me. ♡</p></div>;
+      case "collage": return <div className="dy-collage"><p className="dy-hand dy-collage-heading">a little bit of everything, a little bit of me</p><PhotoScrap photo={photos[0]} className="dy-canal" onClick={() => go(book.photoStarts[photos[0].file])} label="taking the scenic route"/><PhotoScrap photo={photos[1]} className="dy-embroidery" onClick={() => go(book.photoStarts[photos[1].file])} label="one stitch at a time ♡"/><CafeIpod playing={cafeOn} onToggle={toggleCafe}/><PhotoScrap photo={photos[6]} className="dy-sketch" onClick={() => go(book.photoStarts[photos[6].file])} label="from the sketchbook"/><img className="dy-botanical" src="/sketchbook/bloom.png" alt=""/><div className="dy-flying"><Butterfly/></div><LuckyStar/><span className="dy-round-stamp" aria-hidden="true">COLLECT LITTLE<br/><b>✿</b><br/>MOMENTS</span><span className="dy-hand dy-collage-bottom">making room for a little wonder.</span></div>;
+      case "about": return <div className="dy-about dy-page-content"><p className="dy-eyebrow">THE PERSON BETWEEN THE PAGES</p><PhotoStrip/><p className="dy-hand dy-red dy-oh">Oh, hello. I’m</p><h1>Tammana<span>Kapoor.</span></h1><p className="dy-about-role">EDUCATOR · DESIGNER · CURIOUS MAKER</p><p>I’m a London-based educator, designer, and curious maker. I make thoughtful digital experiences, collect little moments, and learn by doing.</p><p>Away from the screen: sketchbooks, embroidery, and the long way home.</p><div className="dy-lately"><span className="dy-tape"/><p className="dy-hand">On my desk lately…</p><ul><li><a className="dy-lately-project" href="/projects/fieldnotes">Fieldnotes: finding familiar trees. ↗</a></li><li>Daily Café: a room for quiet days.</li><li>FloraQuest: a game for the plant-curious.</li><li>Chemistry, made visible.</li></ul></div><p className="dy-hand dy-about-signoff">Many interests. All me. ♡</p></div>;
       case "gallery": return <div className="dy-page-content dy-gallery"><p className="dy-eyebrow">WALKS / SKETCHES / THINGS MADE SLOWLY</p><h2>{page.title === "Outside the internet." ? <>Outside<br/><em>the internet.</em></> : <>The lovely bits<br/><em>in between.</em></>}</h2><div className="dy-gallery-grid">{page.images?.map((photo, i) => <PhotoScrap key={photo.file} photo={photo} onClick={() => go(book.photoStarts[photo.file])} className={`dy-gallery-photo dy-photo-${i}`}/>)}</div></div>;
       case "photo": return page.photo && <div className="dy-photo-leaf"><figure><span className="dy-tape"/><img src={`/visual-diary/${page.photo.file}`} alt={page.photo.title}/><figcaption className="dy-hand">{page.photo.title}</figcaption></figure><Daisy/></div>;
       case "photo-note": return page.photo && <div className="dy-page-content dy-photo-note"><p className="dy-eyebrow">{page.photo.category}</p><h2>{page.photo.title}<em>.</em></h2><p className="dy-hand dy-photo-words">{page.photo.note}</p><p>From my camera roll & sketchbook.<br/>An ordinary thing, worth keeping.</p><button className="dy-text-link" onClick={() => jump('outside')}>Back to the collection <span>↶</span></button><div className="dy-flying dy-photo-butterfly"><Butterfly/></div></div>;
@@ -148,7 +203,7 @@ export default function DiaryHome() {
 
   return <main className={`diary-app ${open ? 'dy-open' : 'dy-closed'} ${open && folder ? 'dy-folder-view' : ''} ${motion ? '' : 'dy-still'} ${single ? 'dy-single' : ''} ${coverReady ? 'dy-has-3d' : ''}`}>
     <div className="dy-table-texture" aria-hidden="true"/>
-    <header className="dy-room-header"><span>TAMMANA KAPOOR <i>✳</i> A PERSONAL JOURNAL</span><button onClick={() => { if (open) { closeJournal(); return; } setLeaf(0); setOpen(true); setTimeout(() => bookRef.current?.focus(), motion ? 1100 : 0); }}>{open ? '↶ Close the journal' : 'A little world, waiting to be opened'}</button></header>
+    <header className="dy-room-header"><span>TAMMANA KAPOOR <i>✳</i> <span className="dy-brand-sub">A PERSONAL JOURNAL</span></span><nav className="dy-menu" aria-label="Main menu">{menu.map(item => <button key={item.id} aria-current={open && currentSection === item.id ? 'page' : undefined} onClick={() => open ? jump(item.id) : openAt(item.id)}>{item.label}<svg viewBox="0 0 120 50" aria-hidden="true" preserveAspectRatio="none"><path pathLength={1} d="M64 6C30 3 5 13 6 26c1 15 37 20 64 18 28-2 47-10 45-22C113 9 82 4 48 8"/></svg></button>)}</nav><button onClick={() => { if (open) { closeJournal(); return; } setLeaf(0); setOpen(true); setTimeout(() => bookRef.current?.focus(), motion ? 1100 : 0); }}>{open ? '↶ Close the journal' : 'A little world, waiting to be opened'}</button></header>
     <div className="dy-scene">
       <div className="dy-desk-note" aria-hidden="true"><p className="dy-hand">For all the little things<br/>that turn out to be<br/><em>the big things.</em></p><span>♡</span></div>
       <div className="dy-open-book" ref={bookRef} tabIndex={open ? 0 : -1} role="region" aria-label="Tammana’s journal. Use left and right arrow keys to turn pages." aria-hidden={!open || folder} inert={!open || folder} onKeyDown={e => { if ((e.target as HTMLElement).closest('input,textarea,select,button,a')) return; if (e.key === 'ArrowRight') { e.preventDefault(); flip(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); flip(-1); } if (e.key === 'Escape') closeJournal(); }} onTouchStart={e => { if ((e.target as HTMLElement).closest('input,textarea,select,button,a')) return; swipe.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }} onTouchEnd={e => { if (!swipe.current) return; const x = e.changedTouches[0].clientX - swipe.current.x; const y = e.changedTouches[0].clientY - swipe.current.y; if (Math.abs(x) > 55 && Math.abs(x) > Math.abs(y) * 1.5) flip(x < 0 ? 1 : -1); swipe.current = null; }}>
@@ -178,6 +233,6 @@ export default function DiaryHome() {
       {open && folder && <div className="dy-book-controls"><button className="dy-page-arrow" onClick={() => pickProject(project - 1)} disabled={project === 0} aria-label="Previous project">←</button><span className="dy-control-label">projects<small>{String(project + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</small></span><button className="dy-page-arrow" onClick={() => pickProject(project + 1)} disabled={project === projects.length - 1} aria-label="Next project">→</button></div>}
       {open && !folder && <div className="dy-book-controls"><button className="dy-page-arrow" onClick={() => flip(-1)} disabled={!canPrev || !!turn} aria-label="Previous journal spread">←</button><span className="dy-control-label">{tabs.find(t => t.id === currentSection)?.title}<small>{single ? `${String(leaf + 1).padStart(2, '0')}` : `${String(leaf + 1).padStart(2, '0')} — ${String(leaf + 2).padStart(2, '0')}`} / {book.leaves.length}</small></span><button className="dy-page-arrow" onClick={() => flip(1)} disabled={!canNext || !!turn} aria-label="Next journal spread">→</button></div>}
     </div>
-    <footer className="dy-room-footer"><span>{open && folder ? 'PICK A TAB. OPEN A LITTLE PROJECT.' : open ? single ? 'SWIPE OR TAP TO TURN A PAGE' : 'TURN A PAGE. FOLLOW A LITTLE CURIOSITY.' : 'LONDON & WHEREVER CURIOSITY GOES'}</span><div className="dy-status-message" role="status">{message}</div><button className="dy-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ Pause the little movements' : '▷ Let things move'}</button></footer>
+    <footer className="dy-room-footer"><span>{open && folder ? 'PICK A TAB. OPEN A LITTLE PROJECT.' : open ? single ? 'SWIPE OR TAP TO TURN A PAGE' : 'TURN A PAGE. FOLLOW A LITTLE CURIOSITY.' : 'LONDON & WHEREVER CURIOSITY GOES'}</span><div className="dy-status-message" role="status">{message}</div>{cafeOn && <button className="dy-cafe-playing" onClick={toggleCafe}>♪ café sounds <span>· pause</span></button>}<button className="dy-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ Pause the little movements' : '▷ Let things move'}</button></footer>
   </main>;
 }

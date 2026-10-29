@@ -78,3 +78,52 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
 .dy-gallery-grid{grid-template-rows:repeat(2,minmax(0,1fr))}.dy-gallery-photo{min-height:0;height:100%}
 
 .dy-lately-project{text-decoration:underline!important;text-decoration-color:#9b866a66!important;text-underline-offset:3px}
+
+/* An always-visible menu in handwriting; the current section gets a drawn circle. */
+.dy-menu{display:flex;align-items:center;gap:clamp(14px,2.4vw,30px);margin:0 clamp(18px,3vw,40px) 0 auto}
+.dy-menu>button{position:relative;border:0;background:none;padding:4px 2px;font-family:var(--dy-hand)!important;font-size:21px!important;letter-spacing:0;line-height:1;color:#4c4a3a;cursor:pointer;transition:color .2s}
+.dy-menu>button:hover,.dy-menu>button[aria-current=page]{color:var(--dy-red)}
+.dy-menu svg{position:absolute;left:-16%;top:-26%;width:132%;height:152%;overflow:visible;fill:none;stroke:var(--dy-red);stroke-width:1.6;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .5s ease;pointer-events:none}
+.dy-menu svg path{vector-effect:non-scaling-stroke}
+.dy-menu>button[aria-current=page] svg{stroke-dashoffset:0}
+.dy-menu>button:focus-visible{outline:2px solid #3e4034;outline-offset:3px;border-radius:4px}
+
+/* Daily Café iPod on the collage page: press the wheel to hear the café. */
+.dy-ipod{position:absolute;right:9%;top:12%;width:19%;z-index:4;transform:rotate(8deg);text-align:center}
+.dy-ipod>.dy-tape{top:-1.2cqh;width:60%;height:2.6cqh}
+.dy-ipod-body{display:flex;flex-direction:column;align-items:center;aspect-ratio:.6;padding:9% 9% 0;border-radius:1.6cqh;background:linear-gradient(150deg,#fffdf6,#ecebe2 60%,#dcdbd0);box-shadow:inset 0 0 0 1px #fff,inset 0 -2px 3px #0000001a,1px 4px 7px #453b2940}
+.dy-ipod-screen{display:flex;flex-direction:column;justify-content:space-between;width:100%;aspect-ratio:1.25;padding:7% 8%;overflow:hidden;border-radius:.6cqh;background:linear-gradient(#d3dcd8,#b9c7c2);box-shadow:inset 0 1px 3px #0003;text-align:left;color:#2f3a36}
+.dy-ipod-screen b{font-family:var(--dy-serif);font-size:1.7cqh;font-weight:400;line-height:1}
+.dy-ipod-screen>span{font-size:1.05cqh;line-height:1.2;opacity:.8}
+.dy-ipod-bars{display:flex;align-items:flex-end;gap:8%;height:2cqh}
+.dy-ipod-bars i{flex:1;height:25%;border-radius:1px;background:#2f3a36;opacity:.55}
+.dy-ipod-on .dy-ipod-bars i{animation:dy-ipod-bar .9s ease-in-out infinite alternate}
+.dy-ipod-on .dy-ipod-bars i:nth-child(2){animation-delay:-.3s}.dy-ipod-on .dy-ipod-bars i:nth-child(3){animation-delay:-.6s}.dy-ipod-on .dy-ipod-bars i:nth-child(4){animation-delay:-.15s}.dy-ipod-on .dy-ipod-bars i:nth-child(5){animation-delay:-.45s}
+@keyframes dy-ipod-bar{from{height:20%}to{height:100%}}
+.diary-app .dy-ipod-wheel{position:relative;width:80%;aspect-ratio:1;margin-top:12%;padding:0;border:0;border-radius:50%;background:radial-gradient(circle,#fdfcf7 0 30%,#d4d2c6 31% 32.5%,#eceae1 34%);box-shadow:inset 0 1px 2px #0002;color:#8b897c;cursor:pointer}
+.dy-ipod-wheel>span{position:absolute;top:9%;left:0;right:0;font-size:max(7px,1cqh);letter-spacing:.08em}
+.dy-ipod-wheel>b{position:absolute;inset:0;display:grid;place-items:center;font-size:2.1cqh;font-weight:400;color:#4c4a3a;transition:color .2s}
+.dy-ipod-wheel:hover>b,.dy-ipod-wheel:focus-visible>b,.dy-ipod-on .dy-ipod-wheel>b{color:var(--dy-red)}
+.dy-ipod-wheel:focus-visible{outline:2px solid #3e4034;outline-offset:2px}
+.dy-ipod-note{display:block;margin-top:1.2cqh;font-size:2.3cqh;line-height:1.05;color:#7b5a45;transform:rotate(-6deg)}
+.dy-room-footer>.dy-cafe-playing{margin-left:auto;padding:5px 12px;border:0;border-radius:999px;background:#ebe2c9;font-family:var(--dy-hand)!important;font-size:16px!important;letter-spacing:0;color:#5d4b3b;white-space:nowrap;cursor:pointer}
+.dy-cafe-playing span{color:var(--dy-red)}
+
+/* Photo-booth strip beside the about page heading; text flows around it. */
+.dy-photo-strip{position:relative;float:right;width:24%;margin:0 0 2cqh 5%;padding:.9cqh .9cqh 0;background:#fdfaf1;box-shadow:1px 4px 8px #453b2933;transform:rotate(4deg)}
+.dy-photo-strip>.dy-tape{top:-1.2cqh;width:55%}
+.dy-photo-strip img{display:block;width:100%;aspect-ratio:4/3;margin-bottom:.7cqh;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+.dy-photo-strip figcaption{padding:.3cqh 0 1cqh;font-size:2.2cqh;line-height:1;text-align:center;color:#7b5a45}
+@media(max-width:700px){
+ .dy-brand-sub,.dy-room-header>button{display:none}
+ .dy-menu{gap:14px;margin-right:0}
+ .dy-menu>button{font-size:17px!important}
+ .dy-ipod{right:7%;top:12%;width:24%}
+ .dy-photo-strip{display:flex;align-self:flex-end;gap:.8cqh;width:56%;float:none;margin:0 0 1.2cqh;padding:.8cqh;flex-shrink:0;transform:rotate(3deg)}
+ .dy-photo-strip img{flex:1;min-width:0;margin:0}
+ .dy-photo-strip figcaption{display:none}
+ .dy-about:has(.dy-photo-strip)>.dy-eyebrow{margin-bottom:1.6cqh}
+ .dy-photo-strip>.dy-tape{width:26%;height:13px;top:-7px}
+ .diary-app .dy-about:has(.dy-photo-strip) h1{font-size:9.6cqh;margin-bottom:1cqh}
+ .dy-room-footer>.dy-cafe-playing{font-size:13px!important;padding:3px 9px}
+}
