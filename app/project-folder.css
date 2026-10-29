@@ -1,5 +1,5 @@
 /* Projects: the open journal turns into a leather folder seen from the front, with one divider per project. */
-.dy-folder{--df-paper:#f8f2e2;--df-leather:#65382f;position:absolute;left:50%;top:50%;width:calc(var(--dy-height)*1.64);height:var(--dy-height);container-type:size;isolation:isolate;translate:-50% -50%;opacity:0;transform:translateY(6%) scale(.93) rotate(.8deg);transition:opacity .3s,transform .4s;pointer-events:none;outline:none}
+.dy-folder{--df-paper:#f8f2e2;--df-leather:#65382f;position:absolute;inset:0;margin:auto;width:calc(var(--dy-height)*1.64);height:var(--dy-height);container-type:size;isolation:isolate;opacity:0;transform:translateY(6%) scale(.93) rotate(.8deg);transition:opacity .3s,transform .4s;pointer-events:none;outline:none}
 .diary-app.dy-folder-view .dy-folder{opacity:1;transform:rotate(-.3deg);transition:opacity .45s .3s,transform .85s cubic-bezier(.2,.7,.2,1) .25s;pointer-events:auto}
 /* The open book tips away as the folder arrives. */
 .diary-app.dy-folder-view .dy-open-book{opacity:0;transform:scale(.9) translateY(-7%) rotateX(16deg);transition:opacity .35s,transform .5s cubic-bezier(.5,0,.7,.4);pointer-events:none}
@@ -13,8 +13,8 @@
 .dy-folder-stack{position:absolute;left:4.5%;right:4.5%;top:12.6%;bottom:8%;z-index:0;background:#e9dfc6;border-radius:3px;box-shadow:0 -.5cqh 0 -1px #ded2b4,0 -1cqh 0 -2px #d2c5a5,0 2px 6px #2a181333}
 
 .dy-dividers{position:absolute;left:6.5%;right:6.5%;top:6%;height:9cqh;display:flex;gap:1.5%}
-.diary-app .dy-divider{--lift:2.3cqh;position:relative;z-index:0;flex:1;max-width:23%;display:flex;align-items:flex-start;justify-content:center;gap:.55em;padding:1.3cqh 3% 0;border:0;border-radius:1.5cqh 1.5cqh 0 0;background:var(--tab);color:#45412f;font-family:var(--dy-hand);font-size:max(15px,3cqh);line-height:1;cursor:pointer;box-shadow:inset 0 1px 0 #ffffff70,0 -1px 3px #1c0f0c33;transform:translateY(var(--lift));translate:0 5cqh;transition:transform .25s,background .25s,translate .3s}
-.diary-app.dy-folder-view .dy-divider{translate:0 0;transition:transform .25s,background .25s,translate .55s cubic-bezier(.2,.8,.3,1.2) calc(.65s + var(--i)*80ms)}
+.diary-app .dy-divider{--lift:2.3cqh;position:relative;z-index:0;flex:1;max-width:23%;display:flex;align-items:flex-start;justify-content:center;gap:.55em;padding:1.3cqh 3% 0;border:0;border-radius:1.5cqh 1.5cqh 0 0;background:var(--tab);color:#45412f;font-family:var(--dy-hand);font-size:max(15px,3cqh);line-height:1;cursor:pointer;box-shadow:inset 0 1px 0 #ffffff70,0 -1px 3px #1c0f0c33;top:5cqh;transform:translateY(var(--lift));transition:transform .25s,background .25s,top .3s}
+.diary-app.dy-folder-view .dy-divider{top:0;transition:transform .25s,background .25s,top .55s cubic-bezier(.2,.8,.3,1.2) calc(.65s + var(--i)*80ms)}
 .dy-divider small{font-family:var(--dy-serif);font-size:max(10px,1.45cqh);letter-spacing:.08em;color:#6d6650;padding-top:.55cqh}
 .dy-divider-short{display:none}
 .diary-app .dy-divider:hover{--lift:1.1cqh}
@@ -23,10 +23,10 @@
 .dy-divider:focus-visible{outline:2px solid #3e4034;outline-offset:2px}
 
 /* The front sheet slides up out of the pocket. */
-.dy-folder-sheet{position:absolute;left:4.5%;right:4.5%;top:14%;bottom:8%;z-index:2;overflow:hidden;border-radius:2px 2px 4px 4px;background-color:var(--df-paper);background-image:radial-gradient(#9b8d6a3a 1px,transparent 1.3px);background-size:2.6cqh 2.6cqh;background-position:1.3cqh 1.3cqh;box-shadow:0 1px 2px #3a2a1a33,0 8px 16px #2a1a1022;translate:0 12%;transition:translate .3s}
-.diary-app.dy-folder-view .dy-folder-sheet{translate:0 0;transition:translate .85s cubic-bezier(.2,.7,.2,1) .45s}
+.dy-folder-sheet{position:absolute;left:4.5%;right:4.5%;top:14%;bottom:8%;z-index:2;overflow:hidden;border-radius:2px 2px 4px 4px;background-color:var(--df-paper);background-image:radial-gradient(#9b8d6a3a 1px,transparent 1.3px);background-size:2.6cqh 2.6cqh;background-position:1.3cqh 1.3cqh;box-shadow:0 1px 2px #3a2a1a33,0 8px 16px #2a1a1022;transform:translateY(12%);transition:transform .3s}
+.diary-app.dy-folder-view .dy-folder-sheet{transform:none;transition:transform .85s cubic-bezier(.2,.7,.2,1) .45s}
 .dy-folder-page{position:absolute;inset:0;display:grid;grid-template-columns:45% 1fr;gap:6%;padding:6.5cqh 6.5% 10cqh 6%;animation:dy-folder-swap .55s cubic-bezier(.2,.7,.2,1)}
-@keyframes dy-folder-swap{from{opacity:0;translate:0 3cqh}}
+@keyframes dy-folder-swap{from{opacity:0;transform:translateY(3cqh)}}
 
 .dy-folder-photo{position:relative;align-self:start;margin:0;padding:1.4cqh 1.4cqh 0;background:#fffaee;box-shadow:1px 4px 9px #49391f2e;transform:rotate(-2.5deg)}
 .dy-folder-photo img{display:block;width:100%;height:45cqh;object-fit:cover;background:#fffdf6}
@@ -66,7 +66,7 @@
  .dy-divider small{display:none}
 }
 @media(max-width:700px){
- .dy-folder{width:var(--dy-mobile-width);margin-left:-4px}
+ .dy-folder{width:var(--dy-mobile-width);right:8px}
  .dy-folder-leather{inset:-10px -12px -11px;border-radius:12px}
  .dy-folder-leather:before{inset:6px;border-radius:8px}
  .dy-folder-leather:after{top:calc(2.5% + 10px);height:7%}
