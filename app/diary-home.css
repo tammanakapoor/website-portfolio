@@ -127,3 +127,7 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
  .diary-app .dy-about:has(.dy-photo-strip) h1{font-size:9.6cqh;margin-bottom:1cqh}
  .dy-room-footer>.dy-cafe-playing{font-size:13px!important;padding:3px 9px}
 }
+
+/* Gallery pages with fewer than four photos: one tall photo beside two, or two tall side by side. */
+.dy-gallery-grid.dy-gallery-3>:first-child{grid-row:span 2}
+.dy-gallery-grid.dy-gallery-2{grid-template-rows:minmax(0,1fr)}

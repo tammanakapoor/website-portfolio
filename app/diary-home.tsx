@@ -12,7 +12,7 @@ import "./diary-cover-3d.css";
 
 type Section = "about" | "projects" | "outside" | "hello";
 type Photo = { file: string; title: string; note: string; category: string };
-type Leaf = { kind: string; section: Section; title?: string; photo?: Photo; images?: Photo[] };
+type Leaf = { kind: string; section: Section; title?: [string, string]; photo?: Photo; images?: Photo[] };
 const photos: Photo[] = [
   { file: "regents-canal.jpg", title: "The long way home", note: "A little frame from Regent’s Canal, London. Water, trees, and an excuse to take the slower route.", category: "London wanderings" },
   { file: "embroidered-tote.jpg", title: "One stitch at a time", note: "Flowers embroidered on a tote bag. A different sort of making: thread, fabric, and a little patience.", category: "Made by hand" },
@@ -22,6 +22,18 @@ const photos: Photo[] = [
   { file: "washing-line-sketch.jpg", title: "An ordinary afternoon", note: "Windows and a washing line, collected in ink. Everyday things make good subjects.", category: "From the sketchbook" },
   { file: "scooter-sketch.jpg", title: "Parked for a moment", note: "A colourful scooter, saved in a sketchbook. Drawing makes a passing detail into something you remember.", category: "From the sketchbook" },
   { file: "barbican-pond.jpg", title: "An afternoon at the Barbican", note: "Waterlilies, water, and a little moment in the city. A photograph from the camera roll.", category: "London wanderings" },
+  { file: "dog-eared-books.jpg", title: "A bookshop on the corner", note: "Dog Eared Books in San Francisco: a painted corner shop with a crate of free books by the door. Impossible to walk past.", category: "Further from home" },
+  { file: "new-york-from-above.jpg", title: "New York, from above", note: "Rooftops, water towers and the river beyond, from the top of the Empire State Building. From up here, even New York looks quiet.", category: "Further from home" },
+  { file: "window-seat-sunset.jpg", title: "Between two places", note: "A thin line of sunset from a plane window, and towns switching on their lights below. Always worth the window seat.", category: "Further from home" },
+  { file: "golden-cacti.jpg", title: "Soft, from a distance", note: "Golden cacti leaning into the afternoon light. They look soft enough to touch. They are not.", category: "Things that grow" },
+  { file: "red-branches.jpg", title: "Branches like ink", note: "Twisting red branches on a walk, smooth and almost painted. The kind of tree that makes you stop and look up.", category: "Things that grow" },
+];
+// Each gallery is one journal page; keep an even number so every photo and its note share a spread.
+const galleries: { title: [string, string]; images: Photo[] }[] = [
+  { title: ["Outside", "the internet."], images: photos.slice(0, 4) },
+  { title: ["The lovely bits", "in between."], images: photos.slice(4, 8) },
+  { title: ["Somewhere", "further away."], images: photos.slice(8, 11) },
+  { title: ["Things that grow,", "somewhere new."], images: photos.slice(11) },
 ];
 const menu: { id: Section; label: string }[] = [{ id: "about", label: "about" }, { id: "projects", label: "projects" }, { id: "outside", label: "outside" }, { id: "hello", label: "contact" }];
 const tabs: { id: Section; title: string; short: string }[] = [
@@ -31,15 +43,19 @@ function makeBook() {
   // Projects live in their own folder view, not in the page sequence.
   const leaves: Leaf[] = [{ kind: "collage", section: "about" }, { kind: "about", section: "about" }];
   const outsideStart = leaves.length;
-  leaves.push({ kind: "gallery", section: "outside", images: photos.slice(0, 4), title: "Outside the internet." }, { kind: "gallery", section: "outside", images: photos.slice(4), title: "The lovely bits in between." });
-  const photoStarts: Record<string, number> = {};
+  // Where each photo's spread starts, and the gallery page to return to from it.
+  const photoStarts: Record<string, number> = {}, photoHomes: Record<string, number> = {};
+  for (const gallery of galleries) {
+    for (const photo of gallery.images) photoHomes[photo.file] = leaves.length;
+    leaves.push({ kind: "gallery", section: "outside", images: gallery.images, title: gallery.title });
+  }
   for (const photo of photos) {
     photoStarts[photo.file] = leaves.length;
     leaves.push({ kind: "photo", section: "outside", photo }, { kind: "photo-note", section: "outside", photo });
   }
   const helloStart = leaves.length;
   leaves.push({ kind: "hello-art", section: "hello" }, { kind: "hello", section: "hello" });
-  return { leaves, photoStarts, starts: { about: 0, outside: outsideStart, hello: helloStart } };
+  return { leaves, photoStarts, photoHomes, starts: { about: 0, outside: outsideStart, hello: helloStart } };
 }
 const book = makeBook();
 
@@ -192,9 +208,9 @@ export default function DiaryHome() {
     switch (page.kind) {
       case "collage": return <div className="dy-collage"><p className="dy-hand dy-collage-heading">a little bit of everything, a little bit of me</p><PhotoScrap photo={photos[0]} className="dy-canal" onClick={() => go(book.photoStarts[photos[0].file])} label="taking the scenic route"/><PhotoScrap photo={photos[1]} className="dy-embroidery" onClick={() => go(book.photoStarts[photos[1].file])} label="one stitch at a time ♡"/><CafeIpod playing={cafeOn} onToggle={toggleCafe}/><PhotoScrap photo={photos[6]} className="dy-sketch" onClick={() => go(book.photoStarts[photos[6].file])} label="from the sketchbook"/><img className="dy-botanical" src="/sketchbook/bloom.png" alt=""/><div className="dy-flying"><Butterfly/></div><LuckyStar/><span className="dy-round-stamp" aria-hidden="true">COLLECT LITTLE<br/><b>✿</b><br/>MOMENTS</span><span className="dy-hand dy-collage-bottom">making room for a little wonder.</span></div>;
       case "about": return <div className="dy-about dy-page-content"><p className="dy-eyebrow">THE PERSON BETWEEN THE PAGES</p><PhotoStrip/><p className="dy-hand dy-red dy-oh">Oh, hello. I’m</p><h1>Tammana<span>Kapoor.</span></h1><p className="dy-about-role">EDUCATOR · DESIGNER · CURIOUS MAKER</p><p>I’m a London-based educator, designer, and curious maker. I make thoughtful digital experiences, collect little moments, and learn by doing.</p><p>Away from the screen: sketchbooks, embroidery, and the long way home.</p><div className="dy-lately"><span className="dy-tape"/><p className="dy-hand">On my desk lately…</p><ul><li><a className="dy-lately-project" href="/projects/fieldnotes">Fieldnotes: finding familiar trees. ↗</a></li><li>Daily Café: a room for quiet days.</li><li>FloraQuest: a game for the plant-curious.</li><li>Chemistry, made visible.</li></ul></div><p className="dy-hand dy-about-signoff">Many interests. All me. ♡</p></div>;
-      case "gallery": return <div className="dy-page-content dy-gallery"><p className="dy-eyebrow">WALKS / SKETCHES / THINGS MADE SLOWLY</p><h2>{page.title === "Outside the internet." ? <>Outside<br/><em>the internet.</em></> : <>The lovely bits<br/><em>in between.</em></>}</h2><div className="dy-gallery-grid">{page.images?.map((photo, i) => <PhotoScrap key={photo.file} photo={photo} onClick={() => go(book.photoStarts[photo.file])} className={`dy-gallery-photo dy-photo-${i}`}/>)}</div></div>;
+      case "gallery": return <div className="dy-page-content dy-gallery"><p className="dy-eyebrow">WALKS / SKETCHES / THINGS MADE SLOWLY</p><h2>{page.title?.[0]}<br/><em>{page.title?.[1]}</em></h2><div className={`dy-gallery-grid dy-gallery-${page.images?.length}`}>{page.images?.map((photo, i) => <PhotoScrap key={photo.file} photo={photo} onClick={() => go(book.photoStarts[photo.file])} className={`dy-gallery-photo dy-photo-${i}`}/>)}</div></div>;
       case "photo": return page.photo && <div className="dy-photo-leaf"><figure><span className="dy-tape"/><img src={`/visual-diary/${page.photo.file}`} alt={page.photo.title}/><figcaption className="dy-hand">{page.photo.title}</figcaption></figure><Daisy/></div>;
-      case "photo-note": return page.photo && <div className="dy-page-content dy-photo-note"><p className="dy-eyebrow">{page.photo.category}</p><h2>{page.photo.title}<em>.</em></h2><p className="dy-hand dy-photo-words">{page.photo.note}</p><p>From my camera roll & sketchbook.<br/>An ordinary thing, worth keeping.</p><button className="dy-text-link" onClick={() => jump('outside')}>Back to the collection <span>↶</span></button><div className="dy-flying dy-photo-butterfly"><Butterfly/></div></div>;
+      case "photo-note": return page.photo && <div className="dy-page-content dy-photo-note"><p className="dy-eyebrow">{page.photo.category}</p><h2>{page.photo.title}<em>.</em></h2><p className="dy-hand dy-photo-words">{page.photo.note}</p><p>From my camera roll & sketchbook.<br/>An ordinary thing, worth keeping.</p><button className="dy-text-link" onClick={() => page.photo && go(book.photoHomes[page.photo.file])}>Back to the collection <span>↶</span></button><div className="dy-flying dy-photo-butterfly"><Butterfly/></div></div>;
       case "hello-art": return <HelloArtwork onRead={() => { if (single) go(book.starts.hello + 1); else document.getElementById('hello-email')?.focus(); }}/>;
       case "hello": return <HelloNote onCopy={async () => { try { await navigator.clipboard.writeText('tammana4513@gmail.com'); setMessage('Email address copied.'); } catch { setMessage('You can write to tammana4513@gmail.com.'); } }}/>;
       default: return null;
