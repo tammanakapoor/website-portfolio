@@ -131,44 +131,19 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
 /* Gallery pages with fewer than four photos: one tall photo beside two, or two tall side by side. */
 .dy-gallery-grid.dy-gallery-3>:first-child{grid-row:span 2}
 .dy-gallery-grid.dy-gallery-2{grid-template-rows:minmax(0,1fr)}
-
-/* About: favourite things taped in like scraps, with coffee rings left on the paper. */
-.dy-favourites{position:relative;height:100%;padding:4.5cqh 9% 0}
-.dy-favourites>.dy-eyebrow{position:relative;z-index:2}
-.diary-app .dy-favourites h2{position:relative;z-index:2;margin:0;font-family:var(--dy-serif);font-size:6.8cqh;font-weight:400;line-height:.97;letter-spacing:-.02em;color:#3f4235}
-.diary-app .dy-favourites h2 em{color:var(--dy-red)}
 .dy-scrap{position:absolute;z-index:1;margin:0;padding:.9cqh .9cqh 0;background:#fffaee;box-shadow:1px 4px 8px #453b2938}
 .dy-scrap img{display:block;width:100%;height:auto}
 .dy-scrap figcaption{padding:.8cqh .4cqh 1.1cqh;font-size:max(13px,2.3cqh);line-height:1.05;text-align:center;color:#5c5644}
 .dy-scrap>.dy-tape{top:-1.2cqh;width:34%;height:2.4cqh}
-.dy-scrap-pourover{left:9%;top:27%;width:40%;transform:rotate(-3deg)}
-.dy-scrap-iced{right:9%;top:31%;width:33%;z-index:2;transform:rotate(4deg)}
-.dy-scrap-books{left:9%;top:9%;width:38%;transform:rotate(-3deg)}
-.dy-scrap-earphones{right:10%;top:17%;width:34%;z-index:2;transform:rotate(5deg)}
-.dy-favourites-note{position:absolute;margin:0;font-size:max(15px,2.8cqh);line-height:1.15;color:#7b5a45}
-.dy-favourites-cups .dy-favourites-note{left:9%;bottom:8%;width:46%;transform:rotate(-3deg)}
-.dy-favourites-shelf .dy-favourites-note{right:8%;bottom:11%;width:34%;text-align:right;transform:rotate(3deg)}
 .dy-coffee-ring{position:absolute;z-index:0;opacity:.5;mix-blend-mode:multiply;pointer-events:none;-webkit-mask-image:radial-gradient(closest-side,#000 78%,transparent);mask-image:radial-gradient(closest-side,#000 78%,transparent)}
-.dy-ring-a{right:4%;bottom:4%;width:24%;transform:rotate(20deg)}
-.dy-ring-b{left:3%;bottom:4%;width:28%;transform:rotate(-30deg)}
-.dy-ring-c{right:1%;top:52%;width:24%}
 .dy-ring-about{right:-3%;bottom:13%;width:24%;opacity:.38}
 .dy-ring-collage{left:30%;bottom:2%;width:22%;opacity:.4;transform:rotate(40deg)}
 @media(max-width:700px){
- .diary-app .dy-favourites h2{max-width:64%;font-size:5.2cqh}
  .dy-scrap figcaption{font-size:max(13px,1.9cqh)}
- .dy-scrap-iced{right:5%;top:5%;width:27%}
- .dy-scrap-pourover{left:6%;top:30%;width:62%}
- .dy-favourites-cups .dy-favourites-note{left:8%;bottom:7%;width:42%}
- .dy-scrap-books{left:5%;top:9%;width:44%}
- .dy-scrap-earphones{right:6%;top:30%;width:42%}
- .dy-favourites-shelf .dy-favourites-note{right:7%;top:70%;bottom:auto;width:50%}
- .dy-ring-c{right:4%;top:auto;bottom:5%;width:30%}
 }
 
 /* Two favourite things on the first about page: chai beside the name, plants beside the desk note. */
 .dy-about .dy-scrap{z-index:2}
-.dy-favourites .dy-phone-only{display:none}
 .dy-scrap-about-chai{right:6%;top:7%;width:25%;transform:rotate(5deg)}
 .dy-scrap-about-plants{right:5%;top:64%;width:24%;transform:rotate(-4deg)}
 .dy-about .dy-lately{margin-right:30%}
@@ -178,12 +153,6 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
 @media(max-width:700px){
  .dy-scrap-about-chai,.dy-scrap-about-plants{display:none}
  .dy-about .dy-lately,.dy-about .dy-about-signoff{margin-right:0}
- /* No room for them on the phone about page, so chai and plants join the favourite-things pages. */
- .dy-favourites .dy-phone-only{display:block}
- .dy-scrap-pourover{width:50%}
- .dy-scrap-chai{right:5%;top:66%;width:42%;transform:rotate(4deg)}
- .dy-scrap-plants{left:8%;top:50%;width:44%;transform:rotate(-3deg)}
- .dy-favourites-shelf .dy-favourites-note{width:42%}
 }
 
 /* Photos as cut-outs: no frames or captions. Objects are lifted out of their backgrounds (dy-cut);
@@ -209,7 +178,6 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
 .diary-app .dy-hand:not(.dy-red):not(.dy-oh){color:#3a2b20}
 .diary-app .dy-eyebrow,.diary-app .dy-about-role,.dy-room-header,.dy-room-footer,.diary-app .dy-control-label,.dy-folder-meta,.dy-folder-step,.dy-folder-hint,.dy-folder-tags li,.dy-motion{color:#3f382c!important}
 .diary-app .dy-about>p,.diary-app .dy-photo-note>p,.diary-app .dy-lately,.dy-folder-summary,.dy-folder-story>p,.dy-folder-walk,.dy-folder-takeaways li,.dy-folder-revisions p,.dy-folder-ticks li{color:var(--dy-ink)}
-.diary-app .dy-folder-opening,.diary-app .dy-folder-story>.dy-folder-aside,.dy-favourites-note,.dy-folder-end p,.dy-ipod-note{color:#3a2b20}
 .diary-app h1,.diary-app h2,.diary-app h3,.diary-app .dy-folder-title,.dy-menu>button{color:var(--dy-ink)}
 .diary-app h1 em,.diary-app h2 em,.diary-app h3 em,.diary-app .dy-about h1{color:var(--dy-red)}
 .diary-app .dy-about>p.dy-red{color:var(--dy-red)}
@@ -220,3 +188,51 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
 .diary-app .dy-about>p:not(.dy-hand):not(.dy-eyebrow):not(.dy-about-role){font-size:2.3cqh;line-height:1.65}
 .diary-app .dy-lately ul{font-size:1.85cqh}
 @media(max-width:700px){.dy-room-header,.dy-room-footer{font-size:8px;letter-spacing:.04em}.dy-room-header>span{white-space:nowrap}}
+
+/* The about spread holds everything: small photos and objects scattered with tea stains and gem stickers. */
+.diary-app .dy-collage .dy-canal{left:7%;top:14%;width:40%;height:28%;transform:rotate(-6deg)}
+.diary-app .dy-collage .dy-embroidery{left:6%;right:auto;top:47%;width:30%;height:24%;transform:rotate(5deg)}
+.diary-app .dy-collage .dy-sketch{left:14%;bottom:8%;width:27%;height:22%;transform:rotate(-7deg)}
+.dy-mini-books{left:51%;top:13%;width:13%;transform:rotate(-4deg)}
+.dy-mini-pourover{left:40%;top:40%;width:16%;transform:rotate(3deg)}
+.dy-mini-iced{left:60%;top:53%;width:11%;transform:rotate(-5deg)}
+.dy-mini-earphones{left:46%;top:67%;width:12%;transform:rotate(8deg)}
+.diary-app .dy-scrap-about-chai{right:7%;top:8%;width:20%}
+.diary-app .dy-scrap-about-plants{right:6%;top:66%;width:19%}
+.dy-gem{position:absolute;z-index:5;height:auto;pointer-events:none;filter:drop-shadow(0 1px 1px #2e22144d) drop-shadow(1px 4px 4px #2e221438)}
+.dy-gem-1{left:41%;top:28%;width:9%;transform:rotate(-12deg)}
+.dy-gem-2{left:64%;top:9%;width:10%;transform:rotate(10deg)}
+.dy-gem-3{right:4%;top:63%;width:9%;transform:rotate(18deg)}
+.dy-gem-4{right:31%;top:3%;width:8%;transform:rotate(-8deg)}
+.dy-gem-5{left:1%;top:61%;width:8%;transform:rotate(12deg)}
+.diary-app .dy-tea-splash{opacity:.42}
+.dy-splash-collage{right:1%;top:24%;width:32%;transform:rotate(-15deg)}
+.dy-ring-collage-2{left:30%;top:42%;width:22%;opacity:.35;transform:rotate(-20deg)}
+.dy-splash-about{left:40%;bottom:1%;width:30%;transform:rotate(8deg)}
+@media(max-width:700px){
+ .diary-app .dy-collage .dy-canal{left:6%;top:14%;width:56%;height:22%}
+ .diary-app .dy-collage .dy-embroidery{left:6%;top:56%;width:42%;height:18%}
+ .diary-app .dy-collage .dy-sketch{left:10%;bottom:8%;width:40%;height:17%}
+ .dy-mini-books{left:6%;top:39%;width:20%}
+ .dy-mini-pourover{left:30%;top:39%;width:22%}
+ .dy-mini-iced{left:auto;right:9%;top:44%;width:16%}
+ .dy-mini-earphones{left:54%;top:58%;width:16%}
+ .dy-gem{width:13%}
+ .dy-gem-1{left:52%;top:33%}
+ .dy-gem-2{left:74%;top:60%}
+ .dy-gem-3{right:5%;top:76%}
+ .dy-gem-4{right:6%;top:3%}
+ .dy-gem-5{left:3%;top:auto;bottom:4%}
+ .dy-splash-collage{width:44%;top:30%}
+ .dy-ring-collage-2{width:34%}
+ .dy-splash-about{width:44%}
+}
+/* Stains sit on the paper, under the writing. */
+.dy-about>:not(.dy-scrap):not(.dy-gem):not(.dy-coffee-ring){position:relative;z-index:1}
+.dy-collage>.dy-hand{z-index:1}
+@media(max-width:700px){
+ .diary-app .dy-scrap-about-chai{display:block;right:4%;top:3%;width:16%}
+ .diary-app .dy-scrap-about-plants{display:block;left:4%;right:auto;top:auto;bottom:2%;width:14%}
+ .dy-gem-4{right:24%;top:7.5%}
+ .dy-gem-5{left:auto;right:5%;bottom:auto;top:66%}
+}

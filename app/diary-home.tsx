@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { CSSProperties, PointerEvent, ReactNode } from "react";
 import { projects } from "./projects/data";
 import "./diary-home.css";
@@ -42,7 +42,7 @@ const tabs: { id: Section; title: string; short: string }[] = [
 ];
 function makeBook() {
   // Projects live in their own folder view, not in the page sequence.
-  const leaves: Leaf[] = [{ kind: "collage", section: "about" }, { kind: "about", section: "about" }, { kind: "favourites-cups", section: "about" }, { kind: "favourites-shelf", section: "about" }];
+  const leaves: Leaf[] = [{ kind: "collage", section: "about" }, { kind: "about", section: "about" }];
   const outsideStart = leaves.length;
   // Where each photo's spread starts, and the gallery page to return to from it.
   const photoStarts: Record<string, number> = {}, photoHomes: Record<string, number> = {};
@@ -90,6 +90,32 @@ function PhotoScrap({ photo, className = "", onClick }: { photo: Photo; classNam
 /** Favourite things, taped onto the about pages like scraps. */
 function Scrap({ name, alt, className }: { name: string; alt: string; className: string }) {
   return <figure className={`dy-scrap dy-cut ${className}`}><img src={`/cutouts/${name}.webp`} alt={alt} draggable={false} loading="lazy"/></figure>;
+}
+function TeaSplash({ n, className }: { n: 1 | 2; className: string }) {
+  return <img className={`dy-coffee-ring dy-tea-splash ${className}`} src={`/about-me/tea-splash-${n}.jpg`} alt="" aria-hidden="true" draggable={false}/>;
+}
+/** Glossy, faceted gem stickers with a white sticker edge. */
+const gemTones = {
+  ice: ["#f2fbff", "#9fd2f0", "#3f86b8"], rose: ["#ffe3ea", "#f08aaa", "#a8345f"], emerald: ["#dcf7e6", "#5cc492", "#1d6e47"],
+  amethyst: ["#efe3ff", "#b48ae6", "#5f3b9a"], amber: ["#fff2cf", "#f2b84b", "#a8620f"],
+} as const;
+const gemShapes = {
+  diamond: { outline: "M22 12H78L97 36L50 88L3 36Z", facets: "M22 12L36 36L50 12L64 36L78 12M3 36H97M36 36L50 88L64 36", light: "M22 12L36 36H3Z", shade: "M64 36H97L50 88Z" },
+  heart: { outline: "M50 88C14 62 3 42 12 24C21 7 42 9 50 25C58 9 79 7 88 24C97 42 86 62 50 88Z", facets: "M50 25V88M12 24L50 52L88 24M50 52L26 70M50 52L74 70", light: "M12 24C21 7 42 9 50 25L50 52Z", shade: "M88 24L50 52V88C86 62 97 42 88 24Z" },
+  round: { outline: "M50 6L81 19L94 50L81 81L50 94L19 81L6 50L19 19Z", facets: "M50 28L66 34L72 50L66 66L50 72L34 66L28 50L34 34ZM50 6V28M81 19L66 34M94 50H72M81 81L66 66M50 94V72M19 81L34 66M6 50H28M19 19L34 34", light: "M19 19L50 6V28L34 34Z", shade: "M72 50H94L81 81L66 66Z" },
+} as const;
+function Gem({ shape, tone, className }: { shape: keyof typeof gemShapes; tone: keyof typeof gemTones; className: string }) {
+  const id = useId();
+  const [light, mid, dark] = gemTones[tone];
+  const gem = gemShapes[shape];
+  return <svg className={`dy-gem ${className}`} viewBox="-4 0 108 96" aria-hidden="true">
+    <defs><linearGradient id={`${id}g`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={light}/><stop offset=".45" stopColor={mid}/><stop offset="1" stopColor={dark}/></linearGradient></defs>
+    <path d={gem.outline} fill="#fffdf8" stroke="#fffdf8" strokeWidth="9" strokeLinejoin="round"/>
+    <path d={gem.outline} fill={`url(#${id}g)`}/>
+    <path d={gem.light} fill="#ffffff" opacity=".45"/><path d={gem.shade} fill={dark} opacity=".35"/>
+    <path d={gem.facets} fill="none" stroke="#ffffff" strokeOpacity=".55" strokeWidth="1.4" strokeLinejoin="round"/>
+    <path d="M30 22l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#ffffff"/>
+  </svg>;
 }
 function CoffeeRing({ n, className }: { n: 1 | 2 | 3; className: string }) {
   return <img className={`dy-coffee-ring ${className}`} src={`/about-me/coffee-ring-${n}.jpg`} alt="" aria-hidden="true" draggable={false}/>;
@@ -217,10 +243,8 @@ export default function DiaryHome() {
 
   function content(page: Leaf): ReactNode {
     switch (page.kind) {
-      case "collage": return <div className="dy-collage"><CoffeeRing n={2} className="dy-ring-collage"/><p className="dy-hand dy-collage-heading">a little bit of everything, a little bit of me</p><PhotoScrap photo={photos[0]} className="dy-canal" onClick={() => go(book.photoStarts[photos[0].file])}/><PhotoScrap photo={photos[1]} className="dy-embroidery" onClick={() => go(book.photoStarts[photos[1].file])}/><CafeIpod playing={cafeOn} onToggle={toggleCafe}/><PhotoScrap photo={photos[6]} className="dy-sketch" onClick={() => go(book.photoStarts[photos[6].file])}/><img className="dy-botanical" src="/sketchbook/bloom.png" alt=""/><div className="dy-flying"><Butterfly/></div><LuckyStar/><span className="dy-round-stamp" aria-hidden="true">COLLECT LITTLE<br/><b>✿</b><br/>MOMENTS</span><span className="dy-hand dy-collage-bottom">making room for a little wonder.</span></div>;
-      case "about": return <div className="dy-about dy-page-content"><CoffeeRing n={3} className="dy-ring-about"/><Scrap name="chai" alt="Chai being poured through a strainer into two small glasses" className="dy-scrap-about-chai"/><Scrap name="plants" alt="Trailing houseplants spilling over a wooden cabinet" className="dy-scrap-about-plants"/><p className="dy-eyebrow">THE PERSON BETWEEN THE PAGES</p><PhotoStrip/><p className="dy-hand dy-red dy-oh">Oh, hello. I’m</p><h1>Tammana<span>Kapoor.</span></h1><p className="dy-about-role">EDUCATOR · DESIGNER · CURIOUS MAKER</p><p>I’m a London-based educator, designer, and curious maker. I make thoughtful digital experiences, collect little moments, and learn by doing.</p><p>Away from the screen: sketchbooks, embroidery, and the long way home.</p><div className="dy-lately"><span className="dy-tape"/><p className="dy-hand">On my desk lately…</p><ul><li><a className="dy-lately-project" href="/projects/fieldnotes">Fieldnotes: finding familiar trees. ↗</a></li><li>Daily Café: a room for quiet days.</li><li>FloraQuest: a game for the plant-curious.</li><li>Chemistry, made visible.</li></ul></div><p className="dy-hand dy-about-signoff">Many interests. All me. ♡</p></div>;
-      case "favourites-cups": return <div className="dy-favourites dy-favourites-cups"><CoffeeRing n={1} className="dy-ring-a"/><p className="dy-eyebrow">LITTLE THINGS, OFTEN</p><h2>A few of my<br/><em>favourite things.</em></h2><Scrap name="pour-over" alt="Coffee dripping slowly through a glass pour-over" className="dy-scrap-pourover"/><Scrap name="iced-coffee" alt="A tall glass of frothy iced coffee in the sun" className="dy-scrap-iced"/><Scrap name="chai" alt="Chai being poured through a strainer into two small glasses" className="dy-scrap-chai dy-phone-only"/><p className="dy-hand dy-favourites-note">most good ideas start with a warm cup.</p></div>;
-      case "favourites-shelf": return <div className="dy-favourites dy-favourites-shelf"><CoffeeRing n={2} className="dy-ring-b"/><CoffeeRing n={3} className="dy-ring-c"/><p className="dy-eyebrow">AND THE THINGS AROUND ME</p><Scrap name="books" alt="A tall, slightly wobbly stack of paperbacks" className="dy-scrap-books"/><Scrap name="earphones" alt="Tangled wired earphones on a wooden table" className="dy-scrap-earphones"/><Scrap name="plants" alt="Trailing houseplants spilling over a wooden cabinet" className="dy-scrap-plants dy-phone-only"/><p className="dy-hand dy-favourites-note">small things that make a place feel like mine.</p></div>;
+      case "collage": return <div className="dy-collage"><CoffeeRing n={2} className="dy-ring-collage"/><CoffeeRing n={1} className="dy-ring-collage-2"/><TeaSplash n={1} className="dy-splash-collage"/><p className="dy-hand dy-collage-heading">a little bit of everything, a little bit of me</p><PhotoScrap photo={photos[0]} className="dy-canal" onClick={() => go(book.photoStarts[photos[0].file])}/><PhotoScrap photo={photos[1]} className="dy-embroidery" onClick={() => go(book.photoStarts[photos[1].file])}/><CafeIpod playing={cafeOn} onToggle={toggleCafe}/><PhotoScrap photo={photos[6]} className="dy-sketch" onClick={() => go(book.photoStarts[photos[6].file])}/><Scrap name="books" alt="A tall, slightly wobbly stack of paperbacks" className="dy-mini-books"/><Scrap name="pour-over" alt="Coffee dripping slowly through a glass pour-over" className="dy-mini-pourover"/><Scrap name="iced-coffee" alt="A tall glass of frothy iced coffee" className="dy-mini-iced"/><Scrap name="earphones" alt="Tangled wired earphones" className="dy-mini-earphones"/><Gem shape="heart" tone="rose" className="dy-gem-1"/><Gem shape="diamond" tone="ice" className="dy-gem-2"/><Gem shape="round" tone="emerald" className="dy-gem-3"/><img className="dy-botanical" src="/sketchbook/bloom.png" alt=""/><div className="dy-flying"><Butterfly/></div><LuckyStar/><span className="dy-round-stamp" aria-hidden="true">COLLECT LITTLE<br/><b>✿</b><br/>MOMENTS</span><span className="dy-hand dy-collage-bottom">making room for a little wonder.</span></div>;
+      case "about": return <div className="dy-about dy-page-content"><CoffeeRing n={3} className="dy-ring-about"/><TeaSplash n={2} className="dy-splash-about"/><Gem shape="diamond" tone="amethyst" className="dy-gem-4"/><Gem shape="heart" tone="amber" className="dy-gem-5"/><Scrap name="chai" alt="Chai being poured through a strainer into two small glasses" className="dy-scrap-about-chai"/><Scrap name="plants" alt="Trailing houseplants spilling over a wooden cabinet" className="dy-scrap-about-plants"/><p className="dy-eyebrow">THE PERSON BETWEEN THE PAGES</p><PhotoStrip/><p className="dy-hand dy-red dy-oh">Oh, hello. I’m</p><h1>Tammana<span>Kapoor.</span></h1><p className="dy-about-role">EDUCATOR · DESIGNER · CURIOUS MAKER</p><p>I’m a London-based educator, designer, and curious maker. I make thoughtful digital experiences, collect little moments, and learn by doing.</p><p>Away from the screen: sketchbooks, embroidery, and the long way home.</p><div className="dy-lately"><span className="dy-tape"/><p className="dy-hand">On my desk lately…</p><ul><li><a className="dy-lately-project" href="/projects/fieldnotes">Fieldnotes: finding familiar trees. ↗</a></li><li>Daily Café: a room for quiet days.</li><li>FloraQuest: a game for the plant-curious.</li><li>Chemistry, made visible.</li></ul></div><p className="dy-hand dy-about-signoff">Many interests. All me. ♡</p></div>;
       case "gallery": return <div className="dy-page-content dy-gallery"><p className="dy-eyebrow">WALKS / SKETCHES / THINGS MADE SLOWLY</p><h2>{page.title?.[0]}<br/><em>{page.title?.[1]}</em></h2><div className={`dy-gallery-grid dy-gallery-${page.images?.length}`}>{page.images?.map((photo, i) => <PhotoScrap key={photo.file} photo={photo} onClick={() => go(book.photoStarts[photo.file])} className={`dy-gallery-photo dy-photo-${i}`}/>)}</div></div>;
       case "photo": return page.photo && <div className="dy-photo-leaf"><figure className={page.photo.cutout ? "dy-cut" : "dy-paper"}>{!page.photo.cutout && <span className="dy-tape"/>}<img src={photoSrc(page.photo)} alt={page.photo.title}/></figure><Daisy/></div>;
       case "photo-note": return page.photo && <div className="dy-page-content dy-photo-note"><p className="dy-eyebrow">{page.photo.category}</p><h2>{page.photo.title}<em>.</em></h2><p className="dy-hand dy-photo-words">{page.photo.note}</p><p>From my camera roll & sketchbook.<br/>An ordinary thing, worth keeping.</p><button className="dy-text-link" onClick={() => page.photo && go(book.photoHomes[page.photo.file])}>Back to the collection <span>↶</span></button><div className="dy-flying dy-photo-butterfly"><Butterfly/></div></div>;
