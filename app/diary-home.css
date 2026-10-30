@@ -249,3 +249,35 @@ html:has(.diary-app),body:has(.diary-app){height:100%;overflow:clip;overscroll-b
 .dy-added-note>p{margin:0;font-size:2.6cqh;line-height:1.25;color:var(--dy-ink)}
 .diary-app[data-editing] .dy-spread *{pointer-events:auto!important}
 .diary-app[data-editing] .dy-spread .dy-additions{pointer-events:none!important}
+/* Outside the internet: six or seven photos collaged on each gallery page, each sized into its own box. */
+.diary-app .dy-gallery-grid.dy-gallery-collage{display:block;position:relative;height:68cqh}
+.diary-app .dy-gallery-collage>.dy-gallery-photo{position:absolute;margin:0;min-height:0;height:auto}
+.diary-app .dy-gallery-collage>.dy-gallery-photo img{width:100%;height:100%}
+.diary-app .dy-gallery-7>.dy-photo-0{left:0;top:0;width:30%;height:46%;transform:rotate(-4deg)}
+.diary-app .dy-gallery-7>.dy-photo-1{left:73%;top:0;width:27%;height:34%;transform:rotate(5deg)}
+.diary-app .dy-gallery-7>.dy-photo-2{left:31%;top:30%;width:33%;height:36%;transform:rotate(-2deg)}
+.diary-app .dy-gallery-7>.dy-photo-3{left:67%;top:38%;width:31%;height:36%;transform:rotate(6deg)}
+.diary-app .dy-gallery-7>.dy-photo-4{left:33%;top:1%;width:38%;height:26%;transform:rotate(3deg)}
+.diary-app .dy-gallery-7>.dy-photo-5{left:0;top:52%;width:30%;height:46%;transform:rotate(-5deg)}
+.diary-app .dy-gallery-7>.dy-photo-6{left:36%;top:68%;width:30%;height:32%;transform:rotate(4deg)}
+.diary-app .dy-gallery-6>.dy-photo-0{left:33%;top:2%;width:37%;height:32%;transform:rotate(2deg)}
+.diary-app .dy-gallery-6>.dy-photo-1{left:70%;top:0;width:30%;height:46%;transform:rotate(5deg)}
+.diary-app .dy-gallery-6>.dy-photo-2{left:0;top:0;width:30%;height:47%;transform:rotate(-4deg)}
+.diary-app .dy-gallery-6>.dy-photo-3{left:34%;top:42%;width:30%;height:52%;transform:rotate(3deg)}
+.diary-app .dy-gallery-6>.dy-photo-4{left:67%;top:47%;width:32%;height:50%;transform:rotate(-5deg)}
+.diary-app .dy-gallery-6>.dy-photo-5{left:1%;top:52%;width:29%;height:46%;transform:rotate(-3deg)}
+@media(max-width:700px){
+.diary-app .dy-gallery-7>.dy-photo-0{left:0;top:0;width:48%;height:30%}
+.diary-app .dy-gallery-7>.dy-photo-4{left:50%;top:2%;width:50%;height:15%}
+.diary-app .dy-gallery-7>.dy-photo-1{left:54%;top:18%;width:44%;height:22%}
+.diary-app .dy-gallery-7>.dy-photo-2{left:0;top:32%;width:50%;height:24%}
+.diary-app .dy-gallery-7>.dy-photo-3{left:50%;top:41%;width:48%;height:21%}
+.diary-app .dy-gallery-7>.dy-photo-5{left:0;top:58%;width:48%;height:25%}
+.diary-app .dy-gallery-7>.dy-photo-6{left:50%;top:66%;width:48%;height:26%}
+.diary-app .dy-gallery-6>.dy-photo-2{left:0;top:0;width:48%;height:30%}
+.diary-app .dy-gallery-6>.dy-photo-0{left:50%;top:2%;width:50%;height:19%}
+.diary-app .dy-gallery-6>.dy-photo-1{left:54%;top:23%;width:44%;height:28%}
+.diary-app .dy-gallery-6>.dy-photo-3{left:0;top:33%;width:46%;height:30%}
+.diary-app .dy-gallery-6>.dy-photo-5{left:50%;top:54%;width:46%;height:30%}
+.diary-app .dy-gallery-6>.dy-photo-4{left:0;top:66%;width:48%;height:30%}
+}
