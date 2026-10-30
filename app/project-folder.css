@@ -9,7 +9,7 @@
 .dy-folder-leather:after{content:"";position:absolute;left:4%;right:4%;top:calc(4% + 2.6cqh);height:12%;border-radius:8px 8px 0 0;background:linear-gradient(#1c0f0c99,#1c0f0c00)}
 
 /* A few sheets behind the front divider, so the folder feels full. */
-.dy-folder-stack{position:absolute;left:4.5%;right:4.5%;top:12.6%;bottom:8%;z-index:0;background:#e9dfc6;border-radius:3px;box-shadow:0 -.5cqh 0 -1px #ded2b4,0 -1cqh 0 -2px #d2c5a5,0 2px 6px #2a181333}
+.dy-folder-stack{position:absolute;left:4.5%;right:4.5%;top:12.6%;bottom:3.6%;z-index:0;background:#e9dfc6;border-radius:3px;box-shadow:0 -.5cqh 0 -1px #ded2b4,0 -1cqh 0 -2px #d2c5a5,0 2px 6px #2a181333}
 
 .dy-dividers{position:absolute;left:6.5%;right:6.5%;top:6%;height:9cqh;display:flex;gap:1.5%}
 .diary-app .dy-divider{--lift:2.3cqh;position:relative;z-index:0;flex:1;max-width:23%;display:flex;align-items:flex-start;justify-content:center;gap:.55em;padding:1.3cqh 3% 0;border:0;border-radius:1.5cqh 1.5cqh 0 0;background:var(--tab);color:#45412f;font-family:var(--dy-hand);font-size:max(15px,3cqh);line-height:1;cursor:pointer;box-shadow:inset 0 1px 0 #ffffff70,0 -1px 3px #1c0f0c33;top:5cqh;transform:translateY(var(--lift));transition:transform .25s,background .25s,top .3s}
@@ -17,24 +17,24 @@
 .dy-divider small{font-family:var(--dy-serif);font-size:max(10px,1.45cqh);letter-spacing:.08em;color:#6d6650;padding-top:.55cqh}
 .dy-divider-short{display:none}
 .diary-app .dy-divider:hover{--lift:1.1cqh}
-.diary-app .dy-divider[aria-current=true]{--lift:0px;z-index:3;background:var(--df-paper);box-shadow:inset 0 1px 0 #fff,0 -2px 4px #1c0f0c26}
-.dy-divider[aria-current=true] .dy-divider-long,.dy-divider[aria-current=true] .dy-divider-short{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.25em;text-decoration-color:var(--dy-red)}
+.diary-app .dy-divider[aria-selected=true]{--lift:0px;z-index:3;background:var(--df-paper);box-shadow:inset 0 1px 0 #fff,0 -2px 4px #1c0f0c26}
+.dy-divider[aria-selected=true] .dy-divider-long,.dy-divider[aria-selected=true] .dy-divider-short{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.25em;text-decoration-color:var(--dy-red)}
 .dy-divider:focus-visible{outline:2px solid #3e4034;outline-offset:2px}
 
 /* The front sheet slides up out of the pocket. */
-.dy-folder-sheet{position:absolute;left:4.5%;right:4.5%;top:14%;bottom:8%;z-index:2;overflow:hidden;border-radius:2px 2px 4px 4px;background-color:#4a2a22;background-image:linear-gradient(90deg,#1c0b0655,transparent 6%,transparent 94%,#1c0b0655),var(--dy-leather-grain);background-size:auto,260px 260px;background-blend-mode:normal,overlay;box-shadow:0 1px 2px #3a2a1a33,0 8px 16px #2a1a1022;transform:translateY(12%);transition:transform .3s}
+.dy-folder-sheet{position:absolute;left:4.5%;right:4.5%;top:14%;bottom:3.6%;z-index:2;overflow:hidden;border-radius:2px 2px 4px 4px;background-color:#4a2a22;background-image:linear-gradient(90deg,#1c0b0655,transparent 6%,transparent 94%,#1c0b0655),var(--dy-leather-grain);background-size:auto,260px 260px;background-blend-mode:normal,overlay;box-shadow:0 1px 2px #3a2a1a33,0 8px 16px #2a1a1022;transform:translateY(12%);transition:transform .3s}
 .diary-app.dy-folder-view .dy-folder-sheet{transform:none;transition:transform .85s cubic-bezier(.2,.7,.2,1) .45s}
 /* Each sheet reads like a page: the title and the way in at the top, the story underneath. */
 .dy-folder-page{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#bcae8c transparent;padding:0;outline:none;animation:dy-folder-swap .55s cubic-bezier(.2,.7,.2,1)}
 .dy-folder-page:focus-visible{box-shadow:inset 0 0 0 2px #3e403455}
 @keyframes dy-folder-swap{from{opacity:0;transform:translateY(3cqh)}}
-/* Every project is its own sheet of paper; between two sheets the binder's spine shows, rings and all (app/binder-rings.tsx). */
-.dy-folder-project{--df-edge:linear-gradient(transparent,transparent);position:relative;padding:5.5cqh 7% 6cqh;border-radius:3px;background-color:var(--df-paper);background-image:var(--df-edge),radial-gradient(#9b8d6a3a 1px,transparent 1.3px);background-size:auto,2.6cqh 2.6cqh;background-position:0 0,1.3cqh 1.3cqh;box-shadow:0 1px 2px #2a181355}
-.dy-folder-project:last-child{padding-bottom:14cqh}
+/* A project's story runs over a few sheets of paper; between two sheets the binder's spine shows, rings and all (app/binder-rings.tsx). */
+.dy-folder-paper{--df-edge:linear-gradient(transparent,transparent);position:relative;padding:5.5cqh 7% 6cqh;border-radius:3px;background-color:var(--df-paper);background-image:var(--df-edge),radial-gradient(#9b8d6a3a 1px,transparent 1.3px);background-size:auto,2.6cqh 2.6cqh;background-position:0 0,1.3cqh 1.3cqh;box-shadow:0 1px 2px #2a181355}
+.dy-folder-paper:last-child{padding-bottom:7cqh}
 /* The paper curves down toward the rings, so its edge by the spine sits in a little shadow. */
-.dy-folder-join+.dy-folder-project{--df-edge:linear-gradient(#4b3c2440,#6e5a361a 2cqh,transparent 6cqh)}
-.dy-folder-project:has(+.dy-folder-join){--df-edge:linear-gradient(0deg,#4b3c2440,#6e5a361a 2cqh,transparent 6cqh)}
-.dy-folder-join+.dy-folder-project:has(+.dy-folder-join){--df-edge:linear-gradient(#4b3c2440,#6e5a361a 2cqh,transparent 6cqh,transparent calc(100% - 6cqh),#6e5a361a calc(100% - 2cqh),#4b3c2440)}
+.dy-folder-join+.dy-folder-paper{--df-edge:linear-gradient(#4b3c2440,#6e5a361a 2cqh,transparent 6cqh)}
+.dy-folder-paper:has(+.dy-folder-join){--df-edge:linear-gradient(0deg,#4b3c2440,#6e5a361a 2cqh,transparent 6cqh)}
+.dy-folder-join+.dy-folder-paper:has(+.dy-folder-join){--df-edge:linear-gradient(#4b3c2440,#6e5a361a 2cqh,transparent 6cqh,transparent calc(100% - 6cqh),#6e5a361a calc(100% - 2cqh),#4b3c2440)}
 .dy-folder-join{position:relative;z-index:3;height:4.4cqh}
 .dy-folder-head{display:flex;justify-content:space-between;align-items:flex-start;gap:4%;padding-bottom:2.6cqh;margin-bottom:4cqh;border-bottom:1px dashed #9a8c6b66}
 .dy-folder-copy{min-width:0}
@@ -90,10 +90,6 @@
 .dy-folder-end p{font-family:var(--dy-hand);font-size:max(16px,3cqh);color:#5d4b3b;margin:0}
 .diary-app .dy-folder-next{padding:.6cqh 0;border:0;background:none;font-family:var(--dy-serif);font-size:max(14px,2.2cqh);color:#2f3027;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 
-/* The leather lip at the bottom of the pocket. */
-.dy-folder-lip{position:absolute;left:-4.8cqh;right:-4.8cqh;bottom:-2.8cqh;height:calc(9% + 2.8cqh);z-index:4;border-radius:0 0 2.6cqh 2.6cqh;background-color:var(--df-leather);background-image:linear-gradient(#7a463aff,#55302700 30%),linear-gradient(90deg,#2e1c1922,#b1815010 50%,#2e1c1922),var(--dy-leather-grain),var(--dy-tooled);background-size:auto,auto,260px 260px,24cqh 24cqh;background-blend-mode:normal,normal,overlay,normal;box-shadow:0 -3px 7px #1c0f0c55}
-.dy-folder-lip-stitch{position:absolute;left:0;right:0;bottom:0;top:8px;overflow:hidden}
-.dy-folder-lip-stitch .dy-stitching{top:-40px;height:calc(100% + 40px - 1.2cqh)}
 
 /* The side tabs keep working from the folder. */
 .dy-folder>.dy-tabs{z-index:-2}
@@ -102,7 +98,7 @@
 .dy-still .dy-folder-page{animation:none}
 
 @media(max-width:1000px) and (min-width:701px){
- .dy-folder-project{padding-left:5.5%;padding-right:5.5%}
+ .dy-folder-paper{padding-left:5.5%;padding-right:5.5%}
  .dy-divider small{display:none}
 }
 @media(max-width:700px){
@@ -114,11 +110,11 @@
  .diary-app .dy-divider:hover{--lift:.8cqh}
  .dy-divider small,.dy-divider-long{display:none}
  .dy-divider-short{display:inline}
- .dy-folder-stack{left:2.5%;right:2.5%;top:8.6%;bottom:5%}
- .dy-folder-sheet{left:2.5%;right:2.5%;top:9.3%;bottom:5%}
- .dy-folder-project{background-size:auto,2.2cqh 2.2cqh}
- .dy-folder-project{padding:3.4cqh 7% 5cqh}
- .dy-folder-project:last-child{padding-bottom:9cqh}
+ .dy-folder-stack{left:2.5%;right:2.5%;top:8.6%;bottom:2.4%}
+ .dy-folder-sheet{left:2.5%;right:2.5%;top:9.3%;bottom:2.4%}
+ .dy-folder-paper{background-size:auto,2.2cqh 2.2cqh}
+ .dy-folder-paper{padding:3.4cqh 7% 5cqh}
+ .dy-folder-paper:last-child{padding-bottom:5cqh}
  .dy-folder-head{flex-direction:column;gap:2cqh;padding-bottom:2.2cqh;margin-bottom:3cqh}
  .dy-folder-actions{padding-top:0}
  .dy-folder-private{text-align:left}
@@ -135,5 +131,4 @@
  .diary-app .dy-folder-story h3{font-size:4cqh}
  .dy-folder-story{margin-bottom:4.5cqh}
  .dy-folder-prints{grid-template-columns:1fr;gap:3cqh}
- .dy-folder-lip{left:-12px;right:-12px;bottom:-11px;height:calc(5.5% + 11px);border-radius:0 0 12px 12px}
-  }
+   }

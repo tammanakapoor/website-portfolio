@@ -230,7 +230,7 @@ export default function DiaryHome() {
     history.replaceState(null, "", section === "projects" ? `#projects/${projects[project].id}` : `#${section}`);
     if (section === "projects") {
       setFolder(true); setMessage("");
-      setTimeout(() => folderRef.current?.querySelector<HTMLElement>('.dy-divider[aria-current="true"]')?.focus(), motion ? 900 : 0);
+      setTimeout(() => folderRef.current?.querySelector<HTMLElement>('[aria-selected="true"]')?.focus(), motion ? 900 : 0);
     } else if (folder) {
       setFolder(false); setLeaf(single ? book.starts[section] : book.starts[section] - book.starts[section] % 2);
       setTimeout(() => bookRef.current?.focus(), motion ? 700 : 0);
@@ -318,7 +318,7 @@ export default function DiaryHome() {
       {open && folder && <div className="dy-book-controls"><button className="dy-page-arrow" onClick={() => pickProject(project - 1)} disabled={project === 0} aria-label="Previous project">←</button><span className="dy-control-label">projects<small>{String(project + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</small></span><button className="dy-page-arrow" onClick={() => pickProject(project + 1)} disabled={project === projects.length - 1} aria-label="Next project">→</button></div>}
       {open && !folder && <div className="dy-book-controls"><button className="dy-page-arrow" onClick={() => flip(-1)} disabled={!canPrev || !!turn} aria-label="Previous journal spread">←</button><span className="dy-control-label">{tabs.find(t => t.id === currentSection)?.title}<small>{single ? `${String(leaf + 1).padStart(2, '0')}` : `${String(leaf + 1).padStart(2, '0')} — ${String(leaf + 2).padStart(2, '0')}`} / {book.leaves.length}</small></span><button className="dy-page-arrow" onClick={() => flip(1)} disabled={!canNext || !!turn} aria-label="Next journal spread">→</button></div>}
     </div>
-    <footer className="dy-room-footer"><span>{open && folder ? 'SCROLL THROUGH, OR PICK A TAB.' : open ? single ? 'SWIPE OR TAP TO TURN A PAGE' : 'TURN A PAGE. FOLLOW A LITTLE CURIOSITY.' : 'LONDON & WHEREVER CURIOSITY GOES'}</span><div className="dy-status-message" role="status">{message}</div>{cafeOn && <button className="dy-cafe-playing" onClick={toggleCafe}>♪ café sounds <span>· pause</span></button>}<button className="dy-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ Pause the little movements' : '▷ Let things move'}</button></footer>
+    <footer className="dy-room-footer"><span>{open && folder ? 'PICK A TAB. OPEN A LITTLE PROJECT.' : open ? single ? 'SWIPE OR TAP TO TURN A PAGE' : 'TURN A PAGE. FOLLOW A LITTLE CURIOSITY.' : 'LONDON & WHEREVER CURIOSITY GOES'}</span><div className="dy-status-message" role="status">{message}</div>{cafeOn && <button className="dy-cafe-playing" onClick={toggleCafe}>♪ café sounds <span>· pause</span></button>}<button className="dy-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ Pause the little movements' : '▷ Let things move'}</button></footer>
     {editable && open && !folder && DiaryEditor && <Suspense fallback={null}><DiaryEditor art={addedArt}/></Suspense>}
   </main>;
 }
