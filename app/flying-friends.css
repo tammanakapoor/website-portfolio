@@ -1,0 +1,11 @@
+/* The butterfly and dragonfly (app/flying-friends.tsx), drifting above everything but never in the way of a click. */
+.ff-sky{position:fixed;inset:0;z-index:140;overflow:hidden;pointer-events:none}
+.ff-flyer{position:absolute;left:0;top:0;will-change:transform;filter:drop-shadow(4px 10px 4px #2a190f30)}
+.ff-flyer svg{display:block;overflow:visible}
+.ff-butterfly{transform-origin:31px 28.5px}
+.ff-dragonfly{transform-origin:42px 19.6px}
+.ff-wings{transform-origin:0 0;animation:ff-flap .32s ease-in-out infinite alternate}
+@keyframes ff-flap{to{transform:scaleX(.18)}}
+.ff-dragon-wings{transform-origin:0 0;animation:ff-buzz .06s linear infinite alternate}
+@keyframes ff-buzz{to{opacity:.55;transform:scaleY(.86)}}
+.ff-resting .ff-wings,.ff-resting .ff-dragon-wings{animation:none}

@@ -10,6 +10,7 @@ import type { Addition } from "./diary-tweaks-css";
 import DiaryCover3D from "./diary-cover-3d";
 import { HelloArtwork, HelloNote } from "./hello-journal";
 import BinderRings, { SnapStrap, Stitching } from "./binder-rings";
+import FlyingFriends from "./flying-friends";
 import ProjectFolder from "./project-folder";
 import { coverMessage } from "./diary-cover-copy";
 import "./diary-cover-3d.css";
@@ -319,6 +320,7 @@ export default function DiaryHome() {
       {open && !folder && <div className="dy-book-controls"><button className="dy-page-arrow" onClick={() => flip(-1)} disabled={!canPrev || !!turn} aria-label="Previous journal spread">←</button><span className="dy-control-label">{tabs.find(t => t.id === currentSection)?.title}<small>{single ? `${String(leaf + 1).padStart(2, '0')}` : `${String(leaf + 1).padStart(2, '0')} — ${String(leaf + 2).padStart(2, '0')}`} / {book.leaves.length}</small></span><button className="dy-page-arrow" onClick={() => flip(1)} disabled={!canNext || !!turn} aria-label="Next journal spread">→</button></div>}
     </div>
     <footer className="dy-room-footer"><span>{open && folder ? 'PICK A TAB. OPEN A LITTLE PROJECT.' : open ? single ? 'SWIPE OR TAP TO TURN A PAGE' : 'TURN A PAGE. FOLLOW A LITTLE CURIOSITY.' : 'LONDON & WHEREVER CURIOSITY GOES'}</span><div className="dy-status-message" role="status">{message}</div>{cafeOn && <button className="dy-cafe-playing" onClick={toggleCafe}>♪ café sounds <span>· pause</span></button>}<button className="dy-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ Pause the little movements' : '▷ Let things move'}</button></footer>
+    <FlyingFriends moving={motion}/>
     {editable && open && !folder && DiaryEditor && <Suspense fallback={null}><DiaryEditor art={addedArt}/></Suspense>}
   </main>;
 }
