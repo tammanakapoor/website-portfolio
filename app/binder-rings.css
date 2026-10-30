@@ -1,0 +1,40 @@
+/* The binder's hardware and leatherwork (app/binder-rings.tsx): antique-brass rings on a brass bar over suede,
+   saddle stitching, and the snap strap. Sized in cqh of the book or folder around them. */
+.diary-app{--dy-tooled:url("/textures/tooled-leather.svg");--dy-suede:url("/textures/suede.svg")}
+
+.dy-rings{position:absolute;pointer-events:none}
+/* The suede down the spine, with the paper's edges throwing a little shadow onto it. */
+.dy-rings-suede{position:absolute;background:var(--dy-suede) 0 0/260px 260px}
+.dy-rings-bar{position:absolute;border-radius:999px;box-shadow:0 0 0 1px #2e230e55,3px 3px 6px #1f140c77,-1px 0 3px #1f140c44}
+/* Slotted screws holding the bar to the spine. */
+.dy-rings-bar:before,.dy-rings-bar:after{content:"";position:absolute;width:1.5cqh;height:1.5cqh;border-radius:50%;background:linear-gradient(40deg,transparent 43%,#3b2c0e 43% 57%,transparent 57%),radial-gradient(circle at 35% 32%,#fff3c9,#c9a65c 45%,#5e4718 85%);box-shadow:0 1px 1px #0007}
+.dy-ring{position:absolute;overflow:visible}
+.dy-rings-vertical,.dy-rings-horizontal{--brass:#45340f,#8f7337 12%,#d4b56c 26%,#f6e6b0 34%,#b39350 48%,#7a6029 56%,#c9aa62 70%,#ecd9a0 78%,#8c6f33 90%,#45340f}
+
+/* The journal: the spine runs down the middle of the spread, rings reaching across it. */
+.dy-rings-vertical{left:50%;top:0;bottom:0;width:0}
+.dy-rings-vertical .dy-rings-suede{left:-2.9cqh;width:5.8cqh;top:0;bottom:0;box-shadow:inset .8cqh 0 .9cqh -.3cqh #1c0b06aa,inset -.8cqh 0 .9cqh -.3cqh #1c0b06aa}
+.dy-rings-vertical .dy-rings-bar{left:-1.2cqh;width:2.4cqh;top:2.5%;bottom:2.5%;background:linear-gradient(90deg,var(--brass))}
+.dy-rings-vertical .dy-rings-bar:before,.dy-rings-vertical .dy-rings-bar:after{left:calc(50% - .75cqh)}
+.dy-rings-vertical .dy-rings-bar:before{top:1.6%}.dy-rings-vertical .dy-rings-bar:after{bottom:1.6%}
+.dy-rings-vertical .dy-ring{width:10.4cqh;height:3.55cqh;left:-5.2cqh;top:calc(var(--at) - 1.78cqh)}
+
+/* The projects folder: the binder lies on its side, so the spine runs across between two pages. */
+.dy-rings-horizontal{top:50%;left:0;right:0;height:0}
+.dy-rings-horizontal .dy-rings-suede{top:-2.2cqh;height:4.4cqh;left:0;right:0;box-shadow:inset 0 .8cqh .9cqh -.3cqh #1c0b06aa,inset 0 -.8cqh .9cqh -.3cqh #1c0b06aa}
+.dy-rings-horizontal .dy-rings-bar{top:-1.2cqh;height:2.4cqh;left:2%;right:2%;background:linear-gradient(180deg,var(--brass))}
+.dy-rings-horizontal .dy-rings-bar:before,.dy-rings-horizontal .dy-rings-bar:after{top:calc(50% - .75cqh)}
+.dy-rings-horizontal .dy-rings-bar:before{left:1%}.dy-rings-horizontal .dy-rings-bar:after{right:1%}
+.dy-rings-horizontal .dy-ring{height:10.4cqh;width:3.55cqh;top:-5.2cqh;left:calc(var(--at) - 1.78cqh)}
+
+/* Saddle stitching: waxed golden thread, each stitch sitting in its own punched hole. */
+.dy-stitching{position:absolute;left:1.5cqh;top:1.2cqh;width:calc(100% - 3cqh);height:calc(100% - 2.4cqh);overflow:visible;pointer-events:none}
+.dy-stitching rect{fill:none;stroke-linecap:round;stroke-dasharray:4.5 5}
+.dy-stitching-holes{stroke:#1a0a04;stroke-opacity:.6;stroke-width:3;transform:translate(.7px,1px)}
+.dy-stitching-thread{stroke:#d9a65e;stroke-width:2}
+
+/* The snap strap, tucked under the cover's edge and reaching out to the right. */
+.dy-strap{position:absolute;z-index:-4;top:64%;right:-12cqh;width:13cqh;height:6.6cqh;border-radius:.6cqh 3.3cqh 3.3cqh .6cqh;background-color:#5b3019;background-image:linear-gradient(#ffffff1a,#0000 40%,#00000040),var(--dy-leather-grain);background-size:auto,260px 260px;background-blend-mode:normal,overlay;box-shadow:2px 4px 5px #1c0b0677,inset 0 1px 0 #ffffff26}
+.dy-strap .dy-stitching{left:.9cqh;top:.9cqh;width:calc(100% - 1.8cqh);height:calc(100% - 1.8cqh)}
+.dy-strap i{position:absolute;right:2.1cqh;top:calc(50% - 1.5cqh);width:3cqh;height:3cqh;border-radius:50%;background:radial-gradient(circle at 38% 34%,#fff3c4,#d2b062 30%,#8a6a2c 62%,#4b3814 80%,#2e220b);box-shadow:0 1px 2px #000a,0 0 0 .35cqh #6b5022,inset 0 0 0 .2cqh #f1dc9c88}
+@media(max-width:700px){.dy-strap{top:72%;right:-10cqh;width:11cqh;height:5.4cqh}.dy-strap i{width:2.5cqh;height:2.5cqh;top:calc(50% - 1.25cqh);right:1.7cqh}}

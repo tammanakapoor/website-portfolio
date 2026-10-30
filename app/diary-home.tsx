@@ -9,6 +9,7 @@ import additions from "./diary-additions.json";
 import type { Addition } from "./diary-tweaks-css";
 import DiaryCover3D from "./diary-cover-3d";
 import { HelloArtwork, HelloNote } from "./hello-journal";
+import BinderRings, { SnapStrap, Stitching } from "./binder-rings";
 import ProjectFolder from "./project-folder";
 import { coverMessage } from "./diary-cover-copy";
 import "./diary-cover-3d.css";
@@ -229,7 +230,7 @@ export default function DiaryHome() {
     history.replaceState(null, "", section === "projects" ? `#projects/${projects[project].id}` : `#${section}`);
     if (section === "projects") {
       setFolder(true); setMessage("");
-      setTimeout(() => folderRef.current?.querySelector<HTMLElement>('[aria-selected="true"]')?.focus(), motion ? 900 : 0);
+      setTimeout(() => folderRef.current?.querySelector<HTMLElement>('.dy-divider[aria-current="true"]')?.focus(), motion ? 900 : 0);
     } else if (folder) {
       setFolder(false); setLeaf(single ? book.starts[section] : book.starts[section] - book.starts[section] % 2);
       setTimeout(() => bookRef.current?.focus(), motion ? 700 : 0);
@@ -291,9 +292,9 @@ export default function DiaryHome() {
     <div className="dy-scene">
       <div className="dy-desk-note" aria-hidden="true"><p className="dy-hand">For all the little things<br/>that turn out to be<br/><em>the big things.</em></p><span>♡</span></div>
       <div className="dy-open-book" ref={bookRef} tabIndex={open ? 0 : -1} role="region" aria-label="Tammana’s journal. Use left and right arrow keys to turn pages." aria-hidden={!open || folder} inert={!open || folder} onKeyDown={e => { if ((e.target as HTMLElement).closest('input,textarea,select,button,a')) return; if (e.key === 'ArrowRight') { e.preventDefault(); flip(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); flip(-1); } if (e.key === 'Escape') closeJournal(); }} onTouchStart={e => { if ((e.target as HTMLElement).closest('input,textarea,select,button,a')) return; swipe.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }} onTouchEnd={e => { if (!swipe.current) return; const x = e.changedTouches[0].clientX - swipe.current.x; const y = e.changedTouches[0].clientY - swipe.current.y; if (Math.abs(x) > 55 && Math.abs(x) > Math.abs(y) * 1.5) flip(x < 0 ? 1 : -1); swipe.current = null; }}>
-        <div className="dy-leather-base" aria-hidden="true"/><div className="dy-paper-stack" aria-hidden="true"/>
+        <div className="dy-leather-base" aria-hidden="true"><Stitching/></div><SnapStrap/><div className="dy-paper-stack" aria-hidden="true"/>
         <div className="dy-spread" aria-live="polite" aria-atomic="false">{visibleLeaves.map((index, side) => <article key={index} data-page={pageKey(book.leaves[index])} className={`dy-leaf dy-leaf-${side === 0 ? 'left' : 'right'} dy-kind-${book.leaves[index].kind}`} aria-label={`Page ${index + 1}: ${book.leaves[index].section}`}><div className="dy-leaf-inner">{content(book.leaves[index])}<Additions page={book.leaves[index]}/></div><span className="dy-page-no">{String(index + 1).padStart(2, '0')}</span></article>)}</div>
-        <div className="dy-binding" aria-hidden="true">{Array.from({ length: 6 }, (_, i) => <span key={i} style={{ '--ring': i } as CSSProperties}><i/><b/></span>)}</div>
+        <BinderRings spine="vertical" className="dy-binding"/>
         {turn && <div className={`dy-turning-leaf ${turn.direction < 0 ? 'dy-turn-back' : ''}`} key={`${turn.old}-${leaf}`} aria-hidden="true"><div className="dy-leaf dy-turn-face" inert>{content(book.leaves[turn.old + (turn.direction > 0 && !single ? 1 : 0)])}</div><span className="dy-turn-mark">{String(leaf + 1).padStart(2, '0')}</span></div>}
         {!folder && sectionTabs}
         <div className="dy-ribbon" aria-hidden="true"/>
@@ -317,7 +318,7 @@ export default function DiaryHome() {
       {open && folder && <div className="dy-book-controls"><button className="dy-page-arrow" onClick={() => pickProject(project - 1)} disabled={project === 0} aria-label="Previous project">←</button><span className="dy-control-label">projects<small>{String(project + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</small></span><button className="dy-page-arrow" onClick={() => pickProject(project + 1)} disabled={project === projects.length - 1} aria-label="Next project">→</button></div>}
       {open && !folder && <div className="dy-book-controls"><button className="dy-page-arrow" onClick={() => flip(-1)} disabled={!canPrev || !!turn} aria-label="Previous journal spread">←</button><span className="dy-control-label">{tabs.find(t => t.id === currentSection)?.title}<small>{single ? `${String(leaf + 1).padStart(2, '0')}` : `${String(leaf + 1).padStart(2, '0')} — ${String(leaf + 2).padStart(2, '0')}`} / {book.leaves.length}</small></span><button className="dy-page-arrow" onClick={() => flip(1)} disabled={!canNext || !!turn} aria-label="Next journal spread">→</button></div>}
     </div>
-    <footer className="dy-room-footer"><span>{open && folder ? 'PICK A TAB. OPEN A LITTLE PROJECT.' : open ? single ? 'SWIPE OR TAP TO TURN A PAGE' : 'TURN A PAGE. FOLLOW A LITTLE CURIOSITY.' : 'LONDON & WHEREVER CURIOSITY GOES'}</span><div className="dy-status-message" role="status">{message}</div>{cafeOn && <button className="dy-cafe-playing" onClick={toggleCafe}>♪ café sounds <span>· pause</span></button>}<button className="dy-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ Pause the little movements' : '▷ Let things move'}</button></footer>
+    <footer className="dy-room-footer"><span>{open && folder ? 'SCROLL THROUGH, OR PICK A TAB.' : open ? single ? 'SWIPE OR TAP TO TURN A PAGE' : 'TURN A PAGE. FOLLOW A LITTLE CURIOSITY.' : 'LONDON & WHEREVER CURIOSITY GOES'}</span><div className="dy-status-message" role="status">{message}</div>{cafeOn && <button className="dy-cafe-playing" onClick={toggleCafe}>♪ café sounds <span>· pause</span></button>}<button className="dy-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ Pause the little movements' : '▷ Let things move'}</button></footer>
     {editable && open && !folder && DiaryEditor && <Suspense fallback={null}><DiaryEditor art={addedArt}/></Suspense>}
   </main>;
 }
