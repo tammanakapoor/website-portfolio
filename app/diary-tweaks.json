@@ -284,6 +284,143 @@
       "base": "matrix(0.999391, -0.0348995, 0.0348995, 0.999391, 0, 0)",
       "rotate": 0,
       "hidden": true
+    },
+    ".dy-kind-gallery .dy-photo-1": {
+      "mode": "abs",
+      "left": 91.58593001968978,
+      "top": 24.438664765996215,
+      "width": 43.99828907768269,
+      "height": 21.998698469286705,
+      "base": "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-gallery-7": {
+      "mode": "rel",
+      "left": 2.4010502581572073,
+      "top": 0.24980832436545325,
+      "width": 81.06356783919597,
+      "base": "none",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-sticker-blue-bow": {
+      "mode": "abs",
+      "left": 5.6789871014268964,
+      "top": 0.9076967935036677,
+      "width": 10.986003188511317,
+      "base": "matrix(0.978148, -0.207912, 0.207912, 0.978148, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-eyebrow": {
+      "mode": "rel",
+      "left": 0,
+      "top": 0,
+      "width": 81.06356783919597,
+      "base": "none",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-gallery .dy-gallery-art": {
+      "mode": "rel",
+      "left": 1.1733421295953106,
+      "top": -2.9598501462694613,
+      "width": 54.45663117733119,
+      "base": "none",
+      "rotate": -0.07554513874000646
+    },
+    ".dy-kind-gallery .dy-sticker-camera": {
+      "mode": "abs",
+      "left": 69.9996234041752,
+      "top": 8.499055258467022,
+      "width": 12.674809505278617,
+      "base": "matrix(0.994522, -0.104528, 0.104528, 0.994522, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-gallery .dy-sticker-teacup": {
+      "mode": "abs",
+      "left": 79.99924680835039,
+      "top": 17.99946524064171,
+      "width": 8.449856265926863,
+      "base": "matrix(0.994522, 0.104528, -0.104528, 0.994522, 0, 0)",
+      "rotate": 0,
+      "hidden": true
+    },
+    ".dy-kind-gallery .dy-sticker-grid-washi": {
+      "mode": "abs",
+      "left": 6.9249312091563695,
+      "top": 24.695310300053556,
+      "width": 15.847535671482856,
+      "base": "matrix(0.984808, -0.173648, 0.173648, 0.984808, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-sticker-pink-bow": {
+      "mode": "abs",
+      "left": 87.81767927945096,
+      "top": 3.3556428291876177,
+      "width": 9.295238573455016,
+      "base": "matrix(0.990268, -0.139173, 0.139173, 0.990268, 0, 0)",
+      "rotate": 51.905786960676
+    },
+    ".dy-kind-gallery .dy-sticker-fern": {
+      "mode": "abs",
+      "left": 4.8432836268758654,
+      "top": 49.62936331456058,
+      "width": 15.282646912889351,
+      "base": "matrix(0.984808, 0.173648, -0.173648, 0.984808, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-photo-2": {
+      "mode": "abs",
+      "left": 2.7948696018083368,
+      "top": 40.99010785221329,
+      "width": 65.71516148452558,
+      "height": 31.543043377228994,
+      "base": "matrix(0.999391, -0.0348995, 0.0348995, 0.999391, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-photo-5": {
+      "mode": "abs",
+      "left": -12.711908645749364,
+      "top": 86.11058689724558,
+      "width": 47.99998470497815,
+      "height": 24.99833064538947,
+      "base": "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-photo-6": {
+      "mode": "abs",
+      "left": 36.085218726997155,
+      "top": 80.33538398346639,
+      "width": 47.99998470497815,
+      "height": 25.99966047024871,
+      "base": "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-sticker-cassette": {
+      "mode": "abs",
+      "left": 78.63099021985988,
+      "top": 91.80421510515288,
+      "width": 10.986003188511317,
+      "base": "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-photo-3": {
+      "mode": "abs",
+      "left": 52.61010790243107,
+      "top": 51.121502870241336,
+      "width": 47.99998470497815,
+      "height": 20.99957558781088,
+      "base": "matrix(0.994522, 0.104528, -0.104528, 0.994522, 0, 0)",
+      "rotate": 0
+    },
+    ".dy-kind-gallery .dy-gallery > h2:nth-of-type(1)": {
+      "mode": "rel",
+      "left": 0,
+      "top": 0,
+      "width": 81.06356783919597,
+      "base": "none",
+      "rotate": 0,
+      "hidden": true
     }
   }
 }

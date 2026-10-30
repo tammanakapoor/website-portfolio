@@ -17,28 +17,44 @@ import "./diary-cover-3d.css";
 
 type Section = "about" | "projects" | "outside" | "hello";
 /** cutout: shown as the object lifted out of its background (public/cutouts); otherwise a borderless print. */
-type Photo = { file: string; title: string; note: string; category: string; cutout?: boolean };
-type Leaf = { kind: string; section: Section; title?: [string, string]; photo?: Photo; images?: Photo[] };
+type Photo = { file: string; title: string; cutout?: boolean };
+/** A sticker tucked behind a gallery page's photos: its file in public/stickers, left/top in % of the page, width in cqh, and tilt.
+ * On a phone the title fills the page's width, so a sticker up by it can take another left/top there, or `false` to sit out. */
+type Sticker = [name: string, x: number, y: number, width: number, turn: number, phone?: [number, number] | false];
+/** art: a picture that stands in for the written title (the title then becomes its alt text). */
+type Leaf = { kind: string; section: Section; title?: [string, string]; art?: string; stickers?: Sticker[]; photo?: Photo; images?: Photo[] };
 const photos: Photo[] = [
-  { file: "regents-canal.jpg", title: "The long way home", note: "A little frame from Regent’s Canal, London. Water, trees, and an excuse to take the slower route.", category: "London wanderings" },
-  { file: "embroidered-tote.jpg", title: "One stitch at a time", note: "Flowers embroidered on a tote bag. A different sort of making: thread, fabric, and a little patience.", category: "Made by hand", cutout: true },
-  { file: "london-in-march.jpg", title: "London, on paper", note: "A collection of botanical sketches. Looking closely at the colours, shapes, and small details.", category: "From the sketchbook", cutout: true },
-  { file: "cake-roll-sketch.jpg", title: "Something sweet", note: "A little study of a cake roll, strawberries and all. Some things are worth saving on paper.", category: "From the sketchbook", cutout: true },
-  { file: "countryside-cows.jpg", title: "A little further afield", note: "Green fields, a wide sky, and a few curious neighbours. A frame from outside the city.", category: "Little adventures" },
-  { file: "washing-line-sketch.jpg", title: "An ordinary afternoon", note: "Windows and a washing line, collected in ink. Everyday things make good subjects.", category: "From the sketchbook", cutout: true },
-  { file: "scooter-sketch.jpg", title: "Parked for a moment", note: "A colourful scooter, saved in a sketchbook. Drawing makes a passing detail into something you remember.", category: "From the sketchbook", cutout: true },
-  { file: "barbican-pond.jpg", title: "An afternoon at the Barbican", note: "Waterlilies, water, and a little moment in the city. A photograph from the camera roll.", category: "London wanderings" },
-  { file: "dog-eared-books.jpg", title: "A bookshop on the corner", note: "Dog Eared Books in San Francisco: a painted corner shop with a crate of free books by the door. Impossible to walk past.", category: "Further from home", cutout: true },
-  { file: "new-york-from-above.jpg", title: "New York, from above", note: "Rooftops, water towers and the river beyond, from the top of the Empire State Building. From up here, even New York looks quiet.", category: "Further from home" },
-  { file: "window-seat-sunset.jpg", title: "Between two places", note: "A thin line of sunset from a plane window, and towns switching on their lights below. Always worth the window seat.", category: "Further from home" },
-  { file: "golden-cacti.jpg", title: "Soft, from a distance", note: "Golden cacti leaning into the afternoon light. They look soft enough to touch. They are not.", category: "Things that grow", cutout: true },
-  { file: "red-branches.jpg", title: "Branches like ink", note: "Twisting red branches on a walk, smooth and almost painted. The kind of tree that makes you stop and look up.", category: "Things that grow" },
+  { file: "regents-canal.jpg", title: "The long way home" },
+  { file: "embroidered-tote.jpg", title: "One stitch at a time", cutout: true },
+  { file: "london-in-march.jpg", title: "London, on paper", cutout: true },
+  { file: "cake-roll-sketch.jpg", title: "Something sweet", cutout: true },
+  { file: "countryside-cows.jpg", title: "A little further afield" },
+  { file: "washing-line-sketch.jpg", title: "An ordinary afternoon", cutout: true },
+  { file: "scooter-sketch.jpg", title: "Parked for a moment", cutout: true },
+  { file: "barbican-pond.jpg", title: "An afternoon at the Barbican" },
+  { file: "dog-eared-books.jpg", title: "A bookshop on the corner", cutout: true },
+  { file: "new-york-from-above.jpg", title: "New York, from above" },
+  { file: "window-seat-sunset.jpg", title: "Between two places" },
+  { file: "golden-cacti.jpg", title: "Soft, from a distance", cutout: true },
+  { file: "red-branches.jpg", title: "Branches like ink" },
 ];
-// Each gallery is one journal page; keep an even number so every photo and its note share a spread.
+// Each gallery is one journal page; keep an even number so the two pages share a spread.
 // Two collage pages make one spread, six or seven photos each (layouts: .dy-gallery-collage in diary-home.css).
-const galleries: { title: [string, string]; images: Photo[] }[] = [
-  { title: ["Outside", "the internet."], images: photos.slice(0, 7) },
-  { title: ["Somewhere", "further away."], images: photos.slice(7) },
+// Stickers sit in the gaps and peek out from behind the photos: everyday, made-by-hand things on the first page, travel on the second.
+// The rings run down the first page's right edge and the second page's left edge, so neither page uses that side.
+const galleries: { title: [string, string]; art?: string; stickers: Sticker[]; images: Photo[] }[] = [
+  { title: ["Outside", "the internet."], art: "/journal-pages/outside-the-internet.webp", images: photos.slice(0, 7), stickers: [
+    ["camera", 52, 6, 15, -6, [70, 8.5]], ["collect-moments", 70, 3, 13, 5, false], ["pink-bow", 61, 17, 11, -8, [60, 19]], ["teacup", 78, 16, 10, 6, [80, 18]],
+    ["grid-washi", 27, 24, 13, -10], ["blue-bow", 0, 20, 13, -12], ["fern", 1, 49, 9, 10], ["green-bow", 28, 53, 10, 12],
+    ["torn-gingham", 58, 40, 12, 8], ["good-days-ticket", 63, 76, 15, -7], ["mushroom", 81, 73, 9, 6], ["cassette", 66, 86, 13, 4],
+    ["pink-daisies", 26, 83, 10, -8], ["wax-seal-green", 2, 88, 9, 0],
+  ] },
+  { title: ["Somewhere", "further away."], images: photos.slice(7), stickers: [
+    ["globe", 56, 3, 13, 4, [82, 7]], ["butterfly-stamp", 71, 4, 10, -6, false], ["adventure-awaits", 83, 9, 11, 7, false], ["moon", 66, 18, 7, 0, false],
+    ["mountain-stamp", 46, 18, 9, -8, false], ["wax-seal-pink", 9, 89, 7, 0], ["key", 89, 30, 7, 12], ["daisy-stamp", 88, 57, 9, -5],
+    ["torn-stars", 56, 40, 10, 10], ["coast", 12, 53, 16, -6], ["dove", 36, 86, 13, -8], ["clock", 57, 86, 11, 0],
+    ["chase-sunsets", 67, 89, 12, 5], ["suitcases", 82, 85, 13, 3], ["ticket-happiness", 20, 88, 11, -6],
+  ] },
 ];
 const menu: { id: Section; label: string }[] = [{ id: "about", label: "about" }, { id: "projects", label: "projects" }, { id: "outside", label: "outside" }, { id: "hello", label: "contact" }];
 const tabs: { id: Section; title: string; short: string }[] = [
@@ -48,19 +64,12 @@ function makeBook() {
   // Projects live in their own folder view, not in the page sequence.
   const leaves: Leaf[] = [{ kind: "collage", section: "about" }, { kind: "about", section: "about" }];
   const outsideStart = leaves.length;
-  // Where each photo's spread starts, and the gallery page to return to from it.
-  const photoStarts: Record<string, number> = {}, photoHomes: Record<string, number> = {};
   for (const gallery of galleries) {
-    for (const photo of gallery.images) photoHomes[photo.file] = leaves.length;
-    leaves.push({ kind: "gallery", section: "outside", images: gallery.images, title: gallery.title });
-  }
-  for (const photo of photos) {
-    photoStarts[photo.file] = leaves.length;
-    leaves.push({ kind: "photo", section: "outside", photo }, { kind: "photo-note", section: "outside", photo });
+    leaves.push({ kind: "gallery", section: "outside", images: gallery.images, title: gallery.title, art: gallery.art, stickers: gallery.stickers });
   }
   const helloStart = leaves.length;
   leaves.push({ kind: "hello-art", section: "hello" }, { kind: "hello", section: "hello" });
-  return { leaves, photoStarts, photoHomes, starts: { about: 0, outside: outsideStart, hello: helloStart } };
+  return { leaves, starts: { about: 0, outside: outsideStart, hello: helloStart } };
 }
 const book = makeBook();
 
@@ -88,8 +97,11 @@ function LuckyStar() {
 function photoSrc(photo: Photo) {
   return photo.cutout ? `/cutouts/${photo.file.replace(/\.jpg$/, ".webp")}` : `/visual-diary/${photo.file}`;
 }
-function PhotoScrap({ photo, className = "", onClick }: { photo: Photo; className?: string; onClick: () => void }) {
-  return <button className={`dy-polaroid ${photo.cutout ? "dy-cut" : "dy-paper"} ${className}`} onClick={onClick}>{!photo.cutout && <span className="dy-tape"/>}<img src={photoSrc(photo)} alt={photo.title} draggable={false}/></button>;
+/** A taped print or cut-out; a button when it leads somewhere, otherwise just the picture. */
+function PhotoScrap({ photo, className = "", onClick }: { photo: Photo; className?: string; onClick?: () => void }) {
+  const inside = <>{!photo.cutout && <span className="dy-tape"/>}<img src={photoSrc(photo)} alt={photo.title} draggable={false}/></>;
+  const classes = `dy-polaroid ${photo.cutout ? "dy-cut" : "dy-paper"} ${className}`;
+  return onClick ? <button className={classes} onClick={onClick}>{inside}</button> : <figure className={classes}>{inside}</figure>;
 }
 /** Favourite things, taped onto the about pages like scraps. */
 function Scrap({ name, alt, className }: { name: string; alt: string; className: string }) {
@@ -276,11 +288,9 @@ export default function DiaryHome() {
 
   function content(page: Leaf): ReactNode {
     switch (page.kind) {
-      case "collage": return <div className="dy-collage"><CoffeeRing n={2} className="dy-ring-collage"/><CoffeeRing n={1} className="dy-ring-collage-2"/><TeaSplash n={1} className="dy-splash-collage"/><p className="dy-hand dy-collage-heading">a little bit of everything, a little bit of me</p><PhotoScrap photo={photos[0]} className="dy-canal" onClick={() => go(book.photoStarts[photos[0].file])}/><PhotoScrap photo={photos[1]} className="dy-embroidery" onClick={() => go(book.photoStarts[photos[1].file])}/><CafeIpod playing={cafeOn} onToggle={toggleCafe}/><PhotoScrap photo={photos[6]} className="dy-sketch" onClick={() => go(book.photoStarts[photos[6].file])}/><Scrap name="books" alt="A tall, slightly wobbly stack of paperbacks" className="dy-mini-books"/><Scrap name="pour-over" alt="Coffee dripping slowly through a glass pour-over" className="dy-mini-pourover"/><Scrap name="iced-coffee" alt="A tall glass of frothy iced coffee" className="dy-mini-iced"/><Scrap name="earphones" alt="Tangled wired earphones" className="dy-mini-earphones"/><Gem shape="heart" tone="rose" className="dy-gem-1"/><Gem shape="diamond" tone="ice" className="dy-gem-2"/><Gem shape="round" tone="emerald" className="dy-gem-3"/><img className="dy-botanical" src="/sketchbook/bloom.png" alt=""/><div className="dy-flying"><Butterfly/></div><LuckyStar/><span className="dy-round-stamp" aria-hidden="true">COLLECT LITTLE<br/><b>✿</b><br/>MOMENTS</span><span className="dy-hand dy-collage-bottom">making room for a little wonder.</span></div>;
+      case "collage": return <div className="dy-collage"><CoffeeRing n={2} className="dy-ring-collage"/><CoffeeRing n={1} className="dy-ring-collage-2"/><TeaSplash n={1} className="dy-splash-collage"/><p className="dy-hand dy-collage-heading">a little bit of everything, a little bit of me</p><PhotoScrap photo={photos[0]} className="dy-canal" onClick={() => go(book.starts.outside)}/><PhotoScrap photo={photos[1]} className="dy-embroidery" onClick={() => go(book.starts.outside)}/><CafeIpod playing={cafeOn} onToggle={toggleCafe}/><PhotoScrap photo={photos[6]} className="dy-sketch" onClick={() => go(book.starts.outside)}/><Scrap name="books" alt="A tall, slightly wobbly stack of paperbacks" className="dy-mini-books"/><Scrap name="pour-over" alt="Coffee dripping slowly through a glass pour-over" className="dy-mini-pourover"/><Scrap name="iced-coffee" alt="A tall glass of frothy iced coffee" className="dy-mini-iced"/><Scrap name="earphones" alt="Tangled wired earphones" className="dy-mini-earphones"/><Gem shape="heart" tone="rose" className="dy-gem-1"/><Gem shape="diamond" tone="ice" className="dy-gem-2"/><Gem shape="round" tone="emerald" className="dy-gem-3"/><img className="dy-botanical" src="/sketchbook/bloom.png" alt=""/><div className="dy-flying"><Butterfly/></div><LuckyStar/><span className="dy-round-stamp" aria-hidden="true">COLLECT LITTLE<br/><b>✿</b><br/>MOMENTS</span><span className="dy-hand dy-collage-bottom">making room for a little wonder.</span></div>;
       case "about": return <div className="dy-about dy-page-content"><CoffeeRing n={3} className="dy-ring-about"/><TeaSplash n={2} className="dy-splash-about"/><Gem shape="diamond" tone="amethyst" className="dy-gem-4"/><Gem shape="heart" tone="amber" className="dy-gem-5"/><Scrap name="chai" alt="Chai being poured through a strainer into two small glasses" className="dy-scrap-about-chai"/><Scrap name="plants" alt="Trailing houseplants spilling over a wooden cabinet" className="dy-scrap-about-plants"/><p className="dy-eyebrow">THE PERSON BETWEEN THE PAGES</p><PhotoStrip/><p className="dy-hand dy-red dy-oh">Oh, hello. I’m</p><h1>Tammana<span>Kapoor.</span></h1><p className="dy-about-role">EDUCATOR · DESIGNER · CURIOUS MAKER</p><p>I’m a creative with background in education, botany and design. I make thoughtful digital experiences, collect little moments, and learn by doing.</p><p>Outside of work, I love reading, long walks, coffee, and anything that feels honest, imperfect, and personal which naturally influences my creative approach.</p><div className="dy-lately"><span className="dy-tape"/><p className="dy-hand">On my desk lately…</p><ul><li><a className="dy-lately-project" href="/projects/fieldnotes">Fieldnotes: finding familiar trees. ↗</a></li><li>Daily Café: a room for quiet days.</li><li>FloraQuest: a game for the plant-curious.</li><li>Chemistry, made visible.</li></ul></div><p className="dy-hand dy-about-signoff">Many interests. All me. ♡</p></div>;
-      case "gallery": return <div className="dy-page-content dy-gallery"><p className="dy-eyebrow">WALKS / SKETCHES / THINGS MADE SLOWLY</p><h2>{page.title?.[0]}<br/><em>{page.title?.[1]}</em></h2><div className={`dy-gallery-grid dy-gallery-collage dy-gallery-${page.images?.length}`}>{page.images?.map((photo, i) => <PhotoScrap key={photo.file} photo={photo} onClick={() => go(book.photoStarts[photo.file])} className={`dy-gallery-photo dy-photo-${i}`}/>)}</div></div>;
-      case "photo": return page.photo && <div className="dy-photo-leaf"><figure className={page.photo.cutout ? "dy-cut" : "dy-paper"}>{!page.photo.cutout && <span className="dy-tape"/>}<img src={photoSrc(page.photo)} alt={page.photo.title}/></figure><Daisy/></div>;
-      case "photo-note": return page.photo && <div className="dy-page-content dy-photo-note"><p className="dy-eyebrow">{page.photo.category}</p><h2>{page.photo.title}<em>.</em></h2><p className="dy-hand dy-photo-words">{page.photo.note}</p><p>From my camera roll & sketchbook.<br/>An ordinary thing, worth keeping.</p><button className="dy-text-link" onClick={() => page.photo && go(book.photoHomes[page.photo.file])}>Back to the collection <span>↶</span></button><div className="dy-flying dy-photo-butterfly"><Butterfly/></div></div>;
+      case "gallery": return <div className="dy-page-content dy-gallery">{page.stickers?.map(([name, x, y, width, turn, phone]) => <img key={name} className={`dy-sticker dy-sticker-${name}${phone === false ? " dy-sticker-wide-only" : ""}`} src={`/stickers/${name}.webp`} alt="" aria-hidden="true" draggable={false} style={{ "--x": `${x}%`, "--y": `${y}%`, ...(phone ? { "--phone-x": `${phone[0]}%`, "--phone-y": `${phone[1]}%` } : {}), "--w": width, transform: `rotate(${turn}deg)` } as CSSProperties}/>)}<p className="dy-eyebrow">WALKS / SKETCHES / THINGS MADE SLOWLY</p>{page.art ? <h2 className="dy-gallery-art"><img src={page.art} alt={page.title?.join(" ")}/></h2> : <h2>{page.title?.[0]}<br/><em>{page.title?.[1]}</em></h2>}<div className={`dy-gallery-grid dy-gallery-collage dy-gallery-${page.images?.length}`}>{page.images?.map((photo, i) => <PhotoScrap key={photo.file} photo={photo} className={`dy-gallery-photo dy-photo-${i}`}/>)}</div></div>;
       case "hello-art": return <HelloArtwork onRead={() => { if (single) go(book.starts.hello + 1); else document.getElementById('hello-email')?.focus(); }}/>;
       case "hello": return <HelloNote onCopy={async () => { try { await navigator.clipboard.writeText('tammana4513@gmail.com'); setMessage('Email address copied.'); } catch { setMessage('You can write to tammana4513@gmail.com.'); } }}/>;
       default: return null;

@@ -49,6 +49,8 @@ function selectorFor(el: Element, scope: HTMLElement): string | null {
 function describe(el: HTMLElement) {
   const added = [...el.classList].find(c => /^dy-added-/.test(c))?.slice(9);
   if (added) return added === "note" ? `note: ${el.textContent?.trim().slice(0, 40)}` : `added ${({ gem: "gem sticker", ring: "coffee ring", splash: "tea stain" } as Record<string, string>)[added] ?? added}`;
+  const sticker = [...el.classList].find(c => /^dy-sticker-/.test(c))?.slice(11);
+  if (sticker) return `sticker: ${sticker.replace(/-/g, " ")}`;
   const img = el.querySelector("img");
   const label = el.getAttribute("aria-label") || img?.alt || el.textContent?.trim();
   return (label || [...el.classList].pop() || el.tagName.toLowerCase()).slice(0, 48);
@@ -72,6 +74,17 @@ function movable(target: EventTarget | null): Picked | null {
   const selector = selectorFor(el, scope);
   if (!kind || !selector) return null;
   return { el, key: `.${kind} ${selector}`, name: describe(el) };
+}
+
+/** Every piece under a point, top first, so Option-click can reach one tucked behind another. */
+function piecesAt(x: number, y: number): Picked[] {
+  const seen = new Set<Element>();
+  return document.elementsFromPoint(x, y).flatMap(el => {
+    const found = movable(el);
+    if (!found || seen.has(found.el)) return [];
+    seen.add(found.el);
+    return [found];
+  });
 }
 
 /** Where the element sits now, in the units the saved rule will use. */
@@ -195,7 +208,13 @@ export default function DiaryEditor({ art }: { art: (item: Art) => ReactNode }) 
       }
       event.stopPropagation();
       if (event.button !== 0) return;
-      const found = movable(event.target);
+      // Option-click goes one layer down from what's selected at that spot, round to the top again after the bottom.
+      let found = movable(event.target);
+      if (event.altKey) {
+        const stack = piecesAt(event.clientX, event.clientY);
+        const at = stack.findIndex(item => item.el === current?.el);
+        found = stack.length ? stack[(at + 1) % stack.length] : found;
+      }
       pickedRef.current = found;
       setPicked(found);
       if (!found) return;
@@ -472,7 +491,7 @@ export default function DiaryEditor({ art }: { art: (item: Art) => ReactNode }) 
     <div className="dy-editor" role="region" aria-label="Edit mode">
       <p className="dy-editor-status">
         <strong>Editing the {layoutNow()} layout</strong>
-        <span>{placing ? "Click on a page to put it there. Esc to cancel." : picked ? `Selected: ${picked.name}` : "Drag anything on the page. Double-click words to retype them."}</span>
+        <span>{placing ? "Click on a page to put it there. Esc to cancel." : picked ? `Selected: ${picked.name}. Option-click again to go a layer deeper.` : "Drag anything on the page. Double-click words to retype them. Option-click to reach something tucked underneath."}</span>
         {note && <em>{note}</em>}
       </p>
       <button type="button" className={tray ? "dy-editor-on" : ""} onClick={() => { setTray(!tray); setPlacing(null); }} aria-expanded={tray}>+ Add</button>
