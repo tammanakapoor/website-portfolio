@@ -180,6 +180,7 @@ function Additions({ page }: { page: Leaf }) {
 
 // The drag-and-edit mode only exists on the dev server; production builds drop it.
 const DiaryEditor = import.meta.env.DEV ? lazy(() => import("./diary-editor")) : null;
+const CoverCharmPicker = import.meta.env.DEV ? lazy(() => import("./cover-charm-picker")) : null;
 
 export default function DiaryHome() {
   const [open, setOpen] = useState(false);
@@ -332,5 +333,6 @@ export default function DiaryHome() {
     <footer className="dy-room-footer"><div className="dy-status-message" role="status">{message}</div>{cafeOn && <button className="dy-cafe-playing" onClick={toggleCafe}>♪ café sounds <span>· pause</span></button>}<button className="dy-motion" onClick={() => setMotion(!motion)} aria-pressed={!motion}>{motion ? 'Ⅱ Pause the little movements' : '▷ Let things move'}</button></footer>
     <FlyingFriends moving={motion}/>
     {editable && open && !folder && DiaryEditor && <Suspense fallback={null}><DiaryEditor art={addedArt}/></Suspense>}
+    {editable && !open && CoverCharmPicker && <Suspense fallback={null}><CoverCharmPicker/></Suspense>}
   </main>;
 }

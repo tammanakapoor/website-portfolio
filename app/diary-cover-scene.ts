@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
+import { charmCuts, charmNames, charmPreviewEvent, charmSheet, keptCharms } from "./cover-charms";
 
 type State = { open: boolean; motion: boolean };
 const W = 3.12;
@@ -202,6 +203,7 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
   const pointerSurface = host.parentElement!; pointerSurface.addEventListener("pointermove", move, { passive: true }); pointerSurface.addEventListener("pointerleave", leave);
   const contextLost = (e: Event) => { e.preventDefault(); failed(); }; renderer.domElement.addEventListener("webglcontextlost", contextLost);
   let progress = state().open ? 1 : 0, last = 0, lastDraw = 0;
+  const hanging: THREE.Group[] = []; let stopPreview = () => {};
   function frame(now: number) {
     if (disposed) return;
     const dt = Math.min((now - last) / 1000 || .016, .06); last = now;
@@ -218,23 +220,25 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
     beads.rotation.z = current.motion ? Math.sin(time * .75) * .025 - pointer.x * .04 : 0;
     locket.rotation.z = current.motion ? Math.sin(time * 1.12) * .055 + pointer.x * .05 : 0;
     pearlGroup.rotation.z = current.motion ? Math.sin(time * 1.25 + .5) * .045 : 0;
+    hanging.forEach((group, i) => { group.rotation.z = current.motion ? Math.sin(time * 1.2 + i * 1.7) * .05 + pointer.x * .04 : 0; });
     if (!document.hidden && (now - lastDraw > 30 || Math.abs(progress - target) > .002)) { renderer.render(scene, camera); lastDraw = now; }
   }
   renderer.setAnimationLoop(frame);
   let releaseResources: () => void = () => {};
   releaseResources = () => {
-    if (disposed) return; disposed = true; renderer.setAnimationLoop(null); observer.disconnect();
+    if (disposed) return; disposed = true; renderer.setAnimationLoop(null); observer.disconnect(); stopPreview();
     pointerSurface.removeEventListener("pointermove", move); pointerSurface.removeEventListener("pointerleave", leave); renderer.domElement.removeEventListener("webglcontextlost", contextLost);
     const geometries = new Set<THREE.BufferGeometry>(); const materials = new Set<THREE.Material>();
     scene.traverse(object => { const mesh = object as THREE.Mesh; if (mesh.geometry) geometries.add(mesh.geometry); if (mesh.material) (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).forEach(m => materials.add(m)); });
     geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose()); environment.dispose(); sun.shadow.map?.dispose(); renderer.dispose(); renderer.domElement.remove();
   };
   try {
-    const [leatherMap, laceMap, photoTexture, handwriting, signature] = await Promise.all([
+    const [leatherMap, laceMap, photoTexture, handwriting, signature, charmMap] = await Promise.all([
       load(rootAssets + "espresso-leather.jpg"), load(rootAssets + "ivory-lace-bow.png"),
       load(rootAssets + "photo-strip.webp"),
       load(rootAssets + "handwritten-note.jpg"),
       new SVGLoader().loadAsync(rootAssets + "stitched-name.svg"),
+      load(rootAssets + "charms.webp"),
     ]);
     if (disposed) { releaseResources(); return releaseResources; }
     leather.map = leatherMap; leather.bumpMap = leatherMap; leather.needsUpdate = true;
@@ -308,6 +312,37 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
     const laceGeometry = new THREE.PlaneGeometry(1.34, 1.7, 14, 20); const lp = laceGeometry.attributes.position;
     for (let i = 0; i < lp.count; i++) lp.setZ(i, .022 * Math.sin(lp.getX(i) * 8) * Math.cos(lp.getY(i) * 5));
     laceGeometry.computeVertexNormals(); lace.geometry.dispose(); lace.geometry = laceGeometry;
+    // Gold charms hang from the elastic beside the locket and the pearl, each on its own jump ring.
+    // All of them are made; the chosen ones show, spaced along the cord where it is free.
+    const charmGold = new THREE.MeshStandardMaterial({ map: charmMap, transparent: true, alphaTest: .35, roughness: .42, metalness: .15, side: THREE.DoubleSide });
+    const charmMeshes = new Map<string, THREE.Group>();
+    for (const name of charmNames) {
+      const [px, py, pw, ph] = charmCuts[name], scale = .42 / Math.max(pw, ph), w = pw * scale, h = ph * scale;
+      const geometry = new THREE.PlaneGeometry(w, h);
+      const u0 = px / charmSheet.width, u1 = (px + pw) / charmSheet.width, v0 = 1 - (py + ph) / charmSheet.height, v1 = 1 - py / charmSheet.height;
+      geometry.setAttribute("uv", new THREE.Float32BufferAttribute([u0, v1, u1, v1, u0, v0, u1, v0], 2));
+      const group = new THREE.Group(); group.visible = false; elastic.add(group);
+      ring(group, 0, -.04, .02, .028, .008, brightMetal);
+      const charm = new THREE.Mesh(geometry, charmGold); charm.position.set(0, -.07 - h / 2, .015); charm.castShadow = true; charm.receiveShadow = true; group.add(charm);
+      charmMeshes.set(name, group);
+    }
+    // Free stretches of cord: left of the locket, and right of the pearl.
+    const cordGaps: [number, number][] = [[-1.36, .03], [.97, 1.4]];
+    const hang = (keep: string[]) => {
+      const chosen = keep.filter(name => charmMeshes.has(name));
+      const total = cordGaps.reduce((sum, [a, b]) => sum + b - a, 0);
+      const right = Math.round(chosen.length * (cordGaps[1][1] - cordGaps[1][0]) / total);
+      const rows = [chosen.slice(0, chosen.length - right), chosen.slice(chosen.length - right)];
+      hanging.length = 0; charmMeshes.forEach(group => { group.visible = false; });
+      rows.forEach((names, gap) => names.forEach((name, i) => {
+        const [a, b] = cordGaps[gap], group = charmMeshes.get(name)!;
+        group.position.set(a + (b - a) * (i + .5) / names.length, -.555, .17 + i * .002); group.visible = true; hanging.push(group);
+      }));
+      lastDraw = 0;
+    };
+    hang(keptCharms);
+    const preview = (event: Event) => hang((event as CustomEvent<string[]>).detail);
+    addEventListener(charmPreviewEvent, preview); stopPreview = () => removeEventListener(charmPreviewEvent, preview);
     renderer.render(scene, camera); ready();
     void strip;
   } catch { failed(); releaseResources(); }

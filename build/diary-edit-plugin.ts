@@ -29,7 +29,8 @@ async function pictures(root: string, folder: string, pattern: RegExp) {
 }
 
 // Saves what the dev-only journal edit mode changes: placements to app/diary-tweaks.*, added things to
-// app/diary-additions.json, uploaded photos to public/added, and retyped words into the source.
+// app/diary-additions.json, uploaded photos to public/added, retyped words into the source, and the cover's
+// charms to app/cover-charms.json.
 export function diaryEdit(): Plugin {
   let root = process.cwd();
 
@@ -57,6 +58,12 @@ export function diaryEdit(): Plugin {
             });
           }
           if (request.method !== "POST") return reply(405, { error: "GET or POST only" });
+          if (request.url?.startsWith("/charms")) {
+            const { keep } = (await body(request)) as { keep: string[] };
+            const names = (Array.isArray(keep) ? keep : []).filter(name => typeof name === "string" && /^[a-z-]+$/.test(name));
+            await writeFile(resolve(root, "app/cover-charms.json"), `${JSON.stringify({ keep: names }, null, 2)}\n`);
+            return reply(200, { keep: names });
+          }
           if (request.url?.startsWith("/upload")) {
             const { name, data, cutout } = (await body(request)) as { name: string; data: string; cutout: boolean };
             const match = /^data:image\/webp;base64,(.+)$/.exec(data);

@@ -1,0 +1,17 @@
+/* The localhost charm picker (app/cover-charm-picker.tsx), styled like the journal's edit mode. */
+.cp-toggle{position:fixed;left:20px;bottom:46px;z-index:200;padding:7px 13px;border:1px solid #b9ab92;border-radius:999px;background:#fffaf0;font:13px/1.2 system-ui,sans-serif;color:#3f382c;cursor:pointer;box-shadow:0 2px 8px rgba(40,30,20,.12)}
+.cp-panel{position:fixed;right:20px;top:70px;bottom:20px;z-index:200;width:300px;display:flex;flex-direction:column;gap:10px;padding:16px;border:1px solid #d6cab2;border-radius:14px;background:#fffaf0f2;box-shadow:0 10px 30px rgba(40,30,20,.18);font:13px/1.4 system-ui,sans-serif;color:#3f382c}
+.cp-title{margin:0;font-weight:600;font-size:14px}
+.cp-hint,.cp-note{margin:0;color:#6b604d}
+.cp-grid{flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:2px}
+.cp-charm{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;height:92px;padding:6px 4px;border:1px solid #e2d8c4;border-radius:10px;background:#5b3a2c;cursor:pointer;opacity:.55;transition:opacity .15s,box-shadow .15s}
+.cp-charm[aria-pressed=true]{opacity:1;box-shadow:0 0 0 2px #c89b3c}
+.cp-charm:hover{opacity:1}
+.cp-thumb{display:block;margin:auto 0;background-repeat:no-repeat}
+.cp-name{font-size:10px;color:#f4e9d2;text-transform:lowercase}
+.cp-order{position:absolute;top:4px;right:6px;min-width:18px;height:18px;border-radius:9px;background:#c89b3c;color:#2a1d12;font-size:11px;font-weight:600;line-height:18px;text-align:center}
+.cp-actions{display:flex;gap:6px}
+.cp-actions button{flex:1;padding:7px 4px;border:1px solid #c9bb9f;border-radius:8px;background:#fff;font:inherit;color:inherit;cursor:pointer}
+.cp-actions button:disabled{opacity:.45;cursor:default}
+.cp-actions .cp-save{background:#3f382c;border-color:#3f382c;color:#fffaf0}
+@media(max-width:700px){.cp-toggle{bottom:auto;top:50px;left:8px}.cp-panel{left:10px;right:10px;top:auto;bottom:10px;width:auto;height:46vh}}
