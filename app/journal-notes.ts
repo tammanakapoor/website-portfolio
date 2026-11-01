@@ -17,6 +17,8 @@ export type JournalNotes = {
   next: string;
   /** One feature, shown with its screenshot and explained step by step. */
   spotlight?: { title: string; lead: string; image: Figure; steps: string[]; why: string };
+  /** A few screens side by side, each with its name and a line on how it works. */
+  gallery?: { title: string; lead: string; items: { name: string; text: string; image: Figure }[] };
 };
 
 export const journalNotes: Record<string, JournalNotes> = {
@@ -97,6 +99,15 @@ export const journalNotes: Record<string, JournalNotes> = {
     keepsake: ["325 plants", "still growing"],
     takeaways: ["The plant content matters more than another feature.", "Keep the rules short enough to say aloud.", "A design system needs a way to check itself."],
     next: "Next: measure whether people return after a week, and write shorter, kinder clues.",
+    gallery: {
+      title: "The three games",
+      lead: "Each game hands you a different kind of clue. You have ten guesses, and every right answer goes into your Field Journal.",
+      items: [
+        { name: "Look closely · Picture Guess", text: "Name the plant from its photographs. The opening pictures avoid the most obvious view on purpose, and closer ones open after more guesses.", image: { src: "/floraquest/picture-guess.webp", alt: "FloraQuest Picture Guess round showing two photographs of a bottle-shaped tree, two locked picture slots, and a guess box asking which plant it is", caption: "look closely: two photos, more after a few guesses" } },
+        { name: "Follow the family · Mystery Plant", text: "Each guess hangs on a family tree at the deepest branch it shares with the hidden plant, so even a wrong guess shows how close you are. Clues open as you guess.", image: { src: "/floraquest/mystery-plant.webp", alt: "FloraQuest Mystery Plant round with an open leaf-photo clue on the left and a search tree on the right where a guess of Rose hangs two branches above the hidden plant", caption: "follow the family: a wrong guess still points the way" } },
+        { name: "Hear the story · Plant Facts", text: "Guess the plant from a fact, a use or a nickname. More of the story unlocks as you go.", image: { src: "/floraquest/plant-facts.webp", alt: "FloraQuest Plant Facts round with a written clue describing a houseplant with striped leaves and a golden spike, a guess box and a how-to-play note", caption: "hear the story: a fact, a use or a nickname" } },
+      ],
+    },
   },
   "energy-changes": {
     heading: "Making the invisible visible.",

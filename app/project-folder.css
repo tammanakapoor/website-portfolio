@@ -141,3 +141,8 @@
 .dy-folder-spotlight .dy-folder-walk{margin-bottom:0}
 .diary-app .dy-folder-spotlight-why{margin-top:2.6cqh;padding-top:2.2cqh;border-top:1px dashed #a9a58a}
 .dy-folder-spotlight-why>span{display:block;margin-bottom:.8cqh;font-family:var(--dy-sans,inherit);font-size:max(10px,1.4cqh);letter-spacing:.1em;text-transform:uppercase;color:#6b6450}
+.dy-folder-gallery>section{margin-top:3cqh}
+.dy-folder-gallery>section+section{padding-top:3cqh;border-top:1px dashed #a9a58a}
+.dy-folder-gallery .dy-folder-print{max-width:none;margin:0 0 2cqh}
+.dy-folder-gallery .dy-folder-print img{height:auto;aspect-ratio:1.6;object-fit:cover}
+.dy-folder-gallery h5{font-family:var(--dy-hand);font-weight:400;font-size:3.4cqh;line-height:1.1;margin:0 0 .8cqh;color:#5d6a3e}
