@@ -66,3 +66,16 @@ html:has(.pj-still){scroll-behavior:auto}
 @media(min-width:1400px){.pj-field-kit{right:-265px}}
 @media(min-width:761px) and (max-width:1150px){.pj-field-kit{right:-174px;width:175px;height:355px}.pj-field-tag{padding:22px 13px 18px}.pj-field-tag>p{font-size:29px}.pj-field-tag>span{font-size:8px}.pj-field-kit>img{height:265px;top:-22px}.pj-field-tag>svg{width:80px;height:50px}}
 @media(max-width:760px){.pj-field-kit{position:relative;right:auto;top:auto;width:47%;height:330px;flex-shrink:0;transform:rotate(5deg)}.pj-field-kit>img{top:-12px;left:5%;width:100%;height:245px}.pj-field-tag{left:1%;width:96%;padding:22px 10px 18px}.pj-field-tag>span{font-size:8px}.pj-field-tag>svg{width:75px;height:47px;margin:12px auto 4px}.pj-field-tag>p{font-size:29px;margin:8px 0 12px}.pj-field-tag>i{font-size:16px}.pj-fieldnotes .pj-working-clippings>.pj-print img{height:210px}.pj-fieldnotes-walk{padding:24px 19px}.pj-fieldnotes-walk li p,.pj-fieldnotes-walk strong{font-size:20px}.project-journal .pj-fieldnotes-walk h3{font-size:30px}}
+/* One feature explained beside its screenshot (journal-notes spotlight), e.g. the Fieldnotes discovery map. */
+.pj-spotlight{margin:38px 0 10px;background:#e5e8d6;padding:28px;box-shadow:1px 3px 4px #49391f22}
+.pj-spotlight h3{font:34px/1.1 var(--pj-hand);margin:0 0 10px}
+.pj-spotlight-lead{font-size:20px!important;line-height:1.45!important;margin:0!important}
+.pj-spotlight .pj-print{max-width:420px;margin:26px auto;transform:rotate(-1.5deg)}
+.pj-spotlight .pj-print img{aspect-ratio:auto;max-height:520px;object-fit:contain}
+.pj-spotlight ol{list-style:none;padding:0;margin:0;display:grid;gap:18px}
+.pj-spotlight li{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:baseline}
+.pj-spotlight li strong{font-weight:500;color:var(--pj-accent)}
+.pj-spotlight li p{margin:0;font-size:19px;line-height:1.5}
+.pj-spotlight-why{margin:24px 0 0!important;padding-top:20px;border-top:1px dashed #a9a58a;font-size:19px!important;line-height:1.55!important}
+.pj-spotlight-why .pj-kicker{display:block;margin-bottom:8px}
+@media(max-width:700px){.pj-spotlight{padding:22px 18px}.pj-spotlight h3{font-size:30px}.pj-spotlight .pj-print{margin:22px 0}}

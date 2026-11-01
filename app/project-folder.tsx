@@ -74,6 +74,13 @@ function sheets(project: Project, footer: ReactNode): ReactNode[] {
           <span className="dy-folder-step">{project.id === "fieldnotes" ? "04 / still in development" : "04 / out in the world"}</span>
           <h3>The thing <em>{project.id === "fieldnotes" ? "it’s becoming." : "it became."}</em></h3>
           <p>{note.result}</p>
+          {note.spotlight && <div className="dy-folder-spotlight">
+            <h4>{note.spotlight.title}</h4>
+            <p className="dy-folder-spotlight-lead">{note.spotlight.lead}</p>
+            <Print image={note.spotlight.image} className="dy-folder-print-tall"/>
+            <ol className="dy-folder-walk">{note.spotlight.steps.map(step => <li key={step}>{step}</li>)}</ol>
+            <p className="dy-folder-spotlight-why"><span>why it matters</span>{note.spotlight.why}</p>
+          </div>}
           <p className="dy-folder-ticket"><span>one little idea, later</span><strong>{note.keepsake[0]}</strong><em>{note.keepsake[1]}</em></p>
         </section>
     </>,

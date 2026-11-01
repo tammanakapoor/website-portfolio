@@ -132,3 +132,12 @@
  .dy-folder-story{margin-bottom:4.5cqh}
  .dy-folder-prints{grid-template-columns:1fr;gap:3cqh}
    }
+/* One feature explained beside its screenshot (journal-notes spotlight), e.g. the Fieldnotes discovery map. */
+.dy-folder-spotlight{margin:3.4cqh 0;padding:3cqh 3.4cqh;background:#e5e8d6;box-shadow:1px 3px 4px #49391f22}
+.dy-folder-spotlight h4{font-family:var(--dy-hand);font-weight:400;font-size:4.6cqh;line-height:1;margin:0 0 1.2cqh;color:#3e4034}
+.dy-folder-spotlight p{font-family:var(--dy-serif);font-size:max(17px,2.5cqh);line-height:1.55;color:#45473b;margin:0}
+.dy-folder-spotlight .dy-folder-print{max-width:46cqh;margin:3cqh auto}
+.dy-folder-print-tall img{height:auto;max-height:62cqh;object-fit:contain}
+.dy-folder-spotlight .dy-folder-walk{margin-bottom:0}
+.diary-app .dy-folder-spotlight-why{margin-top:2.6cqh;padding-top:2.2cqh;border-top:1px dashed #a9a58a}
+.dy-folder-spotlight-why>span{display:block;margin-bottom:.8cqh;font-family:var(--dy-sans,inherit);font-size:max(10px,1.4cqh);letter-spacing:.1em;text-transform:uppercase;color:#6b6450}

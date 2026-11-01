@@ -15,6 +15,8 @@ export type JournalNotes = {
   keepsake: [string, string];
   takeaways: string[];
   next: string;
+  /** One feature, shown with its screenshot and explained step by step. */
+  spotlight?: { title: string; lead: string; image: Figure; steps: string[]; why: string };
 };
 
 export const journalNotes: Record<string, JournalNotes> = {
@@ -40,6 +42,17 @@ export const journalNotes: Record<string, JournalNotes> = {
     keepsake: ["private prototype", "still growing"],
     takeaways: ["A map’s colours are promises. They need to mean exactly what the person thinks they mean.", "“I don’t know yet” can be a useful and honest product state.", "The details of a familiar walk can be enough to build an experience around."],
     next: "Verify the full collecting and photo journey outdoors on the iPhone, including native photo upload and retrieval and collection retention after an update. Then observe whether someone new can find and save their first tree without help, before making claims about wider use.",
+    spotlight: {
+      title: "Your discovery map",
+      lead: "A map of only the trees you have met, so your neighbourhood’s plants slowly become familiar.",
+      image: { src: "/fieldnotes-discovery-map.webp", alt: "Fieldnotes discovery map titled ‘The places in your story’, reading 41 discovery spots in 3 areas, with orange tree markers north-west and east of central London, zoom buttons and a Show all places link", caption: "the places in your story: 41 spots, 3 areas" },
+      steps: [
+        "Collect a tree while you’re standing beside it. That moment becomes a discovery spot, pinned where you found it.",
+        "Nearby spots gather into one orange tree for each area, so a glance shows where your discoveries are. This one holds 41 spots in 3 areas.",
+        "Zoom in and an area opens up into its single trees, or choose Show all places to see every spot at once.",
+      ],
+      why: "Explore shows the whole city’s inventory: everything that might be out there. The discovery map shows only what you have actually stood beside. Over time it becomes a picture of the plants in your own neighbourhood, the streets you know by their trees and the corners you haven’t looked at yet.",
+    },
   },
   "daily-cafe": {
     heading: "A room for quiet days.",
