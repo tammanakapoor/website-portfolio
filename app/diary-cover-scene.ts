@@ -95,7 +95,6 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
   }
   const loader = new THREE.TextureLoader();
   function load(url: string) { return loader.loadAsync(url).then(t => { track(t); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy()); return t; }); }
-  const loadImage = (url: string) => new Promise<HTMLImageElement>((resolve, reject) => { const image = new Image(); image.onload = () => resolve(image); image.onerror = reject; image.src = url; });
   // Small hardware uses shared, rounded geometries and physical materials.
   function box(parent: THREE.Group, x: number, y: number, z: number, w: number, h: number, d: number, material: THREE.Material = metal, r = .025) {
     const mesh = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 3, r), material); mesh.position.set(x, y, z); mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
@@ -231,9 +230,9 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
     geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose()); environment.dispose(); sun.shadow.map?.dispose(); renderer.dispose(); renderer.domElement.remove();
   };
   try {
-    const [leatherMap, laceMap, images, handwriting, signature] = await Promise.all([
+    const [leatherMap, laceMap, photoTexture, handwriting, signature] = await Promise.all([
       load(rootAssets + "espresso-leather.jpg"), load(rootAssets + "ivory-lace-bow.png"),
-      Promise.all(["regents-canal.jpg", "embroidered-tote.jpg", "scooter-sketch.jpg"].map(file => loadImage("/visual-diary/" + file))),
+      load(rootAssets + "photo-strip.webp"),
       load(rootAssets + "handwritten-note.jpg"),
       new SVGLoader().loadAsync(rootAssets + "stitched-name.svg"),
     ]);
@@ -261,13 +260,10 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
       stitchTransform.updateMatrix(); nameThread.setMatrixAt(i, stitchTransform.matrix);
     });
     nameThread.castShadow = true; nameThread.receiveShadow = true; cover.add(nameThread);
-    const photoTexture = track(textureFromCanvas(384, 1080, ctx => {
-      ctx.fillStyle = "#d6c9a8"; ctx.fillRect(0, 0, 384, 1080);
-      images.forEach((image, i) => { const x = 22, y = 22 + i * 350, w = 340, h = 320; const ratio = Math.max(w / image.width, h / image.height); ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip(); ctx.filter = 'sepia(.28) saturate(.64)'; ctx.drawImage(image, x + (w - image.width * ratio) / 2, y + (h - image.height * ratio) / 2, image.width * ratio, image.height * ratio); ctx.restore(); });
-    }));
-    const strip = decal(cover, photoTexture, .83, .95, .105, .64, 1.81, -.12);
-    box(cover, .83, .95, .093, .655, 1.825, .018, new THREE.MeshStandardMaterial({ color: 0xcfbf9a, roughness: .95 }), .008);
-    const tape = new THREE.Mesh(new THREE.PlaneGeometry(.76, .15), new THREE.MeshStandardMaterial({ color: 0xc0b28f, transparent: true, opacity: .6, roughness: 1, side: THREE.DoubleSide })); tape.position.set(.82, 1.86, .12); tape.rotation.z = .07; cover.add(tape);
+    // Tammana's photo-booth strip, slipped into the pocket so the top two frames show above the note.
+    const strip = decal(cover, photoTexture, .83, .96, .105, .58, 2.42, -.12);
+    box(cover, .83, .96, .093, .59, 2.43, .018, new THREE.MeshStandardMaterial({ color: 0xece4cf, roughness: .95 }), .008);
+    const tape = new THREE.Mesh(new THREE.PlaneGeometry(.7, .15), new THREE.MeshStandardMaterial({ color: 0xc0b28f, transparent: true, opacity: .6, roughness: 1, side: THREE.DoubleSide })); tape.position.set(.97, 2.13, .12); tape.rotation.z = .07; cover.add(tape);
     // Display the original photograph as a paper texture. UV cropping excludes
     // the spiral and blank upper page without recreating any handwriting.
     handwriting.wrapS = handwriting.wrapT = THREE.ClampToEdgeWrapping;

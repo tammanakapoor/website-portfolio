@@ -315,7 +315,7 @@ export default function DiaryHome() {
       <div className="dy-cover-wrap" aria-hidden={open || coverReady} inert={open || coverReady}>
         <button className="dy-cover" onClick={() => { setLeaf(0); setFolder(false); setOpen(true); setTimeout(() => bookRef.current?.focus(), motion ? 1100 : 0); }} aria-label="Open Tammana’s journal">
           <span className="dy-cover-stitch"/><span className="dy-cover-spine"/>
-          <span className="dy-cover-photo-strip"><img src="/visual-diary/regents-canal.jpg" alt=""/><img src="/visual-diary/embroidered-tote.jpg" alt=""/><img src="/visual-diary/scooter-sketch.jpg" alt=""/></span>
+          <span className="dy-cover-photo-strip"><img src="/journal-3d/photo-strip.webp" alt="Photo-booth strip of Tammana, October 31, 2026"/></span>
           <LaceBow/>
           <span className="dy-cover-handwritten"><img src="/journal-3d/handwritten-note.jpg" alt={coverMessage}/></span>
           <span className="dy-cover-band"/><span className="dy-cover-clasp"><i/></span>
