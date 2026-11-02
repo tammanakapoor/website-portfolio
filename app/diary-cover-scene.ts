@@ -237,20 +237,20 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
       load(rootAssets + "espresso-leather.jpg"), load(rootAssets + "ivory-lace-bow.png"),
       load(rootAssets + "photo-strip.webp"),
       load(rootAssets + "handwritten-note.jpg"),
-      new SVGLoader().loadAsync(rootAssets + "stitched-name.svg"),
+      new SVGLoader().loadAsync(rootAssets + "stitched-initials.svg"),
       load(rootAssets + "charms.webp"),
     ]);
     if (disposed) { releaseResources(); return releaseResources; }
     leather.map = leatherMap; leather.bumpMap = leatherMap; leather.needsUpdate = true;
-    // Each X in the joined cursive artwork becomes two raised silver threads.
+    // Each backstitch in the "tk" initials becomes one raised white cotton thread, in the bottom-left corner.
     const signatureStitches: { start: THREE.Vector3; end: THREE.Vector3 }[] = [];
-    const onLeather = (p: THREE.Vector2) => new THREE.Vector3((p.x - 120) * .975 / 240 + .77, -1.84 - p.y * .975 / 240, .09);
+    const onLeather = (p: THREE.Vector2) => new THREE.Vector3((p.x - 60) * .0042 - 1.02, -1.68 - p.y * .0042, .09);
     signature.paths.forEach(path => path.subPaths.forEach(line => {
       signatureStitches.push({ start: onLeather(line.getPoint(0)), end: onLeather(line.getPoint(1)) });
     }));
     const nameThread = new THREE.InstancedMesh(
       new THREE.CapsuleGeometry(1, 1, 3, 6),
-      new THREE.MeshStandardMaterial({ color: 0xced3dc, metalness: .45, roughness: .48 }),
+      new THREE.MeshStandardMaterial({ color: 0xf4f0e6, roughness: .82 }),
       signatureStitches.length,
     );
     const stitchTransform = new THREE.Object3D();
@@ -260,7 +260,7 @@ export async function mountDiaryCover(host: HTMLElement, state: () => State, rea
       stitchTransform.position.copy(start).lerp(end, .5);
       stitchTransform.position.z += (i % 2) * .0015 + Math.sin(i * 2.37) * .00025;
       stitchTransform.quaternion.setFromUnitVectors(stitchAxis, direction.clone().normalize());
-      stitchTransform.scale.set(.0021, direction.length() / 3, .0021);
+      stitchTransform.scale.set(.0072, direction.length() / 3, .0072);
       stitchTransform.updateMatrix(); nameThread.setMatrixAt(i, stitchTransform.matrix);
     });
     nameThread.castShadow = true; nameThread.receiveShadow = true; cover.add(nameThread);
