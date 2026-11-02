@@ -23,6 +23,5 @@ export default function DiaryCover3D({ open, motion, onOpen, onReady }: {
     <div className="dy-3d-canvas" ref={host} aria-hidden="true"/>
     <button className="dy-3d-open" onClick={onOpen} aria-label="Open Tammana’s journal" aria-describedby="dy-cover-note"/>
     <span id="dy-cover-note" className="dy-cover-note-accessible">{coverMessage}</span>
-    <div className="dy-3d-invitation" aria-hidden="true"><span className="dy-hand">a little curiosity goes a long way</span><span>CLICK THE JOURNAL TO OPEN <i>↗</i></span></div>
   </div>;
 }
